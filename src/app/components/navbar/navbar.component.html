@@ -1,0 +1,63 @@
+<!-- <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <a class="navbar-brand">
+    <img src="assets/img/logos/logo-white-lineal.png" height="30" class="logo-navbar">
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+
+
+  <nav *ngIf="_authService.checkSession()" class="purple">
+    <div class="nav-wrapper" [ngClass]="{'espacioLateral': _authService.checkSession() }">
+      <div class="container">
+        <span class="brand-logo">
+          <i class="mdi mdi-chevron-right" *ngIf="pantalla > 992"></i> {{ tituloSeccion }}
+        </span>
+      </div>
+      <a href="#" data-target="slide-out" class="sidenav-trigger" *ngIf="_authService.checkSession()"><i class="mdi mdi-menu"></i></a>
+    </div>
+  </nav>
+
+  <ul id="slide-out" class="sidenav sidenav-fixed" *ngIf="_authService.checkSession()">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="assets/img/bg/3.jpg">
+      </div>
+      <img class="circle" src="assets/img/profile.jpg">
+      <!-- <a href=""><span class="white-text name">{{ usuario.fullName }}</span></a> -->
+      <span class="white-text name">{{ usuario.fullName }}</span>
+      <span class="white-text email">{{ usuario.USU_email }}</span>
+    </div></li>
+    <li><a class="waves-effect" (click)="prueba()"><i class="mdi mdi-home"></i>Home</a></li>
+    <li><a class="waves-effect" (click)="prueba()"><i class="mdi mdi-apple"></i>Second link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" (click)="logout()"><i class="mdi mdi-logout"></i>Salir</a></li>
+  </ul>

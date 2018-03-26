@@ -1,0 +1,70 @@
+/* You can add global styles to this file, and also import other style files */
+
+body{
+  font-family: 'Quicksand', sans-serif;
+  background-color: #FAFAFA;
+  /* font-size: 1.2em; */
+}
+
+.espacio{
+  margin-top: 2em;
+}
+
+.mdi-spin {
+  -webkit-animation: mdi-spin 2s infinite linear;
+          animation: mdi-spin 2s infinite linear;
+}
+
+/* header, main, footer { */
+header, footer {
+  padding-left: 300px;
+}
+
+.espacioLateral{
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, footer {
+    padding-left: 0;
+  }
+  .espacioLateral{
+    padding-left: 0;
+  }
+}
+
+@-webkit-keyframes mdi-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);}
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); }
+}
+
+@keyframes mdi-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); }
+}
+
+.background > img{
+  max-width: 100% !important;
+}
+
+.container{
+  width: 90% !important;
+}
+
+body, app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}

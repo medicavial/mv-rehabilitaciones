@@ -31,6 +31,9 @@ header, footer {
   .espacioLateral{
     padding-left: 0;
   }
+  .espacio{
+    margin-top: 1em;
+  }
 }
 
 @-webkit-keyframes mdi-spin {
@@ -67,4 +70,9 @@ body, app-root {
 
 main {
   flex: 1 0 auto;
+}
+
+.card.xsmall {
+  height: 150px;
+  min-width: 100%;
 }

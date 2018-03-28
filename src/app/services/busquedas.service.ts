@@ -12,8 +12,7 @@ export class BusquedasService {
   link = this._api.conexion();
 
   logueo( datos ){
-    let url = `${ this.link.principal}/login`;
-    // let url = `${ this.link.propias}/api.php?funcion=login`;
+    let url = `${ this.link.principal}/externos/login`;
     let headers = new Headers({
       'Content-Type':'aplication/json'
     });

@@ -6,11 +6,12 @@ import { AuthService } from "../../services/auth.service";
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-
+  usuario:any = {};
   constructor( private _authService:AuthService ) { }
 
   ngOnInit() {
     this._authService.auth();
+    this.usuario = this._authService.datosUsuario();
   }
 
 }

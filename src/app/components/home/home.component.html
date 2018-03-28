@@ -1,6 +1,6 @@
 <div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
   <div class="row">
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_altaUsuarios === 1">
       <div class="card blue waves-effect waves-light xsmall">
         <div class="card-content white-text">
           <span class="card-title">Alta de médicos</span>
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_envioPacientes === 1">
       <div class="card teal accent-4 waves-effect waves-light xsmall">
         <div class="card-content white-text">
           <span class="card-title">Envío de pacientes</span>
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_atencion === 1">
       <div class="card orange darken-1 waves-effect waves-light xsmall">
         <div class="card-content white-text">
           <span class="card-title">Clínica</span>
@@ -30,5 +30,43 @@
         </div>
       </div>
     </div>
+  </div><!-- cierra row -->
+
+  <div class="row">
+    <!-- <div class="col s12 m12 l12"> -->
+      <div class="col s12 m12 l12 card">
+        <div class="card-content">
+          <span class="card-title">Listado de algo</span>
+
+          <table class="striped highlight responsive-table">
+            <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Item Name</th>
+                  <th>Item Price</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+              </tr>
+              <tr>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+              </tr>
+              <tr>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <!-- </div> -->
   </div><!-- cierra row -->
 </div> <!-- cierra container -->

@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 //importamos los componentes
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { MedicosComponent } from './components/admin/medicos.component';
+import { AdminPanelComponent } from './components/admin/admin-panel.component';
 
 //importamos servicios
 import { AuthService } from "./services/auth.service";
@@ -16,8 +18,20 @@ const APP_ROUTES: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'Home' }
-    // canActivate: [AuthService]
+    data: { title: 'Home' },
+    canActivate: [AuthService]
+  },
+  {
+    path: 'medicos',
+    component: MedicosComponent,
+    data: { title: 'Médicos' },
+    canActivate: [AuthService]
+  },
+  {
+    path: 'administracion',
+    component: AdminPanelComponent,
+    data: { title: 'Administración' },
+    canActivate: [AuthService]
   },
   {
     path: '**',

@@ -22,4 +22,13 @@ export class BusquedasService {
                        return res.json();
                      });
   }
+
+  listadoMedicos(){
+    let url = `${ this.link.principal}/externos/listadoMedicos`;
+
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
 }

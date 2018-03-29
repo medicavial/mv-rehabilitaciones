@@ -2,7 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+//DATOS EN ESPAÑOL-MX
 import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEsMX from '@angular/common/locales/es-MX';
+registerLocaleData(localeEsMX);
 
 //SERVICIOS
 import { ApiService } from './services/api.service';
@@ -18,6 +23,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MedicosComponent } from './components/admin/medicos.component';
+import { AdminPanelComponent } from './components/admin/admin-panel.component';
 
 
 @NgModule({
@@ -25,7 +32,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    MedicosComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     APP_ROUTING
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "esMX" },
+    { provide: LOCALE_ID, useValue: 'es-MX' },
     ApiService,
     AuthService,
     BusquedasService,

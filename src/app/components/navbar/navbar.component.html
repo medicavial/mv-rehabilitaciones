@@ -1,5 +1,5 @@
 <div class="navbar-fixed">
-  <nav *ngIf="_authService.checkSession()" class="purple">
+  <nav *ngIf="_authService.checkSession()" class="azul-mv">
     <div class="nav-wrapper" [ngClass]="{'espacioLateral': _authService.checkSession() }">
       <div class="container">
         <span class="brand-logo">
@@ -12,17 +12,19 @@
 </div>
 
 <ul id="slide-out" class="sidenav sidenav-fixed" *ngIf="_authService.checkSession()">
-  <li><div class="user-view">
-    <div class="background">
-      <img src="assets/img/bg/3.jpg">
+  <li>
+    <div class="user-view">
+      <div class="background">
+        <img src="assets/img/bg/3.jpg">
+      </div>
+      <img class="circle" src="assets/img/avatar.jpg">
+      <span class="white-text name">{{ usuario.fullName }}</span>
+      <span class="white-text email">{{ usuario.USU_email }}</span>
     </div>
-    <img class="circle" src="assets/img/avatar.jpg">
-    <span class="white-text name">{{ usuario.fullName }}</span>
-    <span class="white-text email">{{ usuario.USU_email }}</span>
-  </div></li>
+  </li>
   <li><a class="waves-effect" [routerLink]="['/home']" (click)="prueba()"><i class="mdi mdi-home"></i>Home</a></li>
   <li><a class="waves-effect" [routerLink]="['/administracion']" (click)="prueba()"><i class="mdi mdi-clipboard-flow"></i>Administración</a></li>
-  <li><a class="waves-effect" (click)="prueba()"><i class="mdi mdi-account-card-details"></i>Generar pase</a></li>
+  <li><a class="waves-effect" [routerLink]="['/pasenuevo']" (click)="prueba()"><i class="mdi mdi-account-card-details"></i>Generar pase</a></li>
   <li><div class="divider"></div></li>
   <!-- <li><a class="subheader">Subheader</a></li> -->
   <li><a class="waves-effect" (click)="logout()"><i class="mdi mdi-logout"></i>Cerrar sesión</a></li>

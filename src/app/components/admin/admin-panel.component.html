@@ -1,3 +1,35 @@
-<p>
-  admin-panel works!
-</p>
+<div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
+  <div class="row">
+    <h4 class="grey-text">En desarrollo <i class="mdi mdi-coffee"></i></h4>
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_altaUsuarios === 1">
+      <div class="card blue waves-effect waves-light xsmall" [routerLink]="['/medicos']">
+        <div class="card-content white-text">
+          <span class="card-title">Alta de médicos</span>
+          <p>Registro de médicos quienes podrán enviar pacientes a Médica Vial.</p>
+        </div>
+        <!-- <div class="card-action">
+          <a href="#">This is a link</a>
+          <a href="#">This is a link</a>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_envioPacientes === 1">
+      <div class="card teal accent-4 waves-effect waves-light xsmall">
+        <div class="card-content white-text">
+          <span class="card-title">Envío de pacientes</span>
+          <p>Generar pase a paciente para ser atendido en Médica Vial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_atencion === 1">
+      <div class="card orange darken-1 waves-effect waves-light xsmall">
+        <div class="card-content white-text">
+          <span class="card-title">Clínica</span>
+          <p>Administración de clínica MV.</p>
+        </div>
+      </div>
+    </div>
+  </div><!-- cierra row -->
+</div>

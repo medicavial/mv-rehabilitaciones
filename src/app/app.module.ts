@@ -14,6 +14,7 @@ import { ApiService } from './services/api.service';
 import { AuthService } from "./services/auth.service";
 import { BusquedasService } from "./services/busquedas.service";
 import { OperacionService } from "./services/operacion.service";
+import { FechasService } from './services/fechas.service';
 
 //RUTAS
 import { APP_ROUTING } from './app.routes';
@@ -25,6 +26,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MedicosComponent } from './components/admin/medicos.component';
 import { AdminPanelComponent } from './components/admin/admin-panel.component';
+import { PasesComponent } from './components/pacientes/pases.component';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { AdminPanelComponent } from './components/admin/admin-panel.component';
     LoginComponent,
     NavbarComponent,
     MedicosComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    PasesComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { AdminPanelComponent } from './components/admin/admin-panel.component';
     ApiService,
     AuthService,
     BusquedasService,
-    OperacionService
+    OperacionService,
+    FechasService
   ],
   bootstrap: [AppComponent]
 })

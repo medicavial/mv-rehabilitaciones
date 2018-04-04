@@ -1,0 +1,129 @@
+<div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <form [formGroup]="paseForm" (ngSubmit)="generarPase()" novalidate>
+          <div class="card-content">
+            <p class="card-title"><i class="mdi mdi-clipboard-account"></i> Datos del paciente</p>
+            <div class="espacio"></div>
+            <div class="row">
+              <div class="input-field col s12 m4">
+                <input id="nombre" type="text" class="mayusculas validate" formControlName="nombre">
+                <label for="nombre">Nombre(s)</label>
+              </div>
+
+              <div class="input-field col s12 m4">
+                <input id="paterno" type="text" class="mayusculas validate" formControlName="aPaterno">
+                <label for="paterno">Apellido Paterno</label>
+              </div>
+
+              <div class="input-field col s12 m4">
+                <input id="materno" type="text" class="mayusculas validate" formControlName="aMaterno">
+                <label for="materno">Apellido Materno</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m4" >
+                <i class="mdi mdi-calendar-check prefix"></i>
+                <input id="fechanac" type="text" class="datepicker"  (change)="fechaNac($event)">
+                <label for="fechanac">Fecha de nacimiento</label>
+              </div>
+
+              <div class="input-field col s12 m4">
+                <span>Sexo:</span>
+                <p>
+                  <label>
+                    <input name="sexo" type="radio" class="with-gap" value="M" formControlName="sexo"/>
+                    <span>Masculino</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="sexo" type="radio" class="with-gap" value="F" formControlName="sexo"/>
+                    <span>Femenino</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <i class="mdi mdi-phone prefix"></i>
+                <input id="tel" type="tel" class="validate" formControlName="telefono">
+                <label for="tel">Teléfono</label>
+              </div>
+
+              <div class="input-field col s12 m6">
+                <i class="mdi mdi-email prefix"></i>
+                <input id="email" type="email" class="validate" formControlName="email">
+                <label for="email">Email</label>
+              </div>
+            </div>
+
+            <div class="espacio"></div>
+            <div class="row">
+              <div class="col s12">
+                <p class="card-title"><i class="mdi mdi-clipboard-pulse"></i> Datos de atención</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="mdi mdi-clipboard-text prefix"></i>
+                <textarea id="diagnostico" class="mayusculas materialize-textarea validate" formControlName="diagnostico"></textarea>
+                <label for="diagnostico">Diagnóstico</label>
+              </div>
+
+              <div class="input-field col s12">
+                <i class="mdi mdi-clipboard-check prefix"></i>
+                <textarea id="objetivo" class="mayusculas materialize-textarea validate" formControlName="objetivo"></textarea>
+                <label for="objetivo">Objetivo</label>
+              </div>
+
+              <div class="input-field col s12 m4">
+                <i class="mdi mdi-calendar-range prefix"></i>
+                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1">
+                <label for="cantidad"># Sesiones a tomar</label>
+              </div>
+
+              <div class="input-field col s12 m8">
+                <i class="mdi mdi-pencil prefix"></i>
+                <textarea id="tipoTerapia" class="mayusculas materialize-textarea validate" formControlName="tipoTerapia"></textarea>
+                <label for="tipoTerapia">Observaciones</label>
+              </div>
+            </div>
+          </div>
+          <div class="card-action right-align">
+            <button type="button" class="btn-flat waves-effect waves-orange orange-text"
+                    (click)="limpiarCampos()"
+                    [ngClass]="{'disabled': trabajando }">
+              Limpiar datos
+            </button>
+            <button type="submit" class="btn-flat waves-effect waves-orange orange-text"
+                    [ngClass]="{'disabled': !paseForm.valid || trabajando }">
+              <span *ngIf="trabajando"><i class="mdi mdi-loading mdi-spin"></i></span>
+              <span *ngIf="!trabajando"> Emitir Pase </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<img class="materialboxed" width="650" src="assets/img/bg/login.jpg">
+
+<!-- Modal Structure -->
+<div id="confirmacion" class="modal">
+  <div class="modal-content center-align">
+    <h4>Registrado Correctamente</h4>
+    <p>
+      <i class="mdi mdi-check-circle mdi-48px light-green-text text-lighten-3"></i>
+    </p>
+    <p>El pase fue enviado al email del paciente.</p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+  </div>
+</div>

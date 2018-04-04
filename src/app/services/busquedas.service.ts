@@ -25,6 +25,15 @@ export class BusquedasService {
 
   listadoMedicos(){
     let url = `${ this.link.principal}/externos/listadoMedicos`;
+    
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
+  listadoPases(){
+    let url = `${ this.link.principal}/externos/listadopases`;
 
     return this._http.get( url )
                      .map( res => {

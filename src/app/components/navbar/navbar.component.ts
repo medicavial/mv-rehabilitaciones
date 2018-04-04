@@ -17,7 +17,7 @@ instance:any;
 pantalla = screen.width;
 tituloSeccion:any;
 
-  constructor( private _authService: AuthService,
+  constructor( public _authService: AuthService,
                private titleService: Title,
                private metaService: Meta,
                private router:Router,
@@ -81,7 +81,7 @@ tituloSeccion:any;
   }
 
   prueba(){
-    console.log('realiza algo y cierra el menu si la pantalla es pequeña');
+    // console.log('realiza algo y cierra el menu si la pantalla es pequeña');
     this.cerrarSideNav();
   }
 

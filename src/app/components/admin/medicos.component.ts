@@ -14,8 +14,8 @@ export class MedicosComponent implements OnInit {
 
   elem:any;
 
-  constructor( private _authService:AuthService,
-               private _busquedas:BusquedasService) {
+  constructor( public _authService:AuthService,
+               private _busquedas:BusquedasService ) {
                  this.usuario = this._authService.datosUsuario();
                }
 
@@ -25,8 +25,8 @@ export class MedicosComponent implements OnInit {
 
     this.elem = document.querySelector('.modal');
     var instance = M.Modal.init(this.elem, {
-      dismissible: false,
-    });
+                                              dismissible: false,
+                                            });
   }
 
   listadoMedicos(){

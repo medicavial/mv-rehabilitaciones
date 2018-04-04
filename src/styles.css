@@ -76,3 +76,11 @@ main {
   height: 150px;
   min-width: 100%;
 }
+
+.azul-mv {
+  background-color: #0082cd !important;
+}
+
+.mayusculas{
+  text-transform: uppercase;
+}

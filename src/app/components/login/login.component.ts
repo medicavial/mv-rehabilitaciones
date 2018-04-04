@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   trabajando: boolean = false;
 
   constructor( private busquedasService:BusquedasService,
-               private _authService:AuthService ) {
+               public _authService:AuthService ) {
     this.auth = this._authService.auth();
 
     this.credenciales = new FormGroup({

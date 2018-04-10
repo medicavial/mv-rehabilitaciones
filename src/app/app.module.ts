@@ -27,6 +27,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MedicosComponent } from './components/admin/medicos.component';
 import { AdminPanelComponent } from './components/admin/admin-panel.component';
 import { PasesComponent } from './components/pacientes/pases.component';
+import { DomseguroPipe } from './pipes/domseguro.pipe';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { PasesComponent } from './components/pacientes/pases.component';
     NavbarComponent,
     MedicosComponent,
     AdminPanelComponent,
-    PasesComponent
+    PasesComponent,
+    DomseguroPipe
   ],
   imports: [
     BrowserModule,

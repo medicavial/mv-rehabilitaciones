@@ -12,17 +12,19 @@ export class HomeComponent implements OnInit {
   listadoPases:any = {};
   buscando:boolean = false;
   constructor( public _authService:AuthService,
-               private _busquedas:BusquedasService ) { }
+               private _busquedas:BusquedasService ) {
+                 this.usuario = this._authService.datosUsuario();
+               }
 
   ngOnInit() {
     // this._authService.auth();
     this.getlistadoPases();
-    this.usuario = this._authService.datosUsuario();
   }
 
   getlistadoPases(){
+    console.log(this.usuario);
     this.buscando = true;
-    this._busquedas.listadoPases()
+    this._busquedas.listadoPases( this.usuario )
                    .subscribe( data =>{
                      this.listadoPases = data;
                      this.buscando = false;

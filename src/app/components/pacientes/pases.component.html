@@ -4,8 +4,7 @@
       <div class="card">
         <form [formGroup]="paseForm" (ngSubmit)="generarPase()" novalidate>
           <div class="card-content">
-            <p class="card-title"><i class="mdi mdi-clipboard-account"></i> Datos del paciente</p>
-            <div class="espacio"></div>
+            <p class="card-title azul-text"><i class="mdi mdi-clipboard-account"></i> Datos del paciente</p>
             <div class="row">
               <div class="input-field col s12 m4">
                 <input id="nombre" type="text" class="mayusculas validate" formControlName="nombre">
@@ -26,7 +25,7 @@
             <div class="row">
               <div class="input-field col s12 m4" >
                 <i class="mdi mdi-calendar-check prefix"></i>
-                <input id="fechanac" type="text" class="datepicker"  (change)="fechaNac($event)">
+                <input id="fechanac" type="text" class="datepicker" (change)="fechaNac($event)">
                 <label for="fechanac">Fecha de nacimiento</label>
               </div>
 
@@ -56,15 +55,18 @@
 
               <div class="input-field col s12 m6">
                 <i class="mdi mdi-email prefix"></i>
-                <input id="email" type="email" class="validate" formControlName="email">
+                <input id="email" type="email" class="validate" formControlName="email"
+                       [required]="paseForm.controls['mailPaciente'].value"
+                       (keyup)="cambioMail($event)">
                 <label for="email">Email</label>
               </div>
             </div>
 
+            <div class="divider"></div>
             <div class="espacio"></div>
             <div class="row">
               <div class="col s12">
-                <p class="card-title"><i class="mdi mdi-clipboard-pulse"></i> Datos de atención</p>
+                <p class="card-title azul-text"><i class="mdi mdi-clipboard-pulse"></i> Datos de atención</p>
               </div>
             </div>
 
@@ -78,7 +80,7 @@
               <div class="input-field col s12">
                 <i class="mdi mdi-clipboard-check prefix"></i>
                 <textarea id="objetivo" class="mayusculas materialize-textarea validate" formControlName="objetivo"></textarea>
-                <label for="objetivo">Objetivo</label>
+                <label for="objetivo">Objetivo de la terapia</label>
               </div>
 
               <div class="input-field col s12 m4">
@@ -93,6 +95,106 @@
                 <label for="tipoTerapia">Observaciones</label>
               </div>
             </div>
+
+            <div class="divider"></div>
+
+            <div class="espacio"></div>
+            <div class="row">
+              <div class="col s12">
+                <p class="card-title azul-text"><i class="mdi mdi-hospital-marker"></i> Direccionamiento</p>
+              </div>
+
+              <div class="col s12">
+                <button type="button" class="btn-flat col s12 m6 seleccion waves-effect waves-azulmv black-text"
+                        (click)="uniLocal(true)">
+                  CDMX (Valle de México)
+                </button>
+                <button type="button" class="btn-flat col s12 m6 seleccion waves-effect waves-azulmv black-text"
+                        (click)="uniLocal(false)">
+                  Interior de la república
+                </button>
+
+                <div *ngIf="locales != undefined">
+                  <div class="animated fadeIn fast" *ngIf="locales">
+                    <div *ngFor="let unidad of unidades">
+                      <div class="col s12 m6" *ngIf="unidad.local">
+                        <div class="card xsmall waves-effect waves-light seleccion" (click)="selectUnidad(unidad.Uni_clave)"
+                             [ngClass]="{'azul-mv': paseForm.controls['unidad'].value === unidad.Uni_clave}">
+                          <div class="card-image valign-wrapper">
+                            <img  src="../../assets/img/clinicas/{{unidad.Uni_clave}}.jpg">
+                          </div>
+                          <div class="card-content">
+                            <h6 [ngClass]="{'white-text': paseForm.controls['unidad'].value === unidad.Uni_clave}">
+                              {{ unidad.Uni_nombrecorto }}
+                              <i class="mdi mdi-checkbox-marked-circle-outline"
+                                 *ngIf="paseForm.controls['unidad'].value === unidad.Uni_clave"></i>
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="animated fadeIn fast" *ngIf="!locales">
+                    <div *ngFor="let unidad of unidades">
+                      <div class="col s12 m4" *ngIf="!unidad.local">
+                        <div class="card xsmall waves-effect waves-light seleccion" (click)="selectUnidad(unidad.Uni_clave)"
+                             [ngClass]="{'azul-mv': paseForm.controls['unidad'].value === unidad.Uni_clave}">
+                          <div class="card-image valign-wrapper">
+                            <img src="../../assets/img/clinicas/{{unidad.Uni_clave}}.jpg">
+                          </div>
+                          <div class="card-content">
+                            <h6 [ngClass]="{'white-text': paseForm.controls['unidad'].value === unidad.Uni_clave}">
+                              {{ unidad.Uni_nombrecorto }}
+                              <i class="mdi mdi-checkbox-marked-circle-outline"
+                                 *ngIf="paseForm.controls['unidad'].value === unidad.Uni_clave"></i>
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12 espacio">
+                <div>
+                  <label class="right-align">
+                    <input type="checkbox" class="filled-in" formControlName="imprimeOrden" />
+                    <span><i class="mdi mdi-printer"></i> Imprimir orden</span>
+                  </label>
+                </div>
+
+                <div>
+                  <label class="right-align">
+                    <input type="checkbox" class="filled-in" formControlName="mailPaciente"/>
+                    <span><i class="mdi mdi-email"></i> Enviar al paciente: </span>
+                  </label>
+
+                  <div class="input-field inline">
+                    <input id="email_inline" type="email" class="validate"
+                           [(ngModel)]="cambiosEmail" [ngModelOptions]="{standalone: true}"
+                           (keyup)="cambioMail($event)"
+                           [disabled]="!paseForm.controls['mailPaciente'].value">
+                    <label for="email_inline">Email</label>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="right-align">
+                    <input type="checkbox" class="filled-in" formControlName="copiaOrden" (change)="activaMailUsr($event)"/>
+                    <span><i class="mdi mdi-email"></i> Enviar a mi email: </span>
+                  </label>
+
+                  <div class="input-field inline">
+                    <input id="mailMedicoC" type="email" class="validate" formControlName="mailUsuario">
+                    <label for="mailMedicoC">Email</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
           <div class="card-action right-align">
             <button type="button" class="btn-flat waves-effect waves-orange orange-text"
@@ -100,10 +202,12 @@
                     [ngClass]="{'disabled': trabajando }">
               Limpiar datos
             </button>
-            <button type="submit" class="btn-flat waves-effect waves-orange orange-text"
-                    [ngClass]="{'disabled': !paseForm.valid || trabajando }">
+            <button type="submit" class="btn green waves-effect waves-light"
+                    [ngClass]="{'disabled': !paseForm.valid || trabajando ||
+                                ( !paseForm.controls['imprimeOrden'].value && !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value)
+                               }">
               <span *ngIf="trabajando"><i class="mdi mdi-loading mdi-spin"></i></span>
-              <span *ngIf="!trabajando"> Emitir Pase </span>
+              <span *ngIf="!trabajando"> Emitir Órden </span>
             </button>
           </div>
         </form>
@@ -112,8 +216,6 @@
   </div>
 </div>
 
-<img class="materialboxed" width="650" src="assets/img/bg/login.jpg">
-
 <!-- Modal Structure -->
 <div id="confirmacion" class="modal">
   <div class="modal-content center-align">
@@ -121,7 +223,35 @@
     <p>
       <i class="mdi mdi-check-circle mdi-48px light-green-text text-lighten-3"></i>
     </p>
-    <p>El pase fue enviado al email del paciente.</p>
+    <!-- <p>El pase fue enviado al email del paciente.</p> -->
+    <p>{{ respuestaOrden }}</p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+  </div>
+</div>
+
+<!-- Modal Unidad -->
+<div id="mdlUnidad" class="modal">
+  <div class="modal-content center-align">
+    <h4>{{ datosUni.Uni_nombre }}</h4>
+
+    <p>
+      {{ datosUni.Uni_calleNum }}, {{ datosUni.Uni_colMun }}. {{ datosUni.Uni_estado }}
+      <br>
+      <span *ngIf="datosUni.Uni_tel">Teléfono: {{ datosUni.Uni_tel }}</span>
+      <br>
+      <span *ngIf="datosUni.Uni_contacto1">Email: {{ datosUni.Uni_contacto1 }}</span>
+    </p>
+
+    <iframe
+      width="600"
+      height="350"
+      frameborder="0" style="border:0"
+      [src]="datosUni.map | domseguro:'https://www.google.com/maps/embed/v1/place?key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A&q='"
+      allowfullscreen
+      *ngIf="unidades.length>0">
+    </iframe>
   </div>
   <div class="modal-footer">
     <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>

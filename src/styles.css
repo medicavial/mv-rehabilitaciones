@@ -73,14 +73,51 @@ main {
 }
 
 .card.xsmall {
-  height: 150px;
+  height: 200px;
   min-width: 100%;
+}
+
+.card.xsmall {
+  position: relative;
+}
+
+.card.xsmall .card-image {
+  max-height: 70%;
+  overflow: hidden;
+}
+
+.card.xsmall .card-image + .card-content {
+  max-height: 60%;
+}
+
+.card.xsmall .card-content{
+  padding: 0 10px 0 10px;
+}
+
+.imgMid {
+  margin-top: -25% !important;
 }
 
 .azul-mv {
   background-color: #0082cd !important;
 }
 
+.azul-text {
+  color: #0082cd !important;
+}
+
+.waves-effect.waves-azulmv .waves-ripple {
+  background-color: rgba(0, 130, 205, 0.65);
+}
+
 .mayusculas{
   text-transform: uppercase;
+}
+
+.seleccion{
+  cursor: pointer;
+}
+
+.logo-navbar{
+  opacity: 1;
 }

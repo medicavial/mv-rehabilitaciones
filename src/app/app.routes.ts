@@ -37,7 +37,7 @@ const APP_ROUTES: Routes = [
   {
     path: 'pasenuevo',
     component: PasesComponent,
-    data: { title: 'Emisión de pases' },
+    data: { title: 'Emisión de órdenes' },
     canActivate: [AuthService]
   },
   {

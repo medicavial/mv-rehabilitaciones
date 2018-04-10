@@ -25,19 +25,30 @@ export class BusquedasService {
 
   listadoMedicos(){
     let url = `${ this.link.principal}/externos/listadoMedicos`;
-    
-    return this._http.get( url )
-                     .map( res => {
-                       return res.json();
-                     });
-  }
-
-  listadoPases(){
-    let url = `${ this.link.principal}/externos/listadopases`;
 
     return this._http.get( url )
                      .map( res => {
                        return res.json();
                      });
   }
+
+  listadoPases( usuario ){
+    console.log(usuario)
+    let url = `${ this.link.principal}/externos/listadopases-`+usuario.USU_id;
+
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
+  listaUnidades(){
+    let url = `${ this.link.principal}/busquedas/listadoUnidades`;
+
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
 }

@@ -5,6 +5,7 @@ import { OperacionService } from "../../services/operacion.service";
 import { FechasService } from '../../services/fechas.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 declare var M: any;
+declare var $: any;
 
 @Component({
   selector: 'app-pases',
@@ -12,18 +13,26 @@ declare var M: any;
 })
 export class PasesComponent implements OnInit {
   usuario:any = {};
+  unidades:any = {};
+  datosUni:any = {};
+  cambiosEmail:string = '';
   elem:any;
   modal:any;
+  mdlUni:any;
   box:any;
   buscando:boolean = false;
   trabajando:boolean = false;
   fechaNacimiento= null;
   paseForm:FormGroup;
+  locales:boolean = undefined;
+  respuestaOrden:string = '';
 
   constructor( public _authService:AuthService,
                private _busquedas:BusquedasService,
                private _operacion:OperacionService,
                private _fechas:FechasService) {
+                 this.usuario = this._authService.datosUsuario();
+
                  this.paseForm = new FormGroup({
                    'nombre'         : new FormControl( '', [ Validators.minLength(3), Validators.required ] ),
                    'aPaterno'       : new FormControl( '', [ Validators.minLength(3), Validators.required ] ),
@@ -36,15 +45,21 @@ export class PasesComponent implements OnInit {
                    'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ),
                    'sesiones'       : new FormControl( null, [ Validators.required, Validators.min(1) ] ),
                    'tipoTerapia'    : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ), //tipoTerapia = observaciones
+                   'unidad'         : new FormControl( null, [ Validators.required ] ),
+                   'imprimeOrden'   : new FormControl( false, [] ),
+                   'mailPaciente'   : new FormControl( false, [] ),
+                   'copiaOrden'     : new FormControl( false, [] ),
+                   'mailUsuario'    : new FormControl( { value: this.usuario.USU_email, disabled: true}, [ Validators.required ] ),
                  });
-
-                 this.usuario = this._authService.datosUsuario();
                }
 
   ngOnInit() {
+    this.preparaTextField();
     this.preparaBox();
     this.preparaModal();
+    this.preparaModalUni();
     this.preparaTimepicker();
+    this.getListaUnidades();
   }
 
   preparaTimepicker(){
@@ -72,6 +87,17 @@ export class PasesComponent implements OnInit {
     var modal = M.Modal.init(this.modal, { dismissible:false });
   }
 
+  preparaModalUni(){
+    this.mdlUni = document.querySelector('#mdlUnidad');
+    var modal = M.Modal.init(this.mdlUni, {});
+  }
+
+  preparaTextField(){
+    $(document).ready(function() {
+      M.updateTextFields();
+    });
+  }
+
   preparaBox(){
     this.box = document.querySelector('.materialboxed');
     var box = M.Materialbox.init(this.box, {  });
@@ -92,7 +118,9 @@ export class PasesComponent implements OnInit {
   limpiarCampos(){
     let instance = M.Datepicker.getInstance(this.elem); //limpiar campo
     instance.$el[0].value = null;
+    this.locales = undefined;
     this.paseForm.reset();
+    this.cambiosEmail = '';
   }
 
   generarPase(){
@@ -111,6 +139,11 @@ export class PasesComponent implements OnInit {
         objetivo: this.paseForm.controls['objetivo'].value,
         sesiones: this.paseForm.controls['sesiones'].value,
         tipoTerapia: this.paseForm.controls['tipoTerapia'].value,
+        unidad: this.paseForm.controls['unidad'].value,
+        imprimeOrden: this.paseForm.controls['imprimeOrden'].value,
+        mailPaciente: this.paseForm.controls['mailPaciente'].value,
+        copiaOrden: this.paseForm.controls['copiaOrden'].value,
+        mailUsuario: this.paseForm.controls['mailUsuario'].value,
     }
     console.log( datos );
 
@@ -118,6 +151,7 @@ export class PasesComponent implements OnInit {
                    .subscribe( data =>{
                      console.log(data);
                      if ( data.id > 0 ) {
+                       this.respuestaOrden = data.mensaje;
                        this.limpiarCampos();
                        this.abreModal();
                        this.trabajando = false;
@@ -136,5 +170,84 @@ export class PasesComponent implements OnInit {
   cierraModal(){
     var modal = M.Modal.getInstance(this.modal);
     modal.close();
+  }
+
+  getListaUnidades(){
+    this.buscando = true;
+    this._busquedas.listaUnidades()
+                   .subscribe( data =>{
+                      // this.unidades = data;
+                      this.unidades = this.ordenaUnidades( data );
+                      // console.log( this.unidades );
+                      this.buscando = false;
+                   })
+  }
+
+  ordenaUnidades( datos ){
+    for (let i = 0; i < datos.length; i++) {
+      // filtramos las unidades por local o foranea
+      if ( datos[i].Uni_clave < 999 ) {
+        if ( datos[i].Uni_clave < 4 || datos[i].Uni_clave === 184 ) {
+            datos[i].local = true;
+            datos[i].img = new Image();
+            datos[i].img.src = '../../assets/img/clinicas/'+datos[i].Uni_clave+'.jpg';
+            datos[i].map = datos[i].Uni_nombre+', '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
+        } else {
+          datos[i].local = false;
+          datos[i].img = new Image();
+          datos[i].img.src = '../../assets/img/clinicas/'+datos[i].Uni_clave+'.jpg';
+          datos[i].map = datos[i].Uni_nombre+' + '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
+        }
+      } else{
+        //quitamos las unidades que no son mv
+        datos.splice(i, 2); //esto no debería de quedar así
+      }
+    }
+    return datos;
+  }
+
+  uniLocal( valor ){
+    this.locales = valor;
+  }
+
+  selectUnidad( Uni_clave ){
+    this.paseForm.controls.unidad.setValue( Uni_clave );
+    this.modalUni( Uni_clave )
+  }
+
+  modalUni( unidad ){
+    var modal = M.Modal.getInstance(this.mdlUni);
+    modal.open();
+
+    for ( let i = 0; i < this.unidades.length; i++ ) {
+        if ( this.unidades[i].Uni_clave === unidad ) {
+            this.datosUni = this.unidades[i];
+        }
+    }
+  }
+
+  cambioMail( $e ){
+    $(document).ready(function() {
+      M.updateTextFields();
+    });
+    this.cambiosEmail = this.paseForm.controls['email'].value;
+  }
+
+  cambioMail2( $e ){
+    $(document).ready(function() {
+      M.updateTextFields();
+    });
+    this.paseForm.controls['email'].setValue( this.cambiosEmail );
+  }
+
+  activaMailUsr( $e ){
+    $(document).ready(function() {
+      M.updateTextFields();
+    });
+    if ( this.paseForm.controls['copiaOrden'].value === true ) {
+      this.paseForm.controls['mailUsuario'].reset({ value: this.usuario.USU_email, disabled: false }, [Validators.required]);
+    } else{
+      this.paseForm.controls['mailUsuario'].reset({ value: this.usuario.USU_email, disabled: true }, []);
+    }
   }
 }

@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   getlistadoPases(){
-    console.log(this.usuario);
+    // console.log(this.usuario);
     this.buscando = true;
     this._busquedas.listadoPases( this.usuario )
                    .subscribe( data =>{

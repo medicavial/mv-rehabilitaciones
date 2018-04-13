@@ -19,7 +19,7 @@ const APP_ROUTES: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'Home' },
+    data: { title: 'Bienvenido' },
     canActivate: [AuthService]
   },
   {

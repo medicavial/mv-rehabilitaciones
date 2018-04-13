@@ -10,6 +10,14 @@ body{
   margin-top: 2em;
 }
 
+.espacio-sm{
+  margin-top: 1em;
+}
+
+.espacio-xs{
+  margin-top: 0.5em;
+}
+
 .mdi-spin {
   -webkit-animation: mdi-spin 2s infinite linear;
           animation: mdi-spin 2s infinite linear;
@@ -119,5 +127,11 @@ main {
 }
 
 .logo-navbar{
-  opacity: 1;
+  /* opacity: 1; */
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.btn-block{
+  width: 100% !important;
 }

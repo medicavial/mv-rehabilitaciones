@@ -33,7 +33,7 @@ export class BusquedasService {
   }
 
   listadoPases( usuario ){
-    console.log(usuario)
+    // console.log(usuario)
     let url = `${ this.link.principal}/externos/listadopases-`+usuario.USU_id;
 
     return this._http.get( url )

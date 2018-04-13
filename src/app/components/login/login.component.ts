@@ -36,15 +36,27 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    var elem = document.querySelector('.modal');
-    var instance = M.Modal.init(elem);
-
-    // var instance = new M.Collapsible(elem, {
-    //   // inDuration: 1000,
-    //   // outDuration: 1000
-    // });
+    this.preparaTextField();
+    this.cargaImg();
+    this.preparaModal();
     // console.log(this.api.conexion());
     this._authService.auth();
+  }
+
+  preparaTextField(){
+    $(document).ready(function() {
+      M.updateTextFields();
+    });
+  }
+
+  preparaModal(){
+    var elem = document.querySelector('.modal');
+    var instance = M.Modal.init(elem);
+  }
+
+  cargaImg(){
+    let sidenavImg = new Image();
+    sidenavImg.src = '../../assets/img/bg/rh3.jpg';
   }
 
   enviaCredenciales(){

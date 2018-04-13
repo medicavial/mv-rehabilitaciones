@@ -54,7 +54,7 @@ tituloSeccion:any;
   }
 
   ngOnInit() {
-    console.log(this.usuario);
+    // console.log(this.usuario);
   }
 
   private datosSeccion(url){

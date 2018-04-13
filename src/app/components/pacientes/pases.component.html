@@ -85,7 +85,7 @@
 
               <div class="input-field col s12 m4">
                 <i class="mdi mdi-calendar-range prefix"></i>
-                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1">
+                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1" max="99">
                 <label for="cantidad"># Sesiones a tomar</label>
               </div>
 
@@ -102,33 +102,65 @@
             <div class="row">
               <div class="col s12">
                 <p class="card-title azul-text"><i class="mdi mdi-hospital-marker"></i> Direccionamiento</p>
+                <p>
+                  <i class="mdi mdi-information-outline"></i>
+                  Favor de indicar la unidad de atención preferida por el paciente.
+                  De cualquier manera, el paciente puede presentar la órden en cualquiera las clínicas Médica Vial.
+                </p>
               </div>
+            </div>
 
-              <div class="col s12">
-                <button type="button" class="btn-flat col s12 m6 seleccion waves-effect waves-azulmv black-text"
+            <div class="row">
+              <div class="col s12 m4">
+                <button type="button" class="btn-block btn azul-mv white-text seleccion waves-effect waves-light black-text"
+                        [ngClass]="{ 'yellow darken-2': locales && paseForm.controls['unidad'].value != 0 }"
                         (click)="uniLocal(true)">
                   CDMX (Valle de México)
                 </button>
-                <button type="button" class="btn-flat col s12 m6 seleccion waves-effect waves-azulmv black-text"
+              </div>
+
+              <div class="col s12 m4">
+                <button type="button" class="btn-block btn azul-mv white-text seleccion waves-effect waves-light black-text"
+                        [ngClass]="{ 'yellow darken-2': !locales && paseForm.controls['unidad'].value != 0 }"
                         (click)="uniLocal(false)">
                   Interior de la república
                 </button>
+              </div>
 
-                <div *ngIf="locales != undefined">
+              <div class="col s12 m4">
+                <button type="button" class="btn-block btn azul-mv white-text seleccion waves-effect waves-light black-text"
+                        [ngClass]="{ 'yellow darken-2': paseForm.controls['unidad'].value === 0}"
+                        (click)="selectUnidad(0, false)">
+                  Cualquier Unidad MV
+                  <i class="mdi mdi-checkbox-marked-circle-outline" *ngIf="paseForm.controls['unidad'].value === 0"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="paseForm.controls['unidad'].value === null || paseForm.controls['unidad'].value > 0">
+              <div class="col s12">
+                <div *ngIf="locales != undefined && unidades.length > 0">
                   <div class="animated fadeIn fast" *ngIf="locales">
                     <div *ngFor="let unidad of unidades">
                       <div class="col s12 m6" *ngIf="unidad.local">
-                        <div class="card xsmall waves-effect waves-light seleccion" (click)="selectUnidad(unidad.Uni_clave)"
+                        <div class="card xsmall waves-effect waves-light seleccion" (click)="selectUnidad(unidad.Uni_clave, false)"
                              [ngClass]="{'azul-mv': paseForm.controls['unidad'].value === unidad.Uni_clave}">
                           <div class="card-image valign-wrapper">
-                            <img  src="../../assets/img/clinicas/{{unidad.Uni_clave}}.jpg">
+                            <!-- <img  src="../../assets/img/clinicas/{{unidad.Uni_clave}}.jpg"> -->
+                            <img  src="{{ unidad.img.src }}">
                           </div>
                           <div class="card-content">
-                            <h6 [ngClass]="{'white-text': paseForm.controls['unidad'].value === unidad.Uni_clave}">
-                              {{ unidad.Uni_nombrecorto }}
-                              <i class="mdi mdi-checkbox-marked-circle-outline"
-                                 *ngIf="paseForm.controls['unidad'].value === unidad.Uni_clave"></i>
-                            </h6>
+                            <div class="col s10">
+                              <h6 [ngClass]="{'white-text': paseForm.controls['unidad'].value === unidad.Uni_clave}">
+                                {{ unidad.Uni_nombrecorto }}
+                                <i class="mdi mdi-checkbox-marked-circle-outline"
+                                   *ngIf="paseForm.controls['unidad'].value === unidad.Uni_clave"></i>
+                              </h6>
+                            </div>
+
+                            <div class="col s2 espacio-xs">
+                              <a class="btn-floating waves-effect waves-light red" (click)="selectUnidad(unidad.Uni_clave, true)"><i class="mdi mdi-google-maps"></i></a>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -137,17 +169,23 @@
                   <div class="animated fadeIn fast" *ngIf="!locales">
                     <div *ngFor="let unidad of unidades">
                       <div class="col s12 m4" *ngIf="!unidad.local">
-                        <div class="card xsmall waves-effect waves-light seleccion" (click)="selectUnidad(unidad.Uni_clave)"
+                        <div class="card xsmall waves-effect waves-light seleccion" (click)="selectUnidad(unidad.Uni_clave, false)"
                              [ngClass]="{'azul-mv': paseForm.controls['unidad'].value === unidad.Uni_clave}">
                           <div class="card-image valign-wrapper">
                             <img src="../../assets/img/clinicas/{{unidad.Uni_clave}}.jpg">
                           </div>
                           <div class="card-content">
-                            <h6 [ngClass]="{'white-text': paseForm.controls['unidad'].value === unidad.Uni_clave}">
-                              {{ unidad.Uni_nombrecorto }}
-                              <i class="mdi mdi-checkbox-marked-circle-outline"
-                                 *ngIf="paseForm.controls['unidad'].value === unidad.Uni_clave"></i>
-                            </h6>
+                            <div class="col s10">
+                              <h6 [ngClass]="{'white-text': paseForm.controls['unidad'].value === unidad.Uni_clave}">
+                                {{ unidad.Uni_nombrecorto }}
+                                <i class="mdi mdi-checkbox-marked-circle-outline"
+                                   *ngIf="paseForm.controls['unidad'].value === unidad.Uni_clave"></i>
+                              </h6>
+                            </div>
+
+                            <div class="col s2 espacio-xs">
+                              <a class="btn-floating waves-effect waves-light red" (click)="selectUnidad(unidad.Uni_clave, true)"><i class="mdi mdi-google-maps"></i></a>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -159,14 +197,65 @@
 
             <div class="row">
               <div class="col s12 espacio">
-                <div>
+                <span *ngIf="paseForm.controls['unidad'].value === null"><i class="mdi mdi-alert red-text"></i> No has elegido ninguna unidad.</span>
+                <span *ngIf="paseForm.controls['unidad'].value > 0"><i class="mdi mdi-information blue-text"></i> Seleccionaste {{ datosUni.Uni_nombre }}.</span>
+                <span *ngIf="paseForm.controls['unidad'].value === 0 "><i class="mdi mdi-information blue-text"></i> Seleccionaste Cualquier Unidad.</span>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="paseForm.controls['unidad'].value != null">
+            <!-- <div class="row"> -->
+              <div class="col s12 espacio">
+                <!-- <div>
                   <label class="right-align">
                     <input type="checkbox" class="filled-in" formControlName="imprimeOrden" />
                     <span><i class="mdi mdi-printer"></i> Imprimir orden</span>
                   </label>
+                </div> -->
+
+                <div class="col s12 espacio">
+                  <p>¿Deseas enviar Órden de Rehabilitación al email del paciente?</p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="mailPaciente" type="radio" [value]="false" formControlName="mailPaciente" />
+                      <span>NO</span>
+                    </label>
+                  </p>
+
+                  <p>
+                    <label>
+                      <input class="with-gap" name="mailPaciente" type="radio" [value]="true" formControlName="mailPaciente" />
+                      <span>SI</span>
+                    </label>
+                  </p>
+                  <div class="input-field col s12 m6 l4" *ngIf="paseForm.controls['mailPaciente'].value">
+                    <i class="mdi mdi-contact-mail prefix"></i>
+                    <input id="email_inline" type="email" class="validate"
+                           [(ngModel)]="cambiosEmail" [ngModelOptions]="{standalone: true}"
+                           (keyup)="cambioMail2($event)"
+                           [disabled]="!paseForm.controls['mailPaciente'].value">
+                    <label for="email_inline">Email del paciente</label>
+                  </div>
                 </div>
 
-                <div>
+                <div class="col s12 espacio">
+                  <p>¿Deseas recibir en {{ usuario.USU_email }} esta Órden de Rehabilitación?</p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="copiaOrden" type="radio" [value]="false" formControlName="copiaOrden" />
+                      <span>NO</span>
+                    </label>
+                  </p>
+
+                  <p>
+                    <label>
+                      <input class="with-gap" name="copiaOrden" type="radio" [value]="true" formControlName="copiaOrden" />
+                      <span>SI</span>
+                    </label>
+                  </p>
+                </div>
+
+                <!-- <div>
                   <label class="right-align">
                     <input type="checkbox" class="filled-in" formControlName="mailPaciente"/>
                     <span><i class="mdi mdi-email"></i> Enviar al paciente: </span>
@@ -179,9 +268,9 @@
                            [disabled]="!paseForm.controls['mailPaciente'].value">
                     <label for="email_inline">Email</label>
                   </div>
-                </div>
+                </div> -->
 
-                <div>
+                <!-- <div>
                   <label class="right-align">
                     <input type="checkbox" class="filled-in" formControlName="copiaOrden" (change)="activaMailUsr($event)"/>
                     <span><i class="mdi mdi-email"></i> Enviar a mi email: </span>
@@ -191,7 +280,7 @@
                     <input id="mailMedicoC" type="email" class="validate" formControlName="mailUsuario">
                     <label for="mailMedicoC">Email</label>
                   </div>
-                </div>
+                </div> -->
 
               </div>
             </div>
@@ -204,8 +293,11 @@
             </button>
             <button type="submit" class="btn green waves-effect waves-light"
                     [ngClass]="{'disabled': !paseForm.valid || trabajando ||
-                                ( !paseForm.controls['imprimeOrden'].value && !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value)
+                                ( !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value)
                                }">
+                   <!-- [ngClass]="{'disabled': !paseForm.valid || trabajando ||
+                               ( !paseForm.controls['imprimeOrden'].value && !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value)
+                              }"> -->
               <span *ngIf="trabajando"><i class="mdi mdi-loading mdi-spin"></i></span>
               <span *ngIf="!trabajando"> Emitir Órden </span>
             </button>
@@ -220,11 +312,19 @@
 <div id="confirmacion" class="modal">
   <div class="modal-content center-align">
     <h4>Registrado Correctamente</h4>
-    <p>
-      <i class="mdi mdi-check-circle mdi-48px light-green-text text-lighten-3"></i>
-    </p>
-    <!-- <p>El pase fue enviado al email del paciente.</p> -->
-    <p>{{ respuestaOrden }}</p>
+
+    <div *ngIf="respuestaOrden.info">
+      <p>
+        <i class="mdi mdi-check-circle mdi-48px light-green-text text-lighten-3"></i>
+      </p>
+      Generaste orden para
+      <b>{{ respuestaOrden.info[0].PAS_nombre }} {{ respuestaOrden.info[0].PAS_aPaterno }} {{ respuestaOrden.info[0].PAS_aMaterno }}</b>
+      para tomar <b>{{ respuestaOrden.info[0].PAS_catidadRehab }} sesiones de rehabilitación</b>
+      con el objetivo de <b>{{ respuestaOrden.info[0].PAS_servicio }}</b>
+      direccionada a <b>{{ respuestaOrden.info[0].Uni_nombre }}</b>
+      <!-- <p>El pase fue enviado al email del paciente.</p> -->
+      <p>{{ respuestaOrden.mensaje }}</p>
+    </div>
   </div>
   <div class="modal-footer">
     <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
@@ -240,20 +340,27 @@
       {{ datosUni.Uni_calleNum }}, {{ datosUni.Uni_colMun }}. {{ datosUni.Uni_estado }}
       <br>
       <span *ngIf="datosUni.Uni_tel">Teléfono: {{ datosUni.Uni_tel }}</span>
+      <span *ngIf="datosUni.Uni_contacto1">| Email: {{ datosUni.Uni_contacto1 }}</span>
       <br>
-      <span *ngIf="datosUni.Uni_contacto1">Email: {{ datosUni.Uni_contacto1 }}</span>
+      Click en el mapa para visualizar en Google Maps.
     </p>
 
-    <iframe
+    <a [href]="datosUni.map | domseguro:'https://www.google.com/maps/embed/v1/place?key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A&q='"
+       target="_blank" class="tooltipped">
+      <img src="{{ datosUni.imgMap.src }}" alt="Ubicación de {{ datosUni.Uni_nombre }}" *ngIf="datosUni.imgMap">
+    </a>
+<!-- <a class="btn tooltipped" data-position="top" data-tooltip="Click para abrir en Google Maps">Hover me!</a> -->
+    <!-- <iframe
       width="600"
-      height="350"
+      height="300"
       frameborder="0" style="border:0"
       [src]="datosUni.map | domseguro:'https://www.google.com/maps/embed/v1/place?key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A&q='"
       allowfullscreen
       *ngIf="unidades.length>0">
-    </iframe>
+    </iframe> -->
   </div>
   <div class="modal-footer">
-    <a class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="cancelaUnidad()">Cerrar</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Elegir</a>
   </div>
 </div>

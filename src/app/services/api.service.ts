@@ -19,6 +19,10 @@ export class ApiService {
   //   inventario: 'http://localhost/inventario/server/public/'
   // }
 
+  apiKeys = {
+    googleMaps: 'AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A',
+  }
+
   constructor() { }
 
   conexion(){

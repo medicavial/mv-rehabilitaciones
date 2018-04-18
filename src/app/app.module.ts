@@ -28,6 +28,7 @@ import { MedicosComponent } from './components/admin/medicos.component';
 import { AdminPanelComponent } from './components/admin/admin-panel.component';
 import { PasesComponent } from './components/pacientes/pases.component';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
+import { AyudaComponent } from './components/ayuda/ayuda.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
     MedicosComponent,
     AdminPanelComponent,
     PasesComponent,
-    DomseguroPipe
+    DomseguroPipe,
+    AyudaComponent
   ],
   imports: [
     BrowserModule,

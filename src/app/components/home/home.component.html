@@ -10,14 +10,16 @@
               <th>Nombre</th>
               <th>Diagnóstico</th>
               <th>Terapias</th>
+              <th>Estatus</th>
             </tr>
           </thead>
 
           <tbody>
             <tr *ngFor="let pase of listadoPases">
-              <td>{{ pase.PAS_nombre }} {{ pase.PAS_aPaterno }} {{ pase.PAS_aMaterno }}</td>
-              <td>{{ pase.PAS_diagnostico }}</td>
+              <td> {{ pase.PAS_nombre }} {{ pase.PAS_aPaterno }} {{ pase.PAS_aMaterno }} </td>
+              <td> {{ pase.PAS_diagnostico }} </td>
               <td> {{ pase.PAS_tipoTerapia }} ({{ pase.PAS_catidadRehab }})</td>
+              <td> {{ pase.PAS_atendido }} </td>
             </tr>
           </tbody>
         </table>

@@ -2,8 +2,8 @@
   <nav *ngIf="_authService.checkSession()" class="azul-mv">
     <div class="nav-wrapper" [ngClass]="{'espacioLateral': _authService.checkSession() }">
       <div class="container">
-        <span class="brand-logo">
-          <i class="mdi mdi-chevron-right" *ngIf="pantalla > 992"></i> {{ tituloSeccion }}
+        <span class="brand-logo truncate">
+          <i class="mdi mdi-chevron-right hide-on-med-and-down"></i> {{ tituloSeccion }}
         </span>
         <span class="brand-logo right logo-navbar" *ngIf="pantalla > 992">
           <img src="assets/img/logos/logo.png" height="35">
@@ -20,15 +20,17 @@
       <div class="background">
         <img src="assets/img/bg/rh3.jpg">
       </div>
+      <span class="closeNavbar hide-on-large-only"><i class="mdi mdi-close mdi-36px sidenav-close white-text"></i></span>
       <img class="circle" src="assets/img/avatar.jpg">
       <span class="white-text name">{{ usuario.fullName }}</span>
       <span class="white-text email">{{ usuario.USU_email }}</span>
     </div>
   </li>
-  <li><a class="waves-effect" [routerLink]="['/home']" (click)="prueba()"><i class="mdi mdi-home"></i>Home</a></li>
-  <li><a class="waves-effect" [routerLink]="['/administracion']" (click)="prueba()"><i class="mdi mdi-clipboard-flow"></i>Administración</a></li>
-  <li><a class="waves-effect" [routerLink]="['/pasenuevo']" (click)="prueba()"><i class="mdi mdi-account-card-details"></i>Generar pase</a></li>
+  <li><a class="waves-effect" [routerLink]="['/home']" (click)="prueba()"><i class="mdi mdi-home mdi-18px"></i>Home</a></li>
+  <li><a class="waves-effect" [routerLink]="['/administracion']" (click)="prueba()"><i class="mdi mdi-clipboard-flow mdi-18px"></i>Administración</a></li>
+  <li><a class="waves-effect" [routerLink]="['/ayuda']" (click)="prueba()"><i class="mdi mdi-help-circle mdi-18px"></i>Ayuda y Guías</a></li>
+  <li><a class="waves-effect" [routerLink]="['/generaorden']" (click)="prueba()"><i class="mdi mdi-account-card-details mdi-18px"></i>Generar Orden</a></li>
   <li><div class="divider"></div></li>
   <!-- <li><a class="subheader">Subheader</a></li> -->
-  <li><a class="waves-effect" (click)="logout()"><i class="mdi mdi-logout"></i>Cerrar sesión</a></li>
+  <li><a class="waves-effect" (click)="logout()"><i class="mdi mdi-logout mdi-18px"></i>Cerrar sesión</a></li>
 </ul>

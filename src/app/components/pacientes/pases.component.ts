@@ -26,6 +26,7 @@ export class PasesComponent implements OnInit {
   paseForm:FormGroup;
   locales:boolean = undefined; //undefined
   respuestaOrden:any = {};
+  pantalla = screen.width;
 
   constructor( public _authService:AuthService,
                private _busquedas:BusquedasService,
@@ -34,16 +35,16 @@ export class PasesComponent implements OnInit {
                  this.usuario = this._authService.datosUsuario();
 
                  this.paseForm = new FormGroup({
-                   'nombre'         : new FormControl( '', [ Validators.minLength(3), Validators.required ] ),
-                   'aPaterno'       : new FormControl( '', [ Validators.minLength(3), Validators.required ] ),
-                   'aMaterno'       : new FormControl( '', [ Validators.required ] ),
+                   'nombre'         : new FormControl( '', [ Validators.minLength(3), Validators.pattern("^[a-zA-Z ]*$"), Validators.required ] ),
+                   'aPaterno'       : new FormControl( '', [ Validators.minLength(3), Validators.pattern("^[a-zA-Z ]*$"), Validators.required ] ),
+                   'aMaterno'       : new FormControl( '', [ Validators.minLength(1), Validators.pattern("^[a-zA-Z ]*$"), Validators.required ] ),
                    'fechaNacimiento': new FormControl( null, [ Validators.required ] ),
                    'sexo'           : new FormControl( '', [] ),
                    'telefono'       : new FormControl( '', [] ),
-                   'email'          : new FormControl( '', [] ),
+                   'email'          : new FormControl( '', [ Validators.minLength(5) ] ),
                    'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ),
                    'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ),
-                   'sesiones'       : new FormControl( null, [ Validators.required, Validators.min(1), Validators.max(99) ] ),
+                   'sesiones'       : new FormControl( 10, [ Validators.required, Validators.min(1), Validators.max(99) ] ),
                    'tipoTerapia'    : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ), //tipoTerapia = observaciones
                    'unidad'         : new FormControl( null, [ Validators.required ] ),
                    'imprimeOrden'   : new FormControl( false, [] ),
@@ -61,7 +62,8 @@ export class PasesComponent implements OnInit {
     this.preparaModalUni();
     this.preparaTimepicker();
     this.getListaUnidades();
-    this.uniLocal( true );
+    // this.uniLocal( true );
+    this.selectUnidad(0 ,false);
   }
 
   preparaTimepicker(){
@@ -82,6 +84,11 @@ export class PasesComponent implements OnInit {
       setDefaultDate: true,
       i18n: this._fechas.formatoIdioma()
     });
+  }
+
+  abrePicker(){
+    var instance = M.Datepicker.getInstance(this.elem);
+    instance.open();
   }
 
   preparaModal(){
@@ -213,7 +220,7 @@ export class PasesComponent implements OnInit {
             datos[i].map = datos[i].Uni_latitud+','+datos[i].Uni_longitud;
             // datos[i].map = datos[i].Uni_nombre+', '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
             datos[i].imgMap = new Image();
-            datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=13&size=800x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
+            datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=16&size=600x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
         } else {
           datos[i].local = false;
           datos[i].img = new Image();
@@ -221,7 +228,7 @@ export class PasesComponent implements OnInit {
           datos[i].map = datos[i].Uni_latitud+','+datos[i].Uni_longitud;
           // datos[i].map = datos[i].Uni_nombre+' + '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
           datos[i].imgMap = new Image();
-          datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=13&size=800x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
+          datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=16&size=600x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
         }
       } else{
         //quitamos las unidades que no son mv
@@ -297,7 +304,14 @@ export class PasesComponent implements OnInit {
   }
 
   cancelaUnidad(){
+    this.cierrtaTooltip();
     this.datosUni = {};
     this.paseForm.controls['unidad'].setValue(null);
+  }
+
+  cierrtaTooltip(){
+    var elem = document.querySelector('.tooltipped');
+    var instance = M.Tooltip.getInstance(elem);
+    instance.close();
   }
 }

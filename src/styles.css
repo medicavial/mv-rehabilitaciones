@@ -44,6 +44,24 @@ header, footer {
   }
 }
 
+@media only screen and (max-width : 600px) {
+  nav .brand-logo {
+    font-size: 1.1rem !important;
+    font-weight: bold;
+  }
+  .card .card-title{
+    font-size: 18px;
+  }
+}
+
+nav .brand-logo {
+  position: absolute;
+  color: #fff;
+  display: inline-block;
+  font-size: 2.1rem;
+  padding: 0;
+}
+
 @-webkit-keyframes mdi-spin {
   0% {
     -webkit-transform: rotate(0deg);
@@ -67,7 +85,7 @@ header, footer {
 }
 
 .container{
-  width: 90% !important;
+  width: 98% !important;
 }
 
 body, app-root {
@@ -134,4 +152,17 @@ main {
 
 .btn-block{
   width: 100% !important;
+}
+
+.closeNavbar {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 85%;
+}
+
+.card-mobile{
+  padding: 2px !important;
 }

@@ -25,7 +25,7 @@ export class AuthService implements CanActivate {
 
   auth(){
     if (sessionStorage.getItem('session')  || localStorage.getItem('session')) {
-        this.router.navigate(['home']);
+        this.router.navigate(['inicio']);
         if (localStorage.getItem('session')) {
             sessionStorage.setItem('session',JSON.stringify( JSON.parse(localStorage.getItem('session'))));
         }

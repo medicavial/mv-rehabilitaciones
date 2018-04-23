@@ -18,7 +18,7 @@ const APP_ROUTES: Routes = [
     data: { title: 'Login' }
   },
   {
-    path: 'home',
+    path: 'inicio',
     component: HomeComponent,
     data: { title: 'Bienvenido' },
     canActivate: [AuthService]

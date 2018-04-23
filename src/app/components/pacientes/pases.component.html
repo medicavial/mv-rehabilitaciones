@@ -302,7 +302,7 @@
                     <i class="mdi mdi-contact-mail prefix"
                        [ngClass]="{'red-text': !paseForm.controls['email'].valid}">
                     </i>
-                    
+
                     <input id="email_inline" type="email" class="validate"
                            [(ngModel)]="cambiosEmail" [ngModelOptions]="{standalone: true}"
                            (keyup)="cambioMail2($event)"
@@ -403,7 +403,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a [routerLink]="['/home']" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    <a [routerLink]="['/inicio']" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
   </div>
 </div>
 

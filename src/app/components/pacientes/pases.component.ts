@@ -42,10 +42,10 @@ export class PasesComponent implements OnInit {
                    'sexo'           : new FormControl( '', [] ),
                    'telefono'       : new FormControl( '', [] ),
                    'email'          : new FormControl( '', [ Validators.minLength(5) ] ),
-                   'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ),
-                   'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ),
+                   'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
+                   'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'sesiones'       : new FormControl( 10, [ Validators.required, Validators.min(1), Validators.max(99) ] ),
-                   'tipoTerapia'    : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ), //tipoTerapia = observaciones
+                   'tipoTerapia'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ), //tipoTerapia = observaciones
                    'unidad'         : new FormControl( null, [ Validators.required ] ),
                    'imprimeOrden'   : new FormControl( false, [] ),
                    'mailPaciente'   : new FormControl( false, [] ),
@@ -235,6 +235,7 @@ export class PasesComponent implements OnInit {
         datos.splice(i, 2); //esto no debería de quedar así
       }
     }
+    // console.log(datos)
     return datos;
   }
 
@@ -264,6 +265,7 @@ export class PasesComponent implements OnInit {
   }
 
   modalUni( unidad ){
+    this.preparaTooltip();
     this.unidadDatos( unidad );
     var modal = M.Modal.getInstance(this.mdlUni);
     modal.open();
@@ -304,14 +306,15 @@ export class PasesComponent implements OnInit {
   }
 
   cancelaUnidad(){
-    this.cierrtaTooltip();
     this.datosUni = {};
     this.paseForm.controls['unidad'].setValue(null);
+    this.cierrtaTooltip();
   }
 
   cierrtaTooltip(){
     var elem = document.querySelector('.tooltipped');
     var instance = M.Tooltip.getInstance(elem);
-    instance.close();
+    instance.destroy();
+    // this.preparaTooltip();
   }
 }

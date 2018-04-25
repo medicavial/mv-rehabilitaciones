@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 //DATOS EN ESPAÑOL-MX
 import { LOCALE_ID } from '@angular/core';
@@ -48,7 +49,8 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    APP_ROUTING
+    APP_ROUTING,
+    NgxDatatableModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-MX' },

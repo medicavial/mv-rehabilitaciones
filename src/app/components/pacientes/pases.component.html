@@ -53,7 +53,8 @@
             <div class="row">
               <div class="input-field col s12 m6">
                 <i class="mdi mdi-phone prefix"></i>
-                <input id="tel" type="tel" class="validate" formControlName="telefono">
+                <input id="tel" type="tel" class="validate" formControlName="telefono"
+                       [ngClass]="{'invalid': !paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine, 'valid':paseForm.controls['telefono'].valid && !paseForm.controls['telefono'].pristine}">
                 <label for="tel">Teléfono</label>
               </div>
 
@@ -100,8 +101,8 @@
                 <i class="mdi mdi-calendar-range prefix"
                    [ngClass]="{'red-text': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && !paseForm.controls['sesiones'].pristine}">
                 </i>
-                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1" max="99"
-                       [ngClass]="{'invalid': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && paseForm.controls['sesiones'].touched && !paseForm.controls['sesiones'].pristine, 'valid':paseForm.controls['sesiones'].valid}">
+                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1" max="99" pattern="\d*"
+                       [ngClass]="{'invalid': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && paseForm.controls['sesiones'].touched && !paseForm.controls['sesiones'].pristine, 'valid':paseForm.controls['sesiones'].valid && !paseForm.controls['sesiones'].pristine}">
                 <label for="cantidad"># Sesiones a tomar</label>
               </div>
 

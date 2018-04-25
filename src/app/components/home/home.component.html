@@ -1,31 +1,66 @@
 <div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
-  <div class="row animated fadeIn fast" *ngIf="listadoPases.length > 0">
-    <div class="col s12 m12 l12 card">
-      <div class="card-content">
-        <span class="card-title">Órdenes emitidas</span>
 
-        <table class="striped highlight responsive-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Diagnóstico</th>
-              <th>Terapias</th>
-              <th>Estatus</th>
-              <th>Gratificación</th>
-            </tr>
-          </thead>
+  <div class="row animated fadeIn fast">
+    <div class="col s12 card" *ngIf="listadoPases.length > 0 && opciones">
+        <a class="btn-flat waves-effect waves-red right red-text btn-sinEspacio" (click)="verOpciones()">Cerrar</a>
+        <div class="card-content-min espacio-minimo">
 
-          <tbody>
-            <tr *ngFor="let pase of listadoPases">
-              <td> {{ pase.PAS_nombre }} {{ pase.PAS_aPaterno }} {{ pase.PAS_aMaterno }} </td>
-              <td> {{ pase.PAS_diagnostico }} </td>
-              <td> {{ pase.PAS_tipoTerapia }} ({{ pase.PAS_catidadRehab }})</td>
-              <td> {{ pase.PAS_atendido }} </td>
-              <td> {{ pase.PAS_atendido }} </td>
-            </tr>
-          </tbody>
-        </table>
+          <!-- Filtrar resultados: -->
+          <div class="row">
+            <div class="input-field col s12 m6 l3">
+              <i class="mdi mdi-magnify prefix"></i>
+              <input id="buscador" type="text" (keyup)='updateFilter($event)'>
+              <label for="buscador">Buscar por nombre</label>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row animated fadeIn fast espacio-minimo">
+    <div class="col s12 card" >
+      <a class="btn-floating waves-effect waves-light right tooltipped animated fadeIn fast red espacio-xs" (click)="verOpciones()"
+         [ngClass]="{'hide': buscando || opciones }"><i class="mdi mdi-table-search"></i></a>
+      <!-- [ngClass]="{'espacio-minimo': opciones}" -->
+      <div class="card-content" *ngIf="listadoPases.length > 0">
+        <span class="card-title azul-text"><i class="mdi mdi-clipboard-check"></i> Órdenes recientes</span>
+          <ngx-datatable #table class="material no-shadow"
+                          [rows]="rows"
+                          columnMode="force"
+                          [headerHeight]="50"
+                          [footerHeight]="'auto'"
+                          [rowHeight]="50"
+                          [scrollbarH]="true"
+                          [limit]="5">
+          <ngx-datatable-column prop="PAS_id" name="#" [width]="10"></ngx-datatable-column>
+          <ngx-datatable-column prop="nombreCompleto" name="Nombre"></ngx-datatable-column>
+          <ngx-datatable-column prop="fechaFacil" name="Emitido"></ngx-datatable-column>
+          <ngx-datatable-column prop="PAS_diagnostico" name="Diagnóstico"></ngx-datatable-column>
+          <ngx-datatable-column prop="PAS_catidadRehab" name="Sesiones" *ngIf="ver===true" ></ngx-datatable-column>
+          <ngx-datatable-column prop="estatusDias" name="Antiguedad"></ngx-datatable-column>
+          <ngx-datatable-column name="E.R." *ngIf="ver===true"></ngx-datatable-column>
+          <ngx-datatable-column name="Bitácora" *ngIf="ver===true"></ngx-datatable-column>
+          <ngx-datatable-column name="Informe" *ngIf="ver===true"></ngx-datatable-column>
+          <ngx-datatable-column name="E.A. Administrativo" *ngIf="ver===true"></ngx-datatable-column>
+        </ngx-datatable>
       </div>
     </div>
   </div><!-- cierra row -->
+
+
+
+  <!-- preloader -->
+  <div class="row animated fadeIn fast center-align" *ngIf="buscando">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div> <!-- cierra container -->

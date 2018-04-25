@@ -1,16 +1,12 @@
 <div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
   <div class="row">
-    <h4 class="grey-text">En desarrollo <i class="mdi mdi-coffee"></i></h4>
-    <div class="col s12 m6 l4" *ngIf="usuario.PER_altaUsuarios === 1">
+    <!-- <h4 class="grey-text">En desarrollo <i class="mdi mdi-coffee"></i></h4> -->
+    <!-- <div class="col s12 m6 l4" *ngIf="usuario.PER_altaUsuarios === 1">
       <div class="card blue waves-effect waves-light xsmall" [routerLink]="['/medicos']">
         <div class="card-content white-text">
           <span class="card-title">Alta de médicos</span>
           <p>Registro de médicos quienes podrán enviar pacientes a Médica Vial.</p>
         </div>
-        <!-- <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div> -->
       </div>
     </div>
 
@@ -30,6 +26,46 @@
           <p>Administración de clínica MV.</p>
         </div>
       </div>
+    </div> -->
+
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light teal accent-4">
+        <i class="mdi mdi-account-plus mdi-36px"></i>
+        <br>
+        Alta de promotor
+      </button>
     </div>
-  </div><!-- cierra row -->
+
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light orange">
+        <i class="mdi mdi-account-plus mdi-36px"></i>
+        <br>
+        Alta de ejecutivo
+      </button>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light pink darken-1">
+        <i class="mdi mdi-account-edit mdi-36px"></i>
+        <br>
+        Editar usuario
+      </button>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light blue">
+        <i class="mdi mdi-file-chart mdi-36px"></i>
+        <br>
+        Estado de cuenta
+      </button>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light purple">
+        <i class="mdi mdi-file-multiple mdi-36px"></i>
+        <br>
+        Reportes
+      </button>
+    </div>
+  </div>
 </div>

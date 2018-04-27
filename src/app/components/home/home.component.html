@@ -7,10 +7,17 @@
 
           <!-- Filtrar resultados: -->
           <div class="row">
-            <div class="input-field col s12 m6 l3">
+            <div class="input-field col s12 m6 l4">
               <i class="mdi mdi-magnify prefix"></i>
               <input id="buscador" type="text" (keyup)='updateFilter($event)'>
               <label for="buscador">Buscar por nombre</label>
+            </div>
+            <div class="col s12 m3 l2 valign-wapper">
+              <a class="btn-floating waves-effect waves-light espacio-sm purple"
+                 (click)="verMasDetalles()" data-position="bottom" data-tooltip="Ver mas detalles">
+                <i class="mdi mdi-eye-plus"></i>
+              </a>
+              <!-- <a class="btn-floating waves-effect waves-light espacio-sm yellow darken-1"><i class="mdi mdi-eye-plus"></i></a> -->
             </div>
           </div>
         </div>
@@ -36,7 +43,7 @@
           <ngx-datatable-column prop="nombreCompleto" name="Nombre"></ngx-datatable-column>
           <ngx-datatable-column prop="fechaFacil" name="Emitido"></ngx-datatable-column>
           <ngx-datatable-column prop="PAS_diagnostico" name="Diagnóstico"></ngx-datatable-column>
-          <ngx-datatable-column prop="PAS_catidadRehab" name="Sesiones" *ngIf="ver===true" ></ngx-datatable-column>
+          <ngx-datatable-column prop="PAS_catidadRehab" name="Sesiones" *ngIf="ver===true"></ngx-datatable-column>
           <ngx-datatable-column prop="estatusDias" name="Antiguedad"></ngx-datatable-column>
           <ngx-datatable-column name="E.R." *ngIf="ver===true"></ngx-datatable-column>
           <ngx-datatable-column name="Bitácora" *ngIf="ver===true"></ngx-datatable-column>

@@ -30,6 +30,7 @@ import { AdminPanelComponent } from './components/admin/admin-panel.component';
 import { PasesComponent } from './components/pacientes/pases.component';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
+import { UsuariosComponent } from './components/admin/usuarios.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     AdminPanelComponent,
     PasesComponent,
     DomseguroPipe,
-    AyudaComponent
+    AyudaComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,

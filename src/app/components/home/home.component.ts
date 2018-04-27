@@ -91,6 +91,9 @@ export class HomeComponent implements OnInit {
     this.preparaTooltip();
   }
 
+  verMasDetalles(){
+    this.ver = !this.ver;
+  }
 
 
 }

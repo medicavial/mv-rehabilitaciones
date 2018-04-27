@@ -28,23 +28,23 @@
       </div>
     </div> -->
 
-    <div class="col s12 m6 l4">
-      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light teal accent-4">
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_adminPromotores === 1">
+      <button [routerLink]="['/usuarios']" type="button" name="button" class="btn btn-gigante waves-effect waves-light teal accent-4">
         <i class="mdi mdi-account-plus mdi-36px"></i>
         <br>
         Alta de promotor
       </button>
     </div>
 
-    <div class="col s12 m6 l4">
-      <button type="button" name="button" class="btn btn-gigante waves-effect waves-light orange">
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_adminEjecutivos === 1">
+      <button [routerLink]="['/usuarios']" type="button" name="button" class="btn btn-gigante waves-effect waves-light orange">
         <i class="mdi mdi-account-plus mdi-36px"></i>
         <br>
         Alta de ejecutivo
       </button>
     </div>
 
-    <div class="col s12 m6 l4">
+    <div class="col s12 m6 l4" *ngIf="usuario.PER_adminUsuarios === 1">
       <button type="button" name="button" class="btn btn-gigante waves-effect waves-light pink darken-1">
         <i class="mdi mdi-account-edit mdi-36px"></i>
         <br>

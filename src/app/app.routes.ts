@@ -8,6 +8,7 @@ import { MedicosComponent } from './components/admin/medicos.component';
 import { AdminPanelComponent } from './components/admin/admin-panel.component';
 import { PasesComponent } from './components/pacientes/pases.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
+import { UsuariosComponent } from "./components/admin/usuarios.component";
 
 //importamos servicios
 import { AuthService } from "./services/auth.service";
@@ -24,18 +25,6 @@ const APP_ROUTES: Routes = [
     canActivate: [AuthService]
   },
   {
-    path: 'medicos',
-    component: MedicosComponent,
-    data: { title: 'Médicos' },
-    canActivate: [AuthService]
-  },
-  {
-    path: 'administracion',
-    component: AdminPanelComponent,
-    data: { title: 'Administración' },
-    canActivate: [AuthService]
-  },
-  {
     path: 'generaorden',
     component: PasesComponent,
     data: { title: 'Emisión de órdenes' },
@@ -45,6 +34,24 @@ const APP_ROUTES: Routes = [
     path: 'ayuda',
     component: AyudaComponent,
     data: { title: 'Ayuda y Guías' },
+    canActivate: [AuthService]
+  },
+  {
+    path: 'administracion',
+    component: AdminPanelComponent,
+    data: { title: 'Administración' },
+    canActivate: [AuthService]
+  },
+  {
+    path: 'medicos',
+    component: MedicosComponent,
+    data: { title: 'Médicos' },
+    canActivate: [AuthService]
+  },
+  {
+    path: 'usuarios',
+    component: UsuariosComponent,
+    data: { title: 'Usuarios' },
     canActivate: [AuthService]
   },
   {

@@ -1,0 +1,250 @@
+<div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
+  <div class="row" *ngIf="usuario.PER_adminUsuarios">
+    <div class="col s6 m6 l6" *ngIf="usuario.PER_admin">
+      <button type="button" name="button" class="btn btn-block yellow darken-2 waves-effect waves-light" (click)="activareg('Promotor')"
+              [ngClass]="{'disabled': tipoReg != 'Promotor' && tipoReg != '' , 'red darken-1': tipoReg === 'Promotor', 'yellow darken-2': tipoReg === ''}">
+        <span *ngIf="tipoReg != 'Promotor'">
+          <i class="mdi mdi-account-star"></i> Promotor Nuevo
+        </span>
+        <span *ngIf="tipoReg === 'Promotor'">
+          <i class="mdi mdi-delete"></i> Cancelar
+        </span>
+      </button>
+    </div>
+    <div class="col s6 m6 l6">
+      <button type="button" name="button" class="btn btn-block purple waves-effect waves-light" (click)="activareg('Ejecutivo')"
+              [ngClass]="{'disabled': tipoReg != 'Ejecutivo' && tipoReg != '' , 'red darken-1': tipoReg === 'Ejecutivo', 'purple': tipoReg === ''}">
+        <span *ngIf="tipoReg != 'Ejecutivo'">
+          <i class="mdi mdi-account-plus"></i> Ejecutivo Nuevo
+        </span>
+        <span *ngIf="tipoReg === 'Ejecutivo'">
+          <i class="mdi mdi-delete"></i> Cancelar
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="row"> -->
+  <div class="row" *ngIf="registro">
+    <div class="s12 card animated fadeIn">
+      <div class="card-content">
+        <span class="card-title azul-text"><i class="mdi mdi-account-card-details"></i> Registro de {{ tipoReg }}</span>
+
+        <!-- <form [formGroup]="paseForm" (ngSubmit)="generarPase()" autocomplete="off" novalidate> -->
+        <form class="" action="index.html" method="post">
+          <div class="row">
+            <p class="azul-text">DATOS PERSONALES</p>
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-account prefix">
+                 <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="nombre" type="text" class="mayusculas">
+                     <!-- formControlName="nombre"
+                     [ngClass]="{'invalid': !paseForm.controls['nombre'].valid && paseForm.controls['nombre'].dirty && !paseForm.controls['nombre'].pristine, 'valid':paseForm.controls['nombre'].valid}"> -->
+              <label for="nombre">Nombre(s)</label>
+            </div>
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-account-multiple prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="paterno" type="text" class="mayusculas">
+                     <!-- formControlName="aPaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aPaterno'].valid && paseForm.controls['aPaterno'].dirty && !paseForm.controls['aPaterno'].pristine, 'valid':paseForm.controls['aPaterno'].valid}"> -->
+              <label for="paterno">Apellido Paterno</label>
+            </div>
+
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-account-multiple prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="materno" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="materno">Apellido Materno</label>
+            </div>
+          </div>
+
+          <!-- <div class="divider"></div> -->
+
+          <div class="row">
+            <p class="azul-text">DATOS DE CONTACTO</p>
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-phone prefix"></i>
+              <input id="tel" type="tel" class="" >
+                     <!-- formControlName="telefono"
+                     [ngClass]="{'invalid': !paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine, 'valid':paseForm.controls['telefono'].valid && !paseForm.controls['telefono'].pristine}"> -->
+              <label for="tel">Teléfono Fijo</label>
+            </div>
+
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-cellphone prefix"></i>
+              <input id="cel" type="tel" class="" >
+                     <!-- formControlName="telefono"
+                     [ngClass]="{'invalid': !paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine, 'valid':paseForm.controls['telefono'].valid && !paseForm.controls['telefono'].pristine}"> -->
+              <label for="cel">Teléfono Móvil</label>
+            </div>
+
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-email prefix"></i>
+              <input id="email" type="email" class="" >
+                     <!-- formControlName="telefono"
+                     [ngClass]="{'invalid': !paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine, 'valid':paseForm.controls['telefono'].valid && !paseForm.controls['telefono'].pristine}"> -->
+              <label for="email">Email</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <p class="azul-text">DATOS FISCALES</p>
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-qrcode prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="rfc" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="rfc">RFC</label>
+            </div>
+
+            <div class="input-field col s12 m4">
+              <span>Tipo de persona:</span>
+              <p>
+                <label>
+                  <input name="tipoPersona" type="radio" class="with-gap" value="F">
+                         <!-- formControlName="tipoPersona"/> -->
+                  <span>Física</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input name="tipoPersona" type="radio" class="with-gap" value="M">
+                         <!-- formControlName="tipoPersona"/> -->
+                  <span>Moral</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <p class="azul-text">DATOS BANCARIOS</p>
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-credit-card-plus prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="clabe" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="clabe">CLABE Interbancaria</label>
+            </div>
+
+            <div class="col s12 m6 file-field input-field">
+              <div class="btn-small orange">
+                <span>Archivo</span>
+                <input type="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Estado de cuenta">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <p class="azul-text">DOMICILIO Y COMISIÓN</p>
+
+            <div class="input-field col s12 m3">
+              <i class="mdi mdi-store prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="calle" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="calle" class="truncate">Calle y número</label>
+            </div>
+
+            <div class="input-field col s12 m3">
+              <i class="mdi mdi-store prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="cp" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="cp">C.P.</label>
+            </div>
+
+            <div class="input-field col s12 m3">
+              <i class="mdi mdi-store prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="colonia" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="colonia">Colonia</label>
+            </div>
+
+            <div class="input-field col s12 m3">
+              <i class="mdi mdi-store prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="estado" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="estado" class="truncate">Municipio y Estado</label>
+            </div>
+
+            <div class="input-field col s12 m4">
+              <i class="mdi mdi-currency-usd prefix">
+                <!-- [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}"> -->
+              </i>
+              <input id="comision" type="text" class="mayusculas">
+                     <!-- formControlName="aMaterno"
+                     [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}"> -->
+              <label for="comision">Comisión por bloque</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 animated fadeIn fast center-align grey-text" *ngIf="buscando">
+      <!-- <i class="mdi mdi-chart-donut mdi-spin mdi-48px"></i> -->
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!registro">
+    <div class="col s12 m12 card animated fadeIn" *ngIf="listadoUsuarios && listadoUsuarios.length > 0">
+      <div class="card-content">
+        <span class="card-title">Listado de médicos</span>
+
+        <table class="striped highlight responsive-table">
+          <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Registro</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let med of listadoUsuarios">
+              <td>{{ med.MED_nombre }} {{ med.MED_aPaterno }} {{ med.MED_aMaterno }}</td>
+              <td>{{ med.MED_especialidad }}</td>
+              <td>{{ med.MED_fechaAlta | slice:0:10 | date:'dd/MMM/yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

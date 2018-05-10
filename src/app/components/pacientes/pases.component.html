@@ -20,7 +20,7 @@
 
               <div class="input-field col s12 m4">
                 <input id="materno" type="text" class="mayusculas validate" formControlName="aMaterno"
-                       [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid}">
+                       [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine}">
                 <label for="materno">Apellido Materno</label>
               </div>
             </div>
@@ -63,7 +63,7 @@
                 <input id="email" type="email" class="validate" formControlName="email"
                        [required]="paseForm.controls['mailPaciente'].value"
                        (keyup)="cambioMail($event)"
-                       [ngClass]="{'invalid': !paseForm.controls['email'].valid }">
+                       [ngClass]="{'invalid': !paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine }">
                 <label for="email">Email</label>
               </div>
             </div>
@@ -367,12 +367,8 @@
               Limpiar datos
             </button>
             <button type="submit" class="btn green waves-effect waves-light"
-                    [ngClass]="{'disabled': !paseForm.valid || trabajando ||
-                                ( !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value)
-                               }">
-                   <!-- [ngClass]="{'disabled': !paseForm.valid || trabajando ||
-                               ( !paseForm.controls['imprimeOrden'].value && !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value)
-                              }"> -->
+                    [ngClass]="{'disabled': !paseForm.valid || trabajando}">
+                               <!-- ( !paseForm.controls['mailPaciente'].value && !paseForm.controls['copiaOrden'].value ) -->
               <span *ngIf="trabajando"><i class="mdi mdi-loading mdi-spin"></i></span>
               <span *ngIf="!trabajando"> Emitir Órden </span>
             </button>
@@ -401,9 +397,20 @@
       <span *ngIf="respuestaOrden.info[0].UNI_clave === 0"> <b> cualquier unidad Médica Vial</b>. </span>
 
       <p>{{ respuestaOrden.mensaje }}</p>
+
+      <p *ngIf="respuestaOrden.info">
+        <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ respuestaOrden.info[0].claveOrden }}" target="_blank">
+          Imprimir Orden
+        </a>
+      </p>
     </div>
   </div>
   <div class="modal-footer">
+    <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ respuestaOrden.info[0].claveOrden }}" target="_blank"
+       class="waves-effect waves-blue btn-flat"
+       *ngIf="respuestaOrden.info">
+       Imprimir Orden
+    </a>
     <a [routerLink]="['/inicio']" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
   </div>
 </div>

@@ -24,4 +24,16 @@ export class OperacionService {
                     });
   }
 
+  guardaUsuario( datos ){
+    let url = `${ this.link.principal}/externos/guarda-usuario`;
+    let headers = new Headers({
+      'Content-Type':'aplication/json'
+    });
+
+    return this._http.post( url, datos, {headers} )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
 }

@@ -33,7 +33,7 @@ const APP_ROUTES: Routes = [
   {
     path: 'ayuda',
     component: AyudaComponent,
-    data: { title: 'Ayuda y Guías' },
+    data: { title: 'Ayuda' },
     canActivate: [AuthService]
   },
   {

@@ -1,5 +1,122 @@
 <div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
-  <p>
-    ayuda works!
-  </p>
+  <div class="row animated fadeIn fast" *ngIf="!verContacto && !verGuias">
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-xl waves-effect waves-light blue" (click)="switchContacto()">
+        <i class="mdi mdi-phone mdi-36px"></i>
+        <br>
+        Contacto
+      </button>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <button type="button" name="button" class="btn btn-xl waves-effect waves-light cyan" (click)="switchGuias()">
+        <i class="mdi mdi-book-open mdi-36px"></i>
+        <br>
+        Guías
+      </button>
+    </div>
+  </div>
+
+  <!-- inicia seccion de contacto -->
+  <div class="row animated fadeIn fast" *ngIf="verContacto">
+    <div class="col s12" align="right">
+      <button type="button" name="button" class="btn red waves-effect waves-light" (click)="switchContacto()">
+        <i class="mdi mdi-close"></i>
+        Cerrar
+      </button>
+    </div>
+    <div class="col s12 m6 l6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Clínicas</span>
+
+          <ul class="collection" *ngIf="clinicas.length>0">
+            <ng-container *ngFor="let unidad of clinicas">
+              <li class="collection-item avatar" *ngIf="unidad.Uni_clave < 1000">
+                <i class="mdi mdi-hospital-building circle blue"></i>
+                <span class="title"><b>{{ unidad.Uni_nombrecorto }}</b></span>
+                <p>
+                  <i class="mdi mdi-phone"></i>
+                  {{ unidad.Uni_tel }}
+                </p>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l6">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Directorio</span>
+
+          <ul class="collection">
+            <ng-container>
+              <li class="collection-item avatar">
+                <i class="mdi mdi-account-star circle teal accent-4"></i>
+                <span class="title"><b>Nadia González</b></span>
+                <br>
+                <span class="grey-text">Jefa de Rehabilitación</span>
+                <p>
+                  <i class="mdi mdi-phone"></i> 5514-4700 ext. 215
+                  <br>
+                  <i class="mdi mdi-email"></i> coordreh@medicavial.com.mx
+                </p>
+              </li>
+
+              <li class="collection-item avatar">
+                <i class="mdi mdi-account-star circle teal accent-4"></i>
+                <span class="title"><b>Carmen Hernández</b></span>
+                <br>
+                <span class="grey-text">Coordinadora Administrativa</span>
+                <p>
+                  <i class="mdi mdi-phone"></i> 5514-4700 ext. 227
+                  <br>
+                  <i class="mdi mdi-email"></i> chernandez@medicavial.com.mx
+                </p>
+              </li>
+
+              <li class="collection-item avatar">
+                <i class="mdi mdi-account-star circle teal accent-4"></i>
+                <span class="title"><b>Alfredo Gutiérrez</b></span>
+                <br>
+                <span class="grey-text">Director de Operación</span>
+                <p>
+                  <i class="mdi mdi-phone"></i> 5514-4700 ext. 300
+                  <br>
+                  <i class="mdi mdi-email"></i> agutierrez@medicavial.com.mx
+                </p>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- termina seccion de Contacto -->
+
+  <!-- inicia seccion de guias -->
+  <div class="row animated fadeIn fast" *ngIf="verGuias">
+    <div class="col s12" align="right">
+      <button type="button" name="button" class="btn red waves-effect waves-light" (click)="switchGuias()">
+        <i class="mdi mdi-close"></i>
+        Cerrar
+      </button>
+    </div>
+
+    <div class="col s12">
+      <div class="card">
+        <!-- <div class="card-content"> -->
+          <ul class="collection">
+            <li class="collection-item"><div>Generar Orden de Rehabilitación<a href="#!" class="secondary-content"><i class="mdi mdi-send mdi-18px"></i></a></div></li>
+            <li class="collection-item"><div>Estatus de rehabilitación<a href="#!" class="secondary-content"><i class="mdi mdi-send mdi-18px"></i></a></div></li>
+            <li class="collection-item"><div>Estatus de administrativo<a href="#!" class="secondary-content"><i class="mdi mdi-send mdi-18px"></i></a></div></li>
+            <li class="collection-item"><div>FAQ<a href="#!" class="secondary-content"><i class="mdi mdi-send mdi-18px"></i></a></div></li>
+          </ul>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+  <!-- termina seccion de guias -->
 </div>

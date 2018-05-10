@@ -59,6 +59,10 @@ header, footer {
   .btn-gigante{
     height: 100px;
   }
+
+  .modal {
+    width: 95%;
+  }
 }
 
 nav .brand-logo {
@@ -147,6 +151,10 @@ main {
   text-transform: uppercase;
 }
 
+.minusculas{
+  text-transform: lowercase;
+}
+
 .seleccion{
   cursor: pointer;
 }
@@ -181,6 +189,14 @@ main {
   -webkit-box-shadow: none !important;
 }
 
+.btn-xl{
+  width: 100%;
+  height: 100px;
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 .btn-gigante{
   width: 100%;
   height: 150px;
@@ -210,4 +226,51 @@ main {
 
 .btn-sinEspacio{
   margin-bottom: -2em;
+}
+
+/* Checked styles */
+[type="radio"]:checked + span:after,
+[type="radio"].valido.with-gap:checked + span:before,
+[type="radio"].valido.with-gap:checked + span:after {
+  border: 2px solid #388e3c;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].valido.with-gap:checked + span:after {
+  background-color: #388e3c;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+/* input warning color */
+input.warning:not([type]), input.warning:not([type]):focus,
+input[type=text].warning:not(.browser-default),
+input[type=text].warning:not(.browser-default):focus,
+input[type=password].warning:not(.browser-default),
+input[type=password].warning:not(.browser-default):focus,
+input[type=email].warning:not(.browser-default),
+input[type=email].warning:not(.browser-default):focus,
+input[type=url].warning:not(.browser-default),
+input[type=url].warning:not(.browser-default):focus,
+input[type=time].warning:not(.browser-default),
+input[type=time].warning:not(.browser-default):focus,
+input[type=date].warning:not(.browser-default),
+input[type=date].warning:not(.browser-default):focus,
+input[type=datetime].warning:not(.browser-default),
+input[type=datetime].warning:not(.browser-default):focus,
+input[type=datetime-local].warning:not(.browser-default),
+input[type=datetime-local].warning:not(.browser-default):focus,
+input[type=tel].warning:not(.browser-default),
+input[type=tel].warning:not(.browser-default):focus,
+input[type=number].warning:not(.browser-default),
+input[type=number].warning:not(.browser-default):focus,
+input[type=search].warning:not(.browser-default),
+input[type=search].warning:not(.browser-default):focus,
+textarea.materialize-textarea.warning,
+textarea.materialize-textarea.warning:focus, .select-wrapper.warning > input.select-dropdown {
+  border-bottom: 1px solid #ff9800;
+  -webkit-box-shadow: 0 1px 0 0 #ff9800;
+          box-shadow: 0 1px 0 0 #ff9800;
 }

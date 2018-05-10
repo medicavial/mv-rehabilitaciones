@@ -51,4 +51,13 @@ export class BusquedasService {
                      });
   }
 
+  verificaUsername( dato ){
+    let url = `${ this.link.principal}/externos/verifica-`+dato;
+
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
 }

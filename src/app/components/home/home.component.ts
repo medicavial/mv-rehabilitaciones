@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { BusquedasService } from "../../services/busquedas.service";
+import { Router } from '@angular/router';
 declare var M: any;
 declare var $: any;
 
@@ -20,15 +21,18 @@ export class HomeComponent implements OnInit {
   floatAction:any;
   tooltip:any;
   opciones:boolean = false;
+  selected = [];
 
   constructor( public _authService:AuthService,
-               private _busquedas:BusquedasService ) {
+               private _busquedas:BusquedasService,
+               private _router:Router ) {
                  this.usuario = this._authService.datosUsuario();
                }
 
   ngOnInit() {
     // this._authService.auth();
-    this.getlistadoPases();
+    // this.getlistadoPases();
+    this.recargaDatos();
     this.preparaBotones();
     this.preparaTooltip();
   }
@@ -95,5 +99,22 @@ export class HomeComponent implements OnInit {
     this.ver = !this.ver;
   }
 
+  seleccion({ selected }){
+    // console.log('Select Event', selected, this.selected);
+    console.log(selected[0].claveOrden);
+    window.open('http://busqueda.medicavial.net/api/externos/verpdf-'+selected[0].claveOrden, '_blank ');
+  }
+
+  recargaDatos(){
+    //solo recargamos cuando estemos en /inicio
+    if ( this._router.url === '/inicio' ) {
+        console.info('Reload');
+
+        this.getlistadoPases();
+        setTimeout(()=>{    //<<<---    using ()=> syntax
+          this.recargaDatos();
+        },180000); //recarga los datos al pasar 3 minutos
+    }
+  }
 
 }

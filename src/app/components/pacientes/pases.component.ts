@@ -35,13 +35,13 @@ export class PasesComponent implements OnInit {
                  this.usuario = this._authService.datosUsuario();
 
                  this.paseForm = new FormGroup({
-                   'nombre'         : new FormControl( '', [ Validators.minLength(3), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
-                   'aPaterno'       : new FormControl( '', [ Validators.minLength(3), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
-                   'aMaterno'       : new FormControl( '', [ Validators.minLength(1), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
+                   'nombre'         : new FormControl( '', [ Validators.minLength(1), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
+                   'aPaterno'       : new FormControl( '', [ Validators.minLength(1), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
+                   'aMaterno'       : new FormControl( '', [] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
                    'fechaNacimiento': new FormControl( null, [ Validators.required ] ),
                    'sexo'           : new FormControl( '', [] ),
                    'telefono'       : new FormControl( '', [ Validators.maxLength(12) ] ),
-                   'email'          : new FormControl( '', [ Validators.minLength(5) ] ),
+                   'email'          : new FormControl( '', [ Validators.email ] ),
                    'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'sesiones'       : new FormControl( 10, [ Validators.required, Validators.min(1), Validators.max(99) ] ),

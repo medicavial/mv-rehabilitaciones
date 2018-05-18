@@ -7,44 +7,93 @@
             <p class="card-title azul-text"><i class="mdi mdi-clipboard-account"></i> Datos del paciente</p>
 
             <div class="row">
+
+              <!-- <div class="input-field col s12 m4">
+                <i class="mdi mdi-phone prefix"
+                   [ngClass]="{'red-text': !formReg.controls['telFijo'].valid && formReg.controls['telFijo'].dirty && !formReg.controls['telFijo'].pristine, 'green-text text-darken-2':formReg.controls['telFijo'].valid }">
+                </i>
+                <input id="tel" type="tel"
+                       formControlName="telFijo"
+                       [ngClass]="{'invalid': !formReg.controls['telFijo'].valid && formReg.controls['telFijo'].dirty && !formReg.controls['telFijo'].pristine, 'valid':formReg.controls['telFijo'].valid}">
+                <label for="tel">Teléfono Fijo</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!formReg.controls['telFijo'].valid && formReg.controls['telFijo'].dirty && !formReg.controls['telFijo'].pristine">
+                  Deben ser 10 dígitos
+                </span>
+              </div> -->
+
+
               <div class="input-field col s12 m4">
-                <input id="nombre" type="text" class="mayusculas" formControlName="nombre"
+                <i class="mdi mdi-account prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['nombre'].valid && paseForm.controls['nombre'].dirty && !paseForm.controls['nombre'].pristine, 'green-text text-darken-2':paseForm.controls['nombre'].valid }">
+                </i>
+                <input id="nombre" type="text" class="mayusculas"
+                       formControlName="nombre"
                        [ngClass]="{'invalid': !paseForm.controls['nombre'].valid && paseForm.controls['nombre'].dirty && !paseForm.controls['nombre'].pristine, 'valid':paseForm.controls['nombre'].valid}">
                 <label for="nombre">Nombre(s)</label>
-              </div>
-              <div class="input-field col s12 m4">
-                <input id="paterno" type="text" class="mayusculas validate" formControlName="aPaterno"
-                       [ngClass]="{'invalid': !paseForm.controls['aPaterno'].valid && paseForm.controls['aPaterno'].dirty && !paseForm.controls['aPaterno'].pristine, 'valid':paseForm.controls['aPaterno'].valid}">
-                <label for="paterno">Apellido Paterno</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['nombre'].valid && paseForm.controls['nombre'].dirty && !paseForm.controls['nombre'].pristine">
+                  Dato invalido
+                </span>
               </div>
 
               <div class="input-field col s12 m4">
-                <input id="materno" type="text" class="mayusculas validate" formControlName="aMaterno"
+                <i class="mdi mdi-account-multiple prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['aPaterno'].valid && paseForm.controls['aPaterno'].dirty && !paseForm.controls['aPaterno'].pristine, 'green-text text-darken-2':paseForm.controls['aPaterno'].valid }">
+                </i>
+                <input id="paterno" type="text" class="mayusculas"
+                       formControlName="aPaterno"
+                       [ngClass]="{'invalid': !paseForm.controls['aPaterno'].valid && paseForm.controls['aPaterno'].dirty && !paseForm.controls['aPaterno'].pristine, 'valid':paseForm.controls['aPaterno'].valid}">
+                <label for="paterno">Apellido Paterno</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['aPaterno'].valid && paseForm.controls['aPaterno'].dirty && !paseForm.controls['aPaterno'].pristine">
+                  Dato invalido
+                </span>
+              </div>
+
+              <div class="input-field col s12 m4">
+                <i class="mdi mdi-account-multiple prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'green-text text-darken-2':paseForm.controls['aMaterno'].valid && !paseForm.controls['aMaterno'].pristine}">
+                </i>
+                <input id="materno" type="text" class="mayusculas"
+                       formControlName="aMaterno"
                        [ngClass]="{'invalid': !paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine, 'valid':paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine}">
                 <label for="materno">Apellido Materno</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['aMaterno'].valid && paseForm.controls['aMaterno'].dirty && !paseForm.controls['aMaterno'].pristine">
+                  Dato invalido
+                </span>
               </div>
             </div>
 
             <div class="row">
-              <div class="input-field col s12 m4" >
-                <i class="mdi mdi-calendar-check prefix"></i>
-                <input id="fechanac" type="text" class="datepicker" (change)="fechaNac($event)" (focus)="abrePicker()"
+              <div class="input-field col s12 m4">
+                <i class="mdi mdi-calendar-check prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['fechaNacimiento'].valid && paseForm.controls['fechaNacimiento'].dirty && !paseForm.controls['fechaNacimiento'].pristine, 'green-text text-darken-2':paseForm.controls['fechaNacimiento'].valid}">
+                </i>
+                <input id="fechanac" type="text" class="datepicker"
+                       (change)="fechaNac($event)"
+                       (focus)="abrePicker()"
                        [ngClass]="{'valid':paseForm.controls['fechaNacimiento'].valid}">
                 <label for="fechanac">Fecha de nacimiento</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['fechaNacimiento'].valid && paseForm.controls['fechaNacimiento'].dirty && !paseForm.controls['fechaNacimiento'].pristine">
+                  Este dato es requerido
+                </span>
               </div>
 
               <div class="input-field col s12 m4">
                 <span>Sexo:</span>
                 <p>
                   <label>
-                    <input name="sexo" type="radio" class="with-gap" value="M" formControlName="sexo"/>
-                    <span>Masculino</span>
+                    <input name="sexo" type="radio" class="with-gap valido" value="M" formControlName="sexo"/>
+                    <span [ngClass]="{'green-text bold': paseForm.controls['sexo'].value === 'M'}">Masculino</span>
                   </label>
                 </p>
                 <p>
                   <label>
-                    <input name="sexo" type="radio" class="with-gap" value="F" formControlName="sexo"/>
-                    <span>Femenino</span>
+                    <input name="sexo" type="radio" class="with-gap valido" value="F" formControlName="sexo"/>
+                    <span [ngClass]="{'green-text bold': paseForm.controls['sexo'].value === 'F'}">Femenino</span>
                   </label>
                 </p>
               </div>
@@ -52,19 +101,31 @@
 
             <div class="row">
               <div class="input-field col s12 m6">
-                <i class="mdi mdi-phone prefix"></i>
-                <input id="tel" type="tel" class="validate" formControlName="telefono"
+                <i class="mdi mdi-phone prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine, 'green-text text-darken-2':paseForm.controls['telefono'].valid && !paseForm.controls['telefono'].pristine }">
+                </i>
+                <input id="tel" type="tel" class="validate" formControlName="telefono" pattern="\d*"
                        [ngClass]="{'invalid': !paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine, 'valid':paseForm.controls['telefono'].valid && !paseForm.controls['telefono'].pristine}">
                 <label for="tel">Teléfono</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['telefono'].valid && paseForm.controls['telefono'].dirty && !paseForm.controls['telefono'].pristine">
+                  Deben ser 10 dígitos
+                </span>
               </div>
 
               <div class="input-field col s12 m6">
-                <i class="mdi mdi-email prefix"></i>
+                <i class="mdi mdi-email prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine, 'green-text text-darken-2':paseForm.controls['email'].valid && !paseForm.controls['email'].pristine }">
+                </i>
                 <input id="email" type="email" class="validate" formControlName="email"
                        [required]="paseForm.controls['mailPaciente'].value"
                        (keyup)="cambioMail($event)"
                        [ngClass]="{'invalid': !paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine }">
                 <label for="email">Email</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine">
+                  Correo invalido
+                </span>
               </div>
             </div>
 
@@ -79,41 +140,57 @@
             <div class="row">
               <div class="input-field col s12">
                 <i class="mdi mdi-clipboard-text prefix"
-                   [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine}">
+                   [ngClass]="{'red-text': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine, 'green-text text-darken-2':paseForm.controls['diagnostico'].valid }">
                 </i>
                 <textarea id="diagnostico" class="mayusculas materialize-textarea" formControlName="diagnostico"
                           [ngClass]="{'invalid': !paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine, 'valid':paseForm.controls['diagnostico'].valid}">
                 </textarea>
                 <label for="diagnostico">Diagnóstico</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['diagnostico'].valid && paseForm.controls['diagnostico'].dirty && !paseForm.controls['diagnostico'].pristine">
+                  Muy corto
+                </span>
               </div>
 
               <div class="input-field col s12">
                 <i class="mdi mdi-clipboard-check prefix"
-                   [ngClass]="{'red-text': !paseForm.controls['objetivo'].valid && paseForm.controls['objetivo'].dirty && !paseForm.controls['objetivo'].pristine}">
+                   [ngClass]="{'red-text': !paseForm.controls['objetivo'].valid && paseForm.controls['objetivo'].dirty && !paseForm.controls['objetivo'].pristine, 'green-text text-darken-2':paseForm.controls['objetivo'].valid }">
                 </i>
                 <textarea id="objetivo" class="mayusculas materialize-textarea" formControlName="objetivo"
                           [ngClass]="{'invalid': !paseForm.controls['objetivo'].valid && paseForm.controls['objetivo'].dirty && !paseForm.controls['objetivo'].pristine, 'valid':paseForm.controls['objetivo'].valid}">
                 </textarea>
                 <label for="objetivo">Objetivo de la terapia</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['objetivo'].valid && paseForm.controls['objetivo'].dirty && !paseForm.controls['objetivo'].pristine">
+                  Muy corto
+                </span>
               </div>
 
               <div class="input-field col s12 m4">
                 <i class="mdi mdi-calendar-range prefix"
-                   [ngClass]="{'red-text': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && !paseForm.controls['sesiones'].pristine}">
+                   [ngClass]="{'red-text': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && !paseForm.controls['sesiones'].pristine, 'green-text text-darken-2': paseForm.controls['sesiones'].valid && !paseForm.controls['sesiones'].pristine }">
                 </i>
                 <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1" max="99" pattern="\d*"
                        [ngClass]="{'invalid': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && paseForm.controls['sesiones'].touched && !paseForm.controls['sesiones'].pristine, 'valid':paseForm.controls['sesiones'].valid && !paseForm.controls['sesiones'].pristine}">
                 <label for="cantidad"># Sesiones a tomar</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && !paseForm.controls['sesiones'].pristine">
+                  Inválido
+                </span>
               </div>
 
               <div class="input-field col s12 m8">
-                <i class="mdi mdi-pencil prefix"
-                   [ngClass]="{'red-text': !paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && !paseForm.controls['tipoTerapia'].pristine}">
+                <i class="mdi mdi-message-bulleted prefix"
+                   [ngClass]="{'red-text': !paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && !paseForm.controls['tipoTerapia'].pristine, 'green-text text-darken-2':paseForm.controls['tipoTerapia'].valid }">
                 </i>
                 <textarea id="tipoTerapia" class="mayusculas materialize-textarea validate" formControlName="tipoTerapia"
-                          [ngClass]="{'invalid': !paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && !paseForm.controls['tipoTerapia'].pristine, 'valid':paseForm.controls['tipoTerapia'].valid}">
+                          [ngClass]="{'invalid': !paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && paseForm.controls['tipoTerapia'].touched && !paseForm.controls['tipoTerapia'].pristine, 'valid':paseForm.controls['tipoTerapia'].valid && !paseForm.controls['tipoTerapia'].pristine}">
                 </textarea>
                 <label for="tipoTerapia">Observaciones</label>
+                <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                     *ngIf="!paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && !paseForm.controls['tipoTerapia'].pristine">
+                  Muy corto
+                </span>
               </div>
             </div>
 
@@ -287,45 +364,49 @@
                   <p>¿Deseas enviar Órden de Rehabilitación al email del paciente?</p>
                   <p>
                     <label>
-                      <input class="with-gap" name="mailPaciente" type="radio" [value]="false" formControlName="mailPaciente" />
-                      <span>NO</span>
+                      <input class="with-gap valido" name="mailPaciente" type="radio" [value]="false" formControlName="mailPaciente" />
+                      <span [ngClass]="{'green-text bold': !paseForm.controls['mailPaciente'].value}">NO</span>
                     </label>
                   </p>
 
                   <p>
                     <label>
-                      <input class="with-gap" name="mailPaciente" type="radio" [value]="true" formControlName="mailPaciente" />
-                      <span>SI</span>
+                      <input class="with-gap valido" name="mailPaciente" type="radio" [value]="true" formControlName="mailPaciente" />
+                      <span [ngClass]="{'green-text bold': paseForm.controls['mailPaciente'].value}">SI</span>
                     </label>
                   </p>
 
-                  <div class="input-field col s12 m6 l4" *ngIf="paseForm.controls['mailPaciente'].value">
+                  <div class="input-field col s12 m6 l4" [hidden]="!paseForm.controls['mailPaciente'].value">
                     <i class="mdi mdi-contact-mail prefix"
-                       [ngClass]="{'red-text': !paseForm.controls['email'].valid}">
+                       [ngClass]="{'red-text': !paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine, 'green-text text-darken-2':paseForm.controls['email'].valid }">
                     </i>
 
-                    <input id="email_inline" type="email" class="validate"
+                    <input id="email_inline" type="email"
                            [(ngModel)]="cambiosEmail" [ngModelOptions]="{standalone: true}"
                            (keyup)="cambioMail2($event)"
                            [disabled]="!paseForm.controls['mailPaciente'].value"
-                           [ngClass]="{'invalid': !paseForm.controls['email'].valid, 'valid':paseForm.controls['email'].valid}">
+                           [ngClass]="{'invalid': !paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine, 'valid':paseForm.controls['email'].valid}">
                     <label for="email_inline">Email del paciente</label>
+                    <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                         *ngIf="!paseForm.controls['email'].valid && paseForm.controls['email'].dirty && !paseForm.controls['email'].pristine">
+                      Correo Inválido
+                    </span>
                   </div>
                 </div>
 
                 <div class="col s12 espacio">
-                  <p>¿Deseas recibir en {{ usuario.USU_email }} esta Órden de Rehabilitación?</p>
+                  <p>¿Deseas recibir en <span class="azul-text">{{ usuario.USU_email }}</span> esta Orden de Rehabilitación?</p>
                   <p>
                     <label>
-                      <input class="with-gap" name="copiaOrden" type="radio" [value]="false" formControlName="copiaOrden" />
-                      <span>NO</span>
+                      <input class="with-gap valido" name="copiaOrden" type="radio" [value]="false" formControlName="copiaOrden" />
+                      <span [ngClass]="{'green-text bold': !paseForm.controls['copiaOrden'].value}">NO</span>
                     </label>
                   </p>
 
                   <p>
                     <label>
-                      <input class="with-gap" name="copiaOrden" type="radio" [value]="true" formControlName="copiaOrden" />
-                      <span>SI</span>
+                      <input class="with-gap valido" name="copiaOrden" type="radio" [value]="true" formControlName="copiaOrden" />
+                      <span [ngClass]="{'green-text bold': paseForm.controls['copiaOrden'].value}">SI</span>
                     </label>
                   </p>
                 </div>

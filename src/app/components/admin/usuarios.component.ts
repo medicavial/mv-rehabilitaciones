@@ -32,14 +32,15 @@ export class UsuariosComponent implements OnInit {
                  this.formReg = new FormGroup({
                    'username'   : new FormControl( '', [ Validators.required, Validators.pattern("[a-zñA-ZÑ0-9]{4,20}") ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
                    'password'   : new FormControl( '', [ Validators.minLength(6), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
-                   'nombre'     : new FormControl( '', [ Validators.minLength(3), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
-                   'paterno'    : new FormControl( '', [ Validators.minLength(3), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
-                   'materno'    : new FormControl( '', [ Validators.minLength(3), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
+                   'nombre'     : new FormControl( '', [ Validators.minLength(1), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
+                   'paterno'    : new FormControl( '', [ Validators.minLength(1), Validators.required ] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
+                   'materno'    : new FormControl( '', [] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
                    'telFijo'    : new FormControl( '', [ Validators.minLength(10), Validators.maxLength(10), Validators.required ] ),
                    'telMovil'   : new FormControl( '', [ Validators.minLength(10), Validators.maxLength(10), Validators.required ] ),
                    'email'      : new FormControl( '', [ Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,3}$") ] ),
                    'rfc'        : new FormControl( '', [ Validators.required, Validators.pattern("([a-zñA-ZÑ]{3,4})+([0-9]{6})+([a-zñA-ZÑ0-9]{3})") ] ),
                    'persona'    : new FormControl( '', [ Validators.required ] ),
+                   'banco'      : new FormControl( '', [ Validators.required, Validators.minLength(1) ] ),
                    'clabe'      : new FormControl( '', [ Validators.required, Validators.pattern("[0-9]{18}") ] ),
                    'archivo'    : new FormControl( null, [ Validators.required ] ),
                    'calle'      : new FormControl( '', [ Validators.required, Validators.minLength(5) ] ),
@@ -48,7 +49,7 @@ export class UsuariosComponent implements OnInit {
                    'municipio'  : new FormControl( '', [ Validators.required, Validators.minLength(4) ] ),
                    'comision'   : new FormControl( '', [ Validators.required, Validators.min(1) ] ),
                    'comision10' : new FormControl( '', [ Validators.required, Validators.min(1) ] ),
-                   'cuentas'    : new FormControl( null, [ ] ),
+                   'cuentas'    : new FormControl( null, [] ),
                  })
                }
 
@@ -77,44 +78,60 @@ export class UsuariosComponent implements OnInit {
   }
 
   guardaUsuario(){
-    this.trabajando = true;
+    if (this.formReg.valid) {
+      this.trabajando = true;
 
-    let datos = {
-      tipo        : this.tipoReg,
-      username    : this.minusculas( this.formReg.controls['username'].value ),
-      password    : this.formReg.controls['password'].value,
-      nombre      : this.mayusculas( this.formReg.controls['nombre'].value ),
-      paterno     : this.mayusculas( this.formReg.controls['paterno'].value ),
-      materno     : this.mayusculas( this.formReg.controls['materno'].value ),
-      telFijo     : this.formReg.controls['telFijo'].value,
-      telMovil    : this.formReg.controls['telMovil'].value,
-      email       : this.minusculas( this.formReg.controls['email'].value ),
-      rfc         : this.mayusculas( this.formReg.controls['rfc'].value ),
-      persona     : this.formReg.controls['persona'].value,
-      clabe       : this.formReg.controls['clabe'].value,
-      archivo     : this.formReg.controls['archivo'].value,
-      calle       : this.mayusculas( this.formReg.controls['calle'].value ),
-      cp          : this.formReg.controls['cp'].value,
-      colonia     : this.mayusculas( this.formReg.controls['colonia'].value ),
-      municipio   : this.mayusculas( this.formReg.controls['municipio'].value ),
-      comision    : this.formReg.controls['comision'].value,
-      comision10  : this.formReg.controls['comision10'].value,
-      cuentas     : this.formReg.controls['cuentas'].value
+      if (this.cuentas.length===0) {
+        let cuenta={
+          banco: this.mayusculas(this.formReg.controls['banco'].value),
+          clabe: this.formReg.controls['clabe'].value,
+          archivo: this.formReg.controls['archivo'].value
+        }
+        this.cuentas.push( cuenta );
+        this.formReg.controls['cuentas'].setValue( this.cuentas );
+
+        this.formReg.controls['banco'].setValue(null);
+        this.formReg.controls['clabe'].setValue(null);
+        this.formReg.controls['archivo'].setValue(null);
+      }
+
+      let datos = {
+        tipo        : this.tipoReg,
+        username    : this.minusculas( this.formReg.controls['username'].value ),
+        password    : this.formReg.controls['password'].value,
+        nombre      : this.mayusculas( this.formReg.controls['nombre'].value ),
+        paterno     : this.mayusculas( this.formReg.controls['paterno'].value ),
+        materno     : this.mayusculas( this.formReg.controls['materno'].value ),
+        telFijo     : this.formReg.controls['telFijo'].value,
+        telMovil    : this.formReg.controls['telMovil'].value,
+        email       : this.minusculas( this.formReg.controls['email'].value ),
+        rfc         : this.mayusculas( this.formReg.controls['rfc'].value ),
+        persona     : this.formReg.controls['persona'].value,
+        banco       : this.formReg.controls['banco'].value,
+        clabe       : this.formReg.controls['clabe'].value,
+        archivo     : this.formReg.controls['archivo'].value,
+        calle       : this.mayusculas( this.formReg.controls['calle'].value ),
+        cp          : this.formReg.controls['cp'].value,
+        colonia     : this.mayusculas( this.formReg.controls['colonia'].value ),
+        municipio   : this.mayusculas( this.formReg.controls['municipio'].value ),
+        comision    : this.formReg.controls['comision'].value,
+        comision10  : this.formReg.controls['comision10'].value,
+        cuentas     : this.formReg.controls['cuentas'].value
+      }
+      console.log( datos );
+      this._operacion.guardaUsuario(datos)
+                      .subscribe( data =>{
+                        console.log(data);
+                        this.trabajando = false;
+                        if ( data.respuesta == 'username' ) {
+                          this.username=true;
+                            // alert('el nombre de usuario ya está en uso');
+                        }
+                        else{
+                          this.username=false;
+                        }
+                      })
     }
-
-    // console.log( datos );
-    this._operacion.guardaUsuario(datos)
-                    .subscribe( data =>{
-                      console.log(data);
-                      this.trabajando = false;
-                      if ( data.respuesta == 'username' ) {
-                        this.username=true;
-                          // alert('el nombre de usuario ya está en uso');
-                      }
-                      else{
-                        this.username=false;
-                      }
-                    })
   }
 
   dialogoArchivo(){
@@ -168,6 +185,7 @@ export class UsuariosComponent implements OnInit {
 
   guardaCuenta(){
     let cuenta={
+      banco: this.mayusculas(this.formReg.controls['banco'].value),
       clabe: this.formReg.controls['clabe'].value,
       archivo: this.formReg.controls['archivo'].value
     }
@@ -178,6 +196,12 @@ export class UsuariosComponent implements OnInit {
     this.formReg.controls['clabe'].markAsPristine();
     this.formReg.controls['clabe'].markAsUntouched();
     this.formReg.controls['clabe'].setValidators( [ Validators.pattern("[0-9]{18}") ] );
+
+    this.formReg.controls['banco'].reset();
+    this.formReg.controls['banco'].markAsPristine();
+    this.formReg.controls['banco'].markAsUntouched();
+    this.formReg.controls['banco'].setValidators( [ Validators.minLength(1) ] );
+
     this.formReg.controls['archivo'].reset();
     // this.formReg.controls['archivo'].setValue(null);
     // document.getElementById("filename").value = null;
@@ -186,6 +210,14 @@ export class UsuariosComponent implements OnInit {
     console.log( this.formReg.controls['cuentas'].value );
     if (this.cuentas.length > 1 ) {
       this.nuevaCuenta = false;
+      this.formReg.controls['clabe'].setValidators([]);
+      this.formReg.controls['banco'].setValidators([]);
+      this.formReg.controls['archivo'].setValidators([]);
+      // this.formReg.controls['clabe'].setValidators( [ Validators.required ] );
+      // this.formReg.controls['banco'].setValidators( [ Validators.required ] );
+      console.log(this.formReg.controls['clabe']);
+      console.log(this.formReg.controls['banco']);
+      console.log(this.formReg.controls['archivo']);
     }
     if (this.cuentas.length === 1) {
         this.nuevaCuenta = true;
@@ -194,6 +226,22 @@ export class UsuariosComponent implements OnInit {
 
   formCuenta(){
     this.nuevaCuenta = true;
+    this.formReg.controls['banco'].reset();
+    this.formReg.controls['banco'].setValue('');
+    this.formReg.controls['banco'].setValidators( [ Validators.required ] );
+    this.formReg.controls['banco'].setValidators( [ Validators.minLength(1) ] );
+
+    this.formReg.controls['clabe'].reset();
+    this.formReg.controls['clabe'].setValue('');
+    this.formReg.controls['clabe'].setValidators( [ Validators.required ] );
+    this.formReg.controls['clabe'].setValidators( [ Validators.pattern("[0-9]{18}") ] );
+
+    this.formReg.controls['archivo'].reset();
+    this.formReg.controls['archivo'].setValue(null);
+  }
+
+  cancelaCuenta(){
+    this.nuevaCuenta = false;
   }
 
 }

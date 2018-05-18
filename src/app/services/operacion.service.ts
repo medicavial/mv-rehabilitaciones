@@ -13,7 +13,7 @@ export class OperacionService {
   link = this._api.conexion();
 
   generaPase( datos ){
-   let url = `${ this.link.principal}/externos/generapase`;
+   let url = `${ this.link.principal }/externos/generapase`;
    let headers = new Headers({
      'Content-Type':'aplication/json'
    });
@@ -25,7 +25,7 @@ export class OperacionService {
   }
 
   guardaUsuario( datos ){
-    let url = `${ this.link.principal}/externos/guarda-usuario`;
+    let url = `${ this.link.principal }/externos/guarda-usuario`;
     let headers = new Headers({
       'Content-Type':'aplication/json'
     });

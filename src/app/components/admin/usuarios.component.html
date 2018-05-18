@@ -105,11 +105,11 @@
 
             <div class="input-field col s12 m4">
               <i class="mdi mdi-account-multiple prefix"
-                 [ngClass]="{'red-text': !formReg.controls['materno'].valid && formReg.controls['materno'].dirty && !formReg.controls['materno'].pristine, 'green-text text-darken-2':formReg.controls['materno'].valid }">
+                 [ngClass]="{'red-text': !formReg.controls['materno'].valid && formReg.controls['materno'].dirty && !formReg.controls['materno'].pristine, 'green-text text-darken-2':formReg.controls['materno'].valid && !formReg.controls['materno'].pristine }">
               </i>
               <input id="materno" type="text" class="mayusculas"
                      formControlName="materno"
-                     [ngClass]="{'invalid': !formReg.controls['materno'].valid && formReg.controls['materno'].dirty && !formReg.controls['materno'].pristine, 'valid':formReg.controls['materno'].valid}">
+                     [ngClass]="{'invalid': !formReg.controls['materno'].valid && formReg.controls['materno'].dirty && !formReg.controls['materno'].pristine, 'valid':formReg.controls['materno'].valid  && !formReg.controls['materno'].pristine }">
               <label for="materno">Apellido Materno</label>
             </div>
           </div>
@@ -195,7 +195,23 @@
           </div>
 
           <div class="row">
-            <p class="azul-text">DATOS BANCARIOS <span>({{ cuentas.length }} cuentas agregadas)</span> </p>
+            <p class="azul-text">DATOS BANCARIOS <span *ngIf="cuentas .length > 0">({{ cuentas.length }} cuentas agregadas)</span> </p>
+            <div class="input-field col s12 m4"
+                 *ngIf="cuentas.length === 0 || nuevaCuenta">
+              <i class="mdi mdi-bank prefix"
+                 [ngClass]="{'red-text': !formReg.controls['banco'].valid && formReg.controls['banco'].dirty && !formReg.controls['banco'].pristine, 'green-text text-darken-2':formReg.controls['banco'].valid }">
+              </i>
+              <input id="banco" type="text" class="mayusculas"
+                     formControlName="banco"
+                     [ngClass]="{ 'invalid': !formReg.controls['banco'].valid && formReg.controls['banco'].dirty && !formReg.controls['banco'].pristine,
+                                  'valid':formReg.controls['banco'].valid }">
+              <label for="banco">Nombre del banco</label>
+              <span class="helper-text red-text animated fadeIn fast" data-success="right"
+                   *ngIf="!formReg.controls['banco'].valid && formReg.controls['banco'].dirty && !formReg.controls['banco'].pristine">
+                Incorrecto
+              </span>
+            </div>
+
             <div class="input-field col s12 m4"
                  *ngIf="cuentas.length === 0 || nuevaCuenta">
               <i class="mdi mdi-credit-card-plus prefix"
@@ -203,7 +219,8 @@
               </i>
               <input id="clabe" type="text" class="mayusculas"
                      formControlName="clabe"
-                     [ngClass]="{'invalid': !formReg.controls['clabe'].valid && formReg.controls['clabe'].dirty && !formReg.controls['clabe'].pristine, 'valid':formReg.controls['clabe'].valid}">
+                     [ngClass]="{ 'invalid': !formReg.controls['clabe'].valid && formReg.controls['clabe'].dirty && !formReg.controls['clabe'].pristine,
+                                  'valid': formReg.controls['clabe'].valid }">
               <label for="clabe">CLABE Interbancaria</label>
               <span class="helper-text red-text animated fadeIn fast" data-success="right"
                    *ngIf="!formReg.controls['clabe'].valid && formReg.controls['clabe'].dirty && !formReg.controls['clabe'].pristine">
@@ -211,7 +228,7 @@
               </span>
             </div>
 
-            <div class="col s12 m5 file-field input-field"
+            <div class="col s12 m4 file-field input-field"
                  *ngIf="cuentas.length === 0 || nuevaCuenta">
               <div class="btn-small orange">
                 <span>Archivo...</span>
@@ -229,22 +246,30 @@
             </div>
 
             <div class="col s12 m3 center-align" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
-              <button type="button" name="button" class="btn btn-floating btn-large blue waves-effect waves-light"
+              <button type="button" name="button" class="btn btn-block blue waves-effect waves-light"
                       *ngIf="cuentas.length > 0 && nuevaCuenta"
                       [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid && formReg.controls['clabe'].value != ''"
                       (click)="guardaCuenta()">
                       <!-- [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid" -->
-                <i class="mdi mdi-check">
-                </i>
+                <i class="mdi mdi-check"></i> Guardar Cuenta
               </button>
+            </div>
 
-              <button type="button" name="button" class="btn btn-floating btn-large purple waves-effect waves-light"
+            <div class="col s12 m3 center-align" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
+              <button type="button" name="button" class="btn btn-block purple waves-effect waves-light"
                       *ngIf="cuentas.length === 0"
                       [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid && formReg.controls['clabe'].value != ''"
                       (click)="guardaCuenta()">
                       <!-- [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid" -->
-                <i class="mdi mdi-plus">
-                </i>
+                <i class="mdi mdi-plus"></i> Agregar otra cuenta
+              </button>
+            </div>
+
+            <div class="col s12 m3 center-align" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
+              <button type="button" name="button" class="btn btn-block red waves-effect waves-light"
+                      *ngIf="cuentas.length > 0 && nuevaCuenta"
+                      (click)="cancelaCuenta()">
+                <i class="mdi mdi-cancel"></i> Cancelar
               </button>
             </div>
 
@@ -253,6 +278,10 @@
                 <tbody>
                   <tr *ngFor="let item of cuentas; let i = index">
                     <td>{{ i + 1 }}</td>
+                    <td>
+                      <i class="mdi mdi-bank teal-text"></i>
+                      <b>{{ item.banco }}</b>
+                    </td>
                     <td>
                       <i class="mdi mdi-credit-card-multiple teal-text"></i>
                       <b>{{ item.clabe }}</b>
@@ -267,13 +296,13 @@
                       </a>
                     </td>
                     <td class="center-align">
-                      <button class="btn-floating waves-effect waves-light"
+                      <a class="btn-floating waves-effect waves-light"
                          (click)="formCuenta()"
                          *ngIf="i+1 === cuentas.length"
                          [ngClass]="{'disabled': nuevaCuenta}">
                          <!-- [ngClass]="{disabled: !formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid}" -->
                         <i class="mdi mdi-plus"></i>
-                      </button>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -324,14 +353,24 @@
               <label for="estado" class="truncate">Municipio y Estado</label>
             </div>
 
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m3 l4">
               <i class="mdi mdi-currency-usd prefix"
                  [ngClass]="{'red-text': !formReg.controls['comision'].valid && formReg.controls['comision'].dirty && !formReg.controls['comision'].pristine, 'green-text text-darken-2':formReg.controls['comision'].valid }">
               </i>
-              <input id="comision" type="number"
+              <input id="comision" type="number" pattern="\d*"
                      formControlName="comision"
                      [ngClass]="{'invalid': !formReg.controls['comision'].valid && formReg.controls['comision'].dirty && !formReg.controls['comision'].pristine, 'valid':formReg.controls['comision'].valid}">
               <label for="comision">Comisión por bloque de 5</label>
+            </div>
+
+            <div class="input-field col s12 m3 l4">
+              <i class="mdi mdi-currency-usd prefix"
+                 [ngClass]="{'red-text': !formReg.controls['comision10'].valid && formReg.controls['comision10'].dirty && !formReg.controls['comision10'].pristine, 'green-text text-darken-2':formReg.controls['comision10'].valid }">
+              </i>
+              <input id="comision10" type="number" pattern="\d*"
+                     formControlName="comision10"
+                     [ngClass]="{'invalid': !formReg.controls['comision10'].valid && formReg.controls['comision10'].dirty && !formReg.controls['comision10'].pristine, 'valid':formReg.controls['comision10'].valid}">
+              <label for="comision10">Comisión por bloque de 10</label>
             </div>
           </div>
 

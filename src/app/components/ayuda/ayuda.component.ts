@@ -24,7 +24,7 @@ export class AyudaComponent implements OnInit {
     this.buscando = true;
     this._busquedas.listaUnidades()
                    .subscribe( data =>{
-                     console.log(data)
+                     // console.log(data)
                       this.buscando = false;
                       this.clinicas=data;
                    })

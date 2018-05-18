@@ -31,6 +31,7 @@ import { PasesComponent } from './components/pacientes/pases.component';
 import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { UsuariosComponent } from './components/admin/usuarios.component';
+import { AjustesUsuarioComponent } from './components/admin/ajustes-usuario.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { UsuariosComponent } from './components/admin/usuarios.component';
     PasesComponent,
     DomseguroPipe,
     AyudaComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    AjustesUsuarioComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,68 @@
+<div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
+  <div class="row animated fadeIn fast">
+
+    <div class="col s12 card">
+      <div class="card-content">
+        <p class="card-title azul-text">
+          Editar Perfil de Usuario (En desarrollo <i class="mdi mdi-coffee"></i>)
+        </p>
+
+        <p class="card-title">
+          <i class="mdi mdi-account-box"></i> {{ usuario.fullName }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="collapsible popout">
+        <li>
+          <div class="collapsible-header">
+            <h5>
+              <i class="mdi mdi-account-key"></i>
+              Datos de acceso
+            </h5>
+          </div>
+          <div class="collapsible-body white">
+            <div class="row">
+              <div class="col s12 m6 l4">
+                Usuario: {{ usuario.username }}
+                <button type="button" name="button" class="btn btn-small waves-effect waves-light orange">
+                  <i class="mdi mdi-lock-reset"></i> Cambio de contraseña
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="collapsible-header">
+            <h5>
+              <i class="mdi mdi-contacts"></i>
+              Datos de contacto
+            </h5>
+          </div>
+          <div class="collapsible-body white">
+            <p>Teléfono: {{ usuario.USU_telefono }}</p>
+            <p>Email: {{ usuario.USU_email }}</p>
+          </div>
+        </li>
+
+        <li>
+          <div class="collapsible-header">
+            <h5>
+              <i class="mdi mdi-credit-card-multiple"></i>
+              Datos bancarios
+            </h5>
+          </div>
+          <div class="collapsible-body white">
+            <p>RFC: XAXX010101000</p>
+            <p>BANCO: ******193</p>
+            <p>BANCO: ******478</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

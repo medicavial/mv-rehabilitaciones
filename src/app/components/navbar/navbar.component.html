@@ -16,7 +16,7 @@
 
 <ul id="slide-out" class="sidenav sidenav-fixed" *ngIf="_authService.checkSession()">
   <li>
-    <div class="user-view">
+    <div class="user-view seleccion" [routerLink]="['/perfil']">
       <div class="background">
         <img src="assets/img/bg/rh3.jpg">
       </div>

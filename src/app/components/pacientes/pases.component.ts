@@ -40,7 +40,7 @@ export class PasesComponent implements OnInit {
                    'aMaterno'       : new FormControl( '', [] ), // Validators.pattern("^[a-zñáéíóúA-ZÑÁÉÍÓÚ ]*$")
                    'fechaNacimiento': new FormControl( null, [ Validators.required ] ),
                    'sexo'           : new FormControl( '', [] ),
-                   'telefono'       : new FormControl( '', [ Validators.maxLength(12) ] ),
+                   'telefono'       : new FormControl( '', [ Validators.minLength(10), Validators.maxLength(10) ] ),
                    'email'          : new FormControl( '', [ Validators.email ] ),
                    'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
@@ -73,7 +73,7 @@ export class PasesComponent implements OnInit {
     var instance = M.Datepicker.init(this.elem, {
       format: 'yyyy-mm-dd',
       showMonthAfterYear: true,
-      showClearBtn: true,
+      // showClearBtn: true,
       yearRange: [
         fechas.anio-100,
         fechas.anio

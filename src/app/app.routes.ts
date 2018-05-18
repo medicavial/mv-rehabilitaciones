@@ -9,6 +9,7 @@ import { AdminPanelComponent } from './components/admin/admin-panel.component';
 import { PasesComponent } from './components/pacientes/pases.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { UsuariosComponent } from "./components/admin/usuarios.component";
+import { AjustesUsuarioComponent } from './components/admin/ajustes-usuario.component';
 
 //importamos servicios
 import { AuthService } from "./services/auth.service";
@@ -52,6 +53,12 @@ const APP_ROUTES: Routes = [
     path: 'usuarios',
     component: UsuariosComponent,
     data: { title: 'Usuarios' },
+    canActivate: [AuthService]
+  },
+  {
+    path: 'perfil',
+    component: AjustesUsuarioComponent,
+    data: { title: 'Perfil' },
     canActivate: [AuthService]
   },
   {

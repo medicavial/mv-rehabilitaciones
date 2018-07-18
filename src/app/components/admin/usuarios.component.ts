@@ -61,7 +61,7 @@ export class UsuariosComponent implements OnInit {
     this.buscando = true;
     this._busquedas.listadoMedicos()
                    .subscribe( data =>{
-                     console.log(data);
+                     // console.log(data);
                      if ( data.length > 0 ) {
                        this.listadoUsuarios = data;
                      }
@@ -73,7 +73,7 @@ export class UsuariosComponent implements OnInit {
     this.tipoReg = tipo;
     this.registro = !this.registro;
     if ( this.registro === false ) {
-        this.tipoReg = '';
+        this.limpiaFormulario();
     }
   }
 
@@ -126,12 +126,25 @@ export class UsuariosComponent implements OnInit {
                         if ( data.respuesta == 'username' ) {
                           this.username=true;
                             // alert('el nombre de usuario ya está en uso');
-                        }
-                        else{
+                        } else{
                           this.username=false;
+                        }
+                        if( data.respuesta === 1 && data.idUsuario > 0 ){
+                          this.limpiaFormulario();
+                          this.listadoMedicos();
                         }
                       })
     }
+  }
+
+  limpiaFormulario(){
+    this.tipoReg = '';
+    this.registro = false;
+    this.username = false;
+    this.buscaUsuario = false;
+    this.primerBusqueda = false;
+    this.cuentas = [];
+    this.formReg.reset();
   }
 
   dialogoArchivo(){
@@ -151,7 +164,7 @@ export class UsuariosComponent implements OnInit {
           filetype: file.type,
           value: reader.result.split(',')[1]
         })
-      console.log( this.formReg.controls['archivo'].value );
+      // console.log( this.formReg.controls['archivo'].value );
       };
     }
   }
@@ -207,17 +220,17 @@ export class UsuariosComponent implements OnInit {
     // document.getElementById("filename").value = null;
     $('#filename').val(null);
 
-    console.log( this.formReg.controls['cuentas'].value );
+    // console.log( this.formReg.controls['cuentas'].value );
     if (this.cuentas.length > 1 ) {
       this.nuevaCuenta = false;
-      this.formReg.controls['clabe'].setValidators([]);
-      this.formReg.controls['banco'].setValidators([]);
-      this.formReg.controls['archivo'].setValidators([]);
+      this.formReg.controls['clabe'].setValidators([ Validators.required, Validators.pattern("[0-9]{18}") ]);
+      this.formReg.controls['banco'].setValidators([ Validators.required, Validators.minLength(1) ]);
+      this.formReg.controls['archivo'].setValidators([ Validators.required ]);
       // this.formReg.controls['clabe'].setValidators( [ Validators.required ] );
       // this.formReg.controls['banco'].setValidators( [ Validators.required ] );
-      console.log(this.formReg.controls['clabe']);
-      console.log(this.formReg.controls['banco']);
-      console.log(this.formReg.controls['archivo']);
+      // console.log(this.formReg.controls['clabe']);
+      // console.log(this.formReg.controls['banco']);
+      // console.log(this.formReg.controls['archivo']);
     }
     if (this.cuentas.length === 1) {
         this.nuevaCuenta = true;
@@ -227,14 +240,15 @@ export class UsuariosComponent implements OnInit {
   formCuenta(){
     this.nuevaCuenta = true;
     this.formReg.controls['banco'].reset();
-    this.formReg.controls['banco'].setValue('');
-    this.formReg.controls['banco'].setValidators( [ Validators.required ] );
-    this.formReg.controls['banco'].setValidators( [ Validators.minLength(1) ] );
+    this.formReg.controls['banco'].setValue(null);
+    // this.formReg.controls['banco'].setValidators( [  ] );
+    // this.formReg.controls['banco'].setValidators( [ Validators.required, Validators.minLength(1) ] );
+    this.formReg.controls['banco'].invalid;
 
     this.formReg.controls['clabe'].reset();
-    this.formReg.controls['clabe'].setValue('');
-    this.formReg.controls['clabe'].setValidators( [ Validators.required ] );
-    this.formReg.controls['clabe'].setValidators( [ Validators.pattern("[0-9]{18}") ] );
+    this.formReg.controls['clabe'].setValue(null);
+    // this.formReg.controls['clabe'].setValidators( [ Validators.pattern("[0-9]{18}") ] );
+    this.formReg.controls['clabe'].invalid;
 
     this.formReg.controls['archivo'].reset();
     this.formReg.controls['archivo'].setValue(null);
@@ -242,6 +256,12 @@ export class UsuariosComponent implements OnInit {
 
   cancelaCuenta(){
     this.nuevaCuenta = false;
+  }
+
+  eliminaCuenta( index ){
+    console.log( index );
+    this.cuentas.splice(index,1);
+    this.formReg.controls['cuentas'].setValue( this.cuentas );
   }
 
 }

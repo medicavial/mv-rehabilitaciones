@@ -17,7 +17,7 @@ export class AyudaComponent implements OnInit {
                private _busquedas: BusquedasService ) {}
 
   ngOnInit() {
-    this.getListaUnidades();
+    // this.getListaUnidades();
   }
 
   getListaUnidades(){

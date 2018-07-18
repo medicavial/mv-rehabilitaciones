@@ -27,21 +27,45 @@
 
   <div class="row animated fadeIn fast espacio-minimo">
     <div class="col s12 card" >
-      <a class="btn-floating waves-effect waves-light right tooltipped animated fadeIn fast red espacio-xs" (click)="verOpciones()"
+      <a class="btn-floating waves-effect waves-light right tooltipped animated fadeIn fast red espacio-xs"
+         (click)="verOpciones()"
+         [hidden]="listadoPases.length < 1"
          [ngClass]="{'hide': buscando || opciones }"><i class="mdi mdi-table-search"></i>
        </a>
-      <!-- [ngClass]="{'espacio-minimo': opciones}" -->
-      <div class="card-content" *ngIf="listadoPases.length > 0">
+      <div class="card-content">
         <span class="card-title azul-text"><i class="mdi mdi-clipboard-check"></i>
           Órdenes recientes
-          <a class="btn-floating waves-effect waves-light"
-             [ngClass]="{'light-green': !ver, 'purple': ver}"
-             (click)="verMasDetalles()" data-position="bottom" data-tooltip="Ver mas detalles">
+          <!-- <a class="btn-floating waves-effect waves-light tooltipped"
+             data-position="left" data-tooltip="I am a tooltip"
+             [ngClass]="{'light-green verMas': !ver, 'purple verMenos': ver}"
+             (click)="verMasDetalles()">
              <i class="mdi mdi-eye-plus animated fadeIn fast" *ngIf="!ver"></i>
              <i class="mdi mdi-eye-off animated fadeIn fast" *ngIf="ver"></i>
+          </a> -->
+          <a class="btn-floating waves-effect waves-light tooltipped light-green verMas"
+             [hidden]="ver || listadoPases.length < 1"
+             [ngClass]="{'hide': buscando}"
+             (click)="verMasDetalles()">
+             <!-- *ngIf="listadoPases.length > 0" -->
+             <i class="mdi mdi-eye-plus animated fadeIn fast"></i>
           </a>
+          <a class="btn-floating waves-effect waves-light tooltipped purple verMenos"
+             [hidden]="!ver || listadoPases.length < 1"
+             [ngClass]="{'hide': buscando}"
+             (click)="verMasDetalles()">
+             <!-- *ngIf="listadoPases.length > 0" -->
+             <i class="mdi mdi-eye-off animated fadeIn fast"></i>
+          </a>
+
+
         </span>
-          <ngx-datatable #table class="material no-shadow seleccion"
+          <div *ngIf="listadoPases.length < 1" class="center-align blue-grey-text text-lighten-2">
+            <i class="mdi mdi-alert-circle mdi-36px"></i>
+            <br>
+            No se han registrado órdenes.
+          </div>
+          <!-- <ngx-datatable #table class="material no-shadow seleccion" *ngIf="listadoPases.length > 0" -->
+          <ngx-datatable #table class="material no-shadow seleccion" [hidden]="listadoPases.length < 1"
                           [rows]="rows"
                           columnMode="force"
                           [headerHeight]="50"
@@ -53,16 +77,65 @@
                           [selectionType]="'single'"
                           (select)='seleccion($event)'>
           <!-- <ngx-datatable-column prop="PAS_id" name="#" [width]="10"></ngx-datatable-column> -->
-          <ngx-datatable-column prop="claveOrden" name="Orden"></ngx-datatable-column>
-          <ngx-datatable-column prop="PAS_catidadRehab" name="Sesiones" *ngIf="ver===true"></ngx-datatable-column>
-          <ngx-datatable-column prop="EAD_alias" name="E.A." [width]="10"></ngx-datatable-column>
-          <ngx-datatable-column prop="EAT_alias" name="E.R." [width]="10"></ngx-datatable-column>
-          <ngx-datatable-column prop="nombreCompleto" name="Nombre"></ngx-datatable-column>
-          <ngx-datatable-column name="Bitácora"></ngx-datatable-column>
-          <ngx-datatable-column prop="estatusDias" name="Antiguedad"></ngx-datatable-column>
-          <ngx-datatable-column name="Informe" *ngIf="ver===true"></ngx-datatable-column>
-          <ngx-datatable-column prop="fechaFacil" name="Emitido" *ngIf="ver===true"></ngx-datatable-column>
-          <ngx-datatable-column prop="PAS_diagnostico" name="Diagnóstico" *ngIf="ver===true"></ngx-datatable-column>
+          <ngx-datatable-column prop="claveOrden" name="Orden">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="PAS_catidadRehab" name="Sesiones" *ngIf="ver">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Cantidad de sesiones">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="EAD_alias" name="E.A." [width]="10">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="EAT_alias" name="E.R." [width]="10">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="nombreCompleto" name="Nombre">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Bitácora">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="estatusDias" name="Antiguedad">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Informe" *ngIf="ver">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="fechaFacil" name="Emitido" *ngIf="ver">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
+
+          <ngx-datatable-column prop="PAS_diagnostico" name="Diagnóstico" *ngIf="ver">
+            <!-- <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
+            </ng-template> -->
+          </ngx-datatable-column>
         </ngx-datatable>
       </div>
     </div>
@@ -85,3 +158,54 @@
     </div>
   </div>
 </div> <!-- cierra container -->
+
+<!-- Modal detalle orden -->
+<div id="modalDetalle" class="modal">
+  <div class="modal-content">
+    <h6><b>{{ datosPase.nombreCompleto }}</b></h6>
+    <p>Atención: {{ datosPase.EAT_alias }} | Administración: {{ datosPase.EAD_alias }}</p>
+    <!-- <p *ngIf="datosPase.Exp_folio != null ">{{ datosPase.Exp_folio }}</p> -->
+
+    <div class="row">
+      <div class="col s12 m4 l3 espacio">
+        <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
+           class="btn btn-block waves-effect waves-light purple"><i class="mdi mdi-printer"></i> Orden</a>
+      </div>
+
+      <div class="col s12 m4 l3 espacio center-align" *ngIf="buscandoRh">
+        <div class="preloader-wrapper small active">
+          <div class="spinner-layer spinner-red-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones == {}">
+        <p class="red-text" >Sin rehabilitaciones</p>
+      </div>
+
+      <div class="col s12 m4 l3 espacio" *ngFor="let sesion of datosPase.listadoRehabilitaciones">
+        <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}" target="_blank"
+           class="btn btn-block waves-effect waves-light teal"><i class="mdi mdi-cloud-print"></i> Sesión {{ sesion.Rehab_cons }}</a>
+      </div>
+
+      <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
+        <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
+           target="_blank" class="btn btn-block waves-effect waves-light teal"
+           *ngIf="informe.infRehab_id">
+           <i class="mdi mdi-cloud-print"></i> Informe {{ sesion.Rehab_cons }}
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="waves-effect waves-light btn red" (click)="cerrarModal()">Cancelar</button>
+  </div>
+</div>

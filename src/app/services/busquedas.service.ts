@@ -60,4 +60,22 @@ export class BusquedasService {
                      });
   }
 
+  getRehabilitaciones( folio ){
+    let url = `${ this.link.propias}catalogos.php?funcion=getRehabilitaciones&fol=`+folio;
+
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
+  getInformeReh( folio ){
+    let url = `${ this.link.propias}infRehabilitacion.php?funcion=getListaNotasRehab&fol=`+folio;
+
+    return this._http.get( url )
+                     .map( res => {
+                       return res.json();
+                     });
+  }
+
 }

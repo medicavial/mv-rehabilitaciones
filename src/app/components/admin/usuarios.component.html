@@ -240,37 +240,36 @@
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text" placeholder="Estado de cuenta" id="filename"
-                       [ngClass]="{'valid': formReg.controls['archivo'].valid}"
-                       >
+                       [ngClass]="{'valid': formReg.controls['archivo'].valid}">
               </div>
             </div>
 
-            <div class="col s12 m3 center-align" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
-              <button type="button" name="button" class="btn btn-block blue waves-effect waves-light"
-                      *ngIf="cuentas.length > 0 && nuevaCuenta"
-                      [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid && formReg.controls['clabe'].value != ''"
-                      (click)="guardaCuenta()">
-                      <!-- [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid" -->
-                <i class="mdi mdi-check"></i> Guardar Cuenta
-              </button>
-            </div>
+            <div class="col s12" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
+              <div class="row">
+                <div class="col s12 m3" *ngIf="cuentas.length > 0 && nuevaCuenta">
+                  <button type="button" name="button" class="btn btn-block blue waves-effect waves-light"
+                          [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid && formReg.controls['clabe'].value != ''"
+                          (click)="guardaCuenta()">
+                    <i class="mdi mdi-check"></i> Guardar Cuenta
+                  </button>
+                </div>
 
-            <div class="col s12 m3 center-align" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
-              <button type="button" name="button" class="btn btn-block purple waves-effect waves-light"
-                      *ngIf="cuentas.length === 0"
-                      [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid && formReg.controls['clabe'].value != ''"
-                      (click)="guardaCuenta()">
-                      <!-- [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid" -->
-                <i class="mdi mdi-plus"></i> Agregar otra cuenta
-              </button>
-            </div>
+                <div class="col s12 m3" *ngIf="cuentas.length === 0">
+                  <button type="button" name="button" class="col s12 m3 btn btn-block purple waves-effect waves-light"
+                          [disabled]="!formReg.controls['clabe'].valid || !formReg.controls['archivo'].valid && formReg.controls['clabe'].value != ''"
+                          (click)="guardaCuenta()">
+                    <i class="mdi mdi-plus"></i> Agregar otra cuenta
+                  </button>
+                </div>
 
-            <div class="col s12 m3 center-align" *ngIf="formReg.controls['clabe'].valid || formReg.controls['archivo'].valid">
-              <button type="button" name="button" class="btn btn-block red waves-effect waves-light"
-                      *ngIf="cuentas.length > 0 && nuevaCuenta"
-                      (click)="cancelaCuenta()">
-                <i class="mdi mdi-cancel"></i> Cancelar
-              </button>
+                <div class="col s12 m3" *ngIf="cuentas.length > 0 && nuevaCuenta">
+                  <button type="button" name="button" class="col s12 m3 btn btn-block red waves-effect waves-light"
+
+                          (click)="cancelaCuenta()">
+                    <i class="mdi mdi-cancel"></i> Cancelar
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div class="col s12" *ngIf="cuentas.length > 0">
@@ -291,7 +290,9 @@
                       {{ item.archivo.filename }}
                     </td>
                     <td class="center-align">
-                      <a class="btn-floating waves-effect waves-light red">
+                      <a class="btn-floating waves-effect waves-light red"
+                         (click)="eliminaCuenta(i)"
+                         [ngClass]="{'disabled': nuevaCuenta}">
                         <i class="mdi mdi-delete-forever"></i>
                       </a>
                     </td>
@@ -421,17 +422,19 @@
         <table class="striped highlight responsive-table">
           <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Especialidad</th>
-                <th>Registro</th>
+              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Registro</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let med of listadoUsuarios">
-              <td>{{ med.MED_nombre }} {{ med.MED_aPaterno }} {{ med.MED_aMaterno }}</td>
-              <td>{{ med.MED_especialidad }}</td>
-              <td>{{ med.MED_fechaAlta | slice:0:10 | date:'dd/MMM/yyyy' }}</td>
+            <tr *ngFor="let usr of listadoUsuarios">
+              <td>{{ usr.USU_username }}</td>
+              <td>{{ usr.USU_nombre }} {{ usr.USU_aPaterno }} {{ usr.USU_aMaterno }}</td>
+              <td>{{ usr.USU_email }}</td>
+              <td>{{ usr.USU_fechaAlta | slice:0:10 | date:'dd/MMM/yyyy' }}</td>
             </tr>
           </tbody>
         </table>

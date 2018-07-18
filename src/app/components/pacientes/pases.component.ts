@@ -41,11 +41,11 @@ export class PasesComponent implements OnInit {
                    'fechaNacimiento': new FormControl( null, [ Validators.required ] ),
                    'sexo'           : new FormControl( '', [] ),
                    'telefono'       : new FormControl( '', [ Validators.minLength(10), Validators.maxLength(10) ] ),
-                   'email'          : new FormControl( '', [ Validators.email ] ),
+                   'email'          : new FormControl( '', [] ),
                    'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'sesiones'       : new FormControl( 10, [ Validators.required, Validators.min(1), Validators.max(99) ] ),
-                   'tipoTerapia'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ), //tipoTerapia = observaciones
+                   'tipoTerapia'    : new FormControl( '', [ Validators.required ] ), //tipoTerapia = observaciones
                    'unidad'         : new FormControl( null, [ Validators.required ] ),
                    'imprimeOrden'   : new FormControl( false, [] ),
                    'mailPaciente'   : new FormControl( false, [] ),

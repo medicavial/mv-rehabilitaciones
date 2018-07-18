@@ -20,8 +20,15 @@ export class HomeComponent implements OnInit {
   table = { offset:0 };
   floatAction:any;
   tooltip:any;
+  tooltipMas:any;
+  tooltipMenos:any;
   opciones:boolean = false;
   selected = [];
+  helpers:any;
+  modal:any;
+  datosPase:any = {};
+  buscandoRh: boolean = false;
+  buscandoInf: boolean = false;
 
   constructor( public _authService:AuthService,
                private _busquedas:BusquedasService,
@@ -35,6 +42,8 @@ export class HomeComponent implements OnInit {
     this.recargaDatos();
     this.preparaBotones();
     this.preparaTooltip();
+    this.preparaAyudas();
+    this.preparaModal();
   }
 
   preparaBotones(){
@@ -50,7 +59,33 @@ export class HomeComponent implements OnInit {
       html: 'Búsqueda avanzada',
       position: 'left'
     });
+    this.tooltipMas = document.querySelector('.verMas');
+    var instance = M.Tooltip.init(this.tooltipMas, {
+      html: 'Ver más',
+      position: 'right'
+    });
+
+    this.tooltipMenos = document.querySelector('.verMenos');
+    var instance = M.Tooltip.init(this.tooltipMenos, {
+      html: 'Vista sencilla',
+      position: 'bottom'
+    });
   }
+
+  preparaAyudas(){
+    //preparamos el tooltip
+    this.helpers = document.querySelector('.ayudas');
+    var instance = M.Tooltip.init(this.helpers, {});
+  }
+
+  preparaModal(){
+    //preparamos el modal
+    this.modal = document.querySelector('.modal');
+    var instance = M.Modal.init(this.modal, {
+      dismissible: false
+    });
+  }
+
 
   btnControl( valor ){
     var instance = M.FloatingActionButton.getInstance(this.floatAction);
@@ -76,6 +111,7 @@ export class HomeComponent implements OnInit {
 
   getlistadoPases(){
     // console.log(this.usuario);
+    // console.log( document.getElementsByClassName('ayudas') );
     this.buscando = true;
     this._busquedas.listadoPases( this.usuario )
                    .subscribe( data =>{
@@ -84,6 +120,7 @@ export class HomeComponent implements OnInit {
                      this.rows = data;
                      this.temp = data;
                      this.buscando = false;
+                     this.preparaAyudas();
                    })
   }
 
@@ -100,9 +137,45 @@ export class HomeComponent implements OnInit {
   }
 
   seleccion({ selected }){
+    let datoActivo = document.getElementsByClassName('active');
     // console.log('Select Event', selected, this.selected);
-    console.log(selected[0].claveOrden);
-    window.open('http://busqueda.medicavial.net/api/externos/verpdf-'+selected[0].claveOrden, '_blank ');
+    this.datosPase = selected[0];
+    this.abreModal();
+    if ( this.datosPase.Exp_folio != null ) {
+        this.getRehabilitaciones( this.datosPase.Exp_folio );
+        this.getInfReh( this.datosPase.Exp_folio );
+    }
+    // window.open('http://busqueda.medicavial.net/api/externos/verpdf-'+selected[0].claveOrden, '_blank ');
+  }
+
+  abreModal(){
+    var instance = M.Modal.getInstance(this.modal);
+    instance.open();
+  }
+
+  cerrarModal(){
+    this.datosPase = {};
+    var instance = M.Modal.getInstance(this.modal);
+    instance.close();
+  }
+
+  getRehabilitaciones( folioMV ){
+    this.buscandoRh = true;
+    this._busquedas.getRehabilitaciones( folioMV )
+                   .subscribe( data =>{
+                     this.datosPase.listadoRehabilitaciones = data;
+                     this.buscandoRh = false;
+                   })
+  }
+
+  getInfReh( folioMV ){
+    this.buscandoInf = true;
+    this._busquedas.getInformeReh( folioMV )
+                   .subscribe( data =>{
+                     this.datosPase.informeReh = data;
+                     console.log(this.datosPase)
+                     this.buscandoInf = false;
+                   })
   }
 
   recargaDatos(){

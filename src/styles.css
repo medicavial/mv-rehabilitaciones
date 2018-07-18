@@ -274,3 +274,27 @@ textarea.materialize-textarea.warning:focus, .select-wrapper.warning > input.sel
   -webkit-box-shadow: 0 1px 0 0 #ff9800;
           box-shadow: 0 1px 0 0 #ff9800;
 }
+
+.tel{
+  color: #455a64;
+  text-decoration: none;
+}
+.tel:hover{
+  color: #0097a7;
+  text-decoration: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active,
+.ngx-datatable.material.single-selection .datatable-body-row.active
+.datatable-row-group, .ngx-datatable.material.multi-selection
+.datatable-body-row.active, .ngx-datatable.material.multi-selection
+.datatable-body-row.active .datatable-row-group, .ngx-datatable.material.multi-click-selection
+.datatable-body-row.active, .ngx-datatable.material.multi-click-selection
+.datatable-body-row.active .datatable-row-group {
+    background-color: #ffe082 !important;
+    color: #FFF;
+}

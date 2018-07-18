@@ -186,7 +186,7 @@
                 <textarea id="tipoTerapia" class="mayusculas materialize-textarea validate" formControlName="tipoTerapia"
                           [ngClass]="{'invalid': !paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && paseForm.controls['tipoTerapia'].touched && !paseForm.controls['tipoTerapia'].pristine, 'valid':paseForm.controls['tipoTerapia'].valid && !paseForm.controls['tipoTerapia'].pristine}">
                 </textarea>
-                <label for="tipoTerapia">Observaciones</label>
+                <label for="tipoTerapia">Tipo de terapia</label>
                 <span class="helper-text red-text animated fadeIn fast" data-success="right"
                      *ngIf="!paseForm.controls['tipoTerapia'].valid && paseForm.controls['tipoTerapia'].dirty && !paseForm.controls['tipoTerapia'].pristine">
                   Muy corto
@@ -442,6 +442,10 @@
             </div>
           </div>
           <div class="card-action right-align">
+            <p class="red-text text-darken-2" *ngIf="!paseForm.controls['copiaOrden'].value && !paseForm.controls['mailPaciente'].value">
+              <i class="mdi mdi-alert"></i> El pase no será enviado al paciente ni a {{ usuario.USU_email }}
+            </p>
+
             <button type="button" class="btn-flat waves-effect waves-orange orange-text"
                     (click)="limpiarCampos()"
                     [ngClass]="{'disabled': trabajando }">

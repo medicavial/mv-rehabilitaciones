@@ -24,8 +24,8 @@
       <!-- <img class="circle" src="assets/img/avatar.jpg" *ngIf="usuario"> -->
       <img class="circle" src="/assets/img/{{ usuario.USU_avatar }}" *ngIf="usuario">
       <span class="white-text name">{{ usuario.fullName }}</span>
-      <!-- <span class="white-text email">{{ usuario.USU_email }}</span> -->
-      <span class="white-text email">&nbsp;</span>
+      <span class="white-text email">{{ usuario.PER_alias | uppercase }}</span>
+      <!-- <span class="white-text email">&nbsp;</span> -->
     </div>
   </li>
   <li><a class="waves-effect" [routerLink]="['/inicio']" (click)="prueba()"><i class="mdi mdi-home mdi-18px"></i>Inicio</a></li>

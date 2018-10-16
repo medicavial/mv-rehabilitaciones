@@ -42,6 +42,7 @@ export class PasesComponent implements OnInit {
                    'sexo'           : new FormControl( '', [] ),
                    'telefono'       : new FormControl( '', [ Validators.minLength(10), Validators.maxLength(10) ] ),
                    'email'          : new FormControl( '', [] ),
+                   'servicio'       : new FormControl( '', [] ),
                    'diagnostico'    : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'objetivo'       : new FormControl( '', [ Validators.required, Validators.minLength(3) ] ),
                    'sesiones'       : new FormControl( 10, [ Validators.required, Validators.min(1), Validators.max(99) ] ),
@@ -52,6 +53,11 @@ export class PasesComponent implements OnInit {
                    'copiaOrden'     : new FormControl( false, [] ),
                    'mailUsuario'    : new FormControl( { value: this.usuario.USU_email, disabled: true}, [ Validators.required ] ),
                  });
+
+                 if (this.usuario.TIU_id != 1 && this.usuario.TIU_id != 3 ) {
+                   this.paseForm.controls['servicio'].setValue('SR');
+                 }
+
                }
 
   ngOnInit() {
@@ -156,6 +162,7 @@ export class PasesComponent implements OnInit {
           telefono: this.paseForm.controls['telefono'].value,
           email: this.paseForm.controls['email'].value,
           usuario: this.usuario.username,
+          servicio: this.paseForm.controls['servicio'].value,
           diagnostico: this.mayusculas( this.paseForm.controls['diagnostico'].value ),
           objetivo: this.mayusculas( this.paseForm.controls['objetivo'].value ),
           sesiones: this.paseForm.controls['sesiones'].value,
@@ -220,7 +227,8 @@ export class PasesComponent implements OnInit {
             datos[i].map = datos[i].Uni_latitud+','+datos[i].Uni_longitud;
             // datos[i].map = datos[i].Uni_nombre+', '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
             datos[i].imgMap = new Image();
-            datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=16&size=600x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
+            datos[i].imgMap.src = 'http://busqueda.medicavial.net/api/img/maps/'+datos[i].Uni_clave+'.png';
+            // datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=16&size=600x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
         } else {
           datos[i].local = false;
           datos[i].img = new Image();
@@ -228,7 +236,8 @@ export class PasesComponent implements OnInit {
           datos[i].map = datos[i].Uni_latitud+','+datos[i].Uni_longitud;
           // datos[i].map = datos[i].Uni_nombre+' + '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
           datos[i].imgMap = new Image();
-          datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=16&size=600x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
+          datos[i].imgMap.src = 'http://busqueda.medicavial.net/api/img/maps/'+datos[i].Uni_clave+'.png';
+          // datos[i].imgMap.src = 'https://maps.googleapis.com/maps/api/staticmap?center='+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&zoom=16&size=600x300&markers=color:red|label:M|'+datos[i].Uni_latitud+','+datos[i].Uni_longitud+'&key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A';
         }
       } else{
         //quitamos las unidades que no son mv

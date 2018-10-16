@@ -137,6 +137,33 @@
               </div>
             </div>
 
+            <div class="row" *ngIf="usuario.TIU_id === 3 || usuario.TIU_id === 1">
+              <div class="col s12">
+                <p>Servicio requerido para el paciente</p>
+              </div>
+
+              <div class="col s12 m4 espacio">
+                <label>
+                  <input name="servicio" class="with-gap valido" type="radio" value="SC" formControlName="servicio" [required]="usuario.TIU_id === 1 || usuario.TIU_id === 3"/>
+                  <span [ngClass]="{'green-text bold': paseForm.controls['servicio'].value === 'SC'}">Sólo consulta</span>
+                </label>
+              </div>
+
+              <div class="col s12 m4 espacio">
+                <label>
+                  <input name="servicio" class="with-gap valido" type="radio" value="SR" formControlName="servicio" [required]="usuario.TIU_id === 1 || usuario.TIU_id === 3"/>
+                  <span [ngClass]="{'green-text bold': paseForm.controls['servicio'].value === 'SR'}">Sólo rehabilitación</span>
+                </label>
+              </div>
+
+              <div class="col s12 m4 espacio">
+                <label>
+                  <input name="servicio" class="with-gap valido" type="radio" value="CR" formControlName="servicio" [required]="usuario.TIU_id === 1 || usuario.TIU_id === 3"/>
+                  <span [ngClass]="{'green-text bold': paseForm.controls['servicio'].value === 'CR'}">Consulta y Rehabilitación</span>
+                </label>
+              </div>
+            </div>
+
             <div class="row">
               <div class="input-field col s12">
                 <i class="mdi mdi-clipboard-text prefix"
@@ -513,9 +540,11 @@
       <br>
       Click en el mapa para visualizar en Google Maps.
     </p>
-
-    <a [href]="datosUni.map | domseguro:'https://www.google.com/maps/embed/v1/place?key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A&q='"
-       target="_blank" class="tooltipped" (click)="cierrtaTooltip()">
+<!-- https://www.google.com/maps/?q=-15.623037,18.388672 -->
+    <!-- <a [href]="datosUni.map | domseguro:'https://www.google.com/maps/embed/v1/place?key=AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A&q='"
+       target="_blank" class="tooltipped" (click)="cierrtaTooltip()"> -->
+     <a [href]="datosUni.map | domseguro:'https://www.google.com/maps/?q='"
+        target="_blank" class="tooltipped" (click)="cierrtaTooltip()">
       <img src="{{ datosUni.imgMap.src }}" alt="Ubicación de {{ datosUni.Uni_nombre }}" *ngIf="datosUni.imgMap" class="responsive-img">
     </a>
 <!-- <a class="btn tooltipped" data-position="top" data-tooltip="Click para abrir en Google Maps">Hover me!</a> -->

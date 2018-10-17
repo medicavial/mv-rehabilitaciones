@@ -1,6 +1,6 @@
 <div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
   <div class="row" *ngIf="usuario.PER_adminUsuarios">
-    <div class="col s6 m6 l6" *ngIf="usuario.PER_admin">
+    <div class="col s6 m6 l4" *ngIf="usuario.PER_admin">
       <button type="button" name="button" class="btn btn-block yellow darken-2 waves-effect waves-light" (click)="activareg('Promotor')"
               [ngClass]="{'disabled': tipoReg != 'Promotor' && tipoReg != '' , 'red darken-1': tipoReg === 'Promotor', 'yellow darken-2': tipoReg === ''}">
         <span *ngIf="tipoReg != 'Promotor'">
@@ -11,13 +11,26 @@
         </span>
       </button>
     </div>
-    <div class="col s6 m6 l6">
+
+    <div class="col s6 m6 l4">
       <button type="button" name="button" class="btn btn-block purple waves-effect waves-light" (click)="activareg('Ejecutivo')"
               [ngClass]="{'disabled': tipoReg != 'Ejecutivo' && tipoReg != '' , 'red darken-1': tipoReg === 'Ejecutivo', 'purple': tipoReg === ''}">
         <span *ngIf="tipoReg != 'Ejecutivo'">
           <i class="mdi mdi-account-plus"></i> Ejecutivo Nuevo
         </span>
         <span *ngIf="tipoReg === 'Ejecutivo'">
+          <i class="mdi mdi-delete"></i> Cancelar
+        </span>
+      </button>
+    </div>
+
+    <div class="col s6 m6 l4">
+      <button type="button" name="button" class="btn btn-block teal accent-4 waves-effect waves-light" (click)="activareg('Convenio')"
+              [ngClass]="{'disabled': tipoReg != 'Convenio' && tipoReg != '' , 'red darken-1': tipoReg === 'Convenio', 'teal accent-4': tipoReg === ''}">
+        <span *ngIf="tipoReg != 'Convenio'">
+          <i class="mdi mdi-account-plus"></i> Convenio
+        </span>
+        <span *ngIf="tipoReg === 'Convenio'">
           <i class="mdi mdi-delete"></i> Cancelar
         </span>
       </button>

@@ -5,7 +5,7 @@ export class ApiService {
 
   // EN PRODUCCION
   conexiones = {
-    principal:  'http://busqueda.medicavial.net/api',
+    principal:  'https://busqueda.medicavial.net/api',
     propias:    'http://medicavial.net/mvnuevo/api/',
     red:        'http://api.medicavial.net/api/',
     inventario: 'http://api.medicavial.mx/api/'

@@ -1,12 +1,10 @@
 <div class="container animated fadeIn fast" [ngClass]="{'espacioLateral': _authService.checkSession()}">
-
     <div class="row">
       <div class="col s12 m6 offset-m3">
         <div class="card">
           <form [formGroup]="credenciales" (ngSubmit)="enviaCredenciales()">
             <div class="card-content azul-mv center-align">
                 <img src="assets/img/logos/logo.png" class="responsive-img" style="height: 50px">
-              <!-- <span class="card-title white-text center-align"><b>Login</b></span> -->
             </div>
             <div class="card-content">
               <p>Ingresa con tu Usuario y Contraseña.</p>
@@ -48,26 +46,10 @@
                     <span *ngIf="trabajando"><i class="mdi mdi-loading mdi-spin"></i></span>
                   </button>
                 </div>
-              </div>
+              </div> <!-- end row -->
             </div>
-            <!-- <div class="card-action">
-            </div> -->
           </form>
         </div>
       </div>
     </div>
 </div>
-
-<!-- Modal Trigger -->
-<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
-
-<!-- Modal Structure -->
-<!-- <div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-  </div>
-</div> -->

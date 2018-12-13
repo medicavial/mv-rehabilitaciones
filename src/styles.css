@@ -3,6 +3,12 @@
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
+body, app-root, app-login {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 body{
   font-family: 'Quicksand', sans-serif;
   /* background-color: #FAFAFA; */

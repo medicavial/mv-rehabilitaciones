@@ -6,9 +6,9 @@ export class ApiService {
   // EN PRODUCCION
   conexiones = {
     principal:  'https://busqueda.medicavial.net/api',
-    propias:    'http://medicavial.net/mvnuevo/api/',
-    red:        'http://api.medicavial.net/api/',
-    inventario: 'http://api.medicavial.mx/api/'
+    propias:    'https://medicavial.net/mvnuevo/api/',
+    red:        'https://api.medicavial.net/api/',
+    inventario: 'https://api.medicavial.mx/api/'
   }
 
   // EN LOCAL
@@ -19,9 +19,9 @@ export class ApiService {
   //   inventario: 'http://localhost/inventario/server/public/'
   // }
 
-  apiKeys = {
-    googleMaps: 'AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A',
-  }
+  // apiKeys = {
+  //   googleMaps: 'AIzaSyB9gOLIqI5WKpfBy-UEUkOHTRsouH3016A',
+  // }
 
   constructor() { }
 

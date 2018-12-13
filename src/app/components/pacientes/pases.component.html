@@ -197,7 +197,7 @@
                 <i class="mdi mdi-calendar-range prefix"
                    [ngClass]="{'red-text': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && !paseForm.controls['sesiones'].pristine, 'green-text text-darken-2': paseForm.controls['sesiones'].valid && !paseForm.controls['sesiones'].pristine }">
                 </i>
-                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="1" max="99" pattern="\d*"
+                <input id="cantidad" type="number" class="validate" formControlName="sesiones" min="5" max="99" pattern="\d*" step="5"
                        [ngClass]="{'invalid': !paseForm.controls['sesiones'].valid && paseForm.controls['sesiones'].dirty && paseForm.controls['sesiones'].touched && !paseForm.controls['sesiones'].pristine, 'valid':paseForm.controls['sesiones'].valid && !paseForm.controls['sesiones'].pristine}">
                 <label for="cantidad"># Sesiones a tomar</label>
                 <span class="helper-text red-text animated fadeIn fast" data-success="right"

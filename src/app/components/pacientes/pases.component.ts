@@ -223,7 +223,7 @@ export class PasesComponent implements OnInit {
         if ( datos[i].Uni_clave < 4 || datos[i].Uni_clave === 184 ) {
             datos[i].local = true;
             datos[i].img = new Image();
-            datos[i].img.src = '../../assets/img/clinicas/'+datos[i].Uni_clave+'.jpg';
+            datos[i].img.src = '../../assets/img/clinicas/' + datos[i].Uni_clave+'.jpg';
             datos[i].map = datos[i].Uni_latitud+','+datos[i].Uni_longitud;
             // datos[i].map = datos[i].Uni_nombre+', '+datos[i].Uni_calleNum+', '+datos[i].Uni_colMun;
             datos[i].imgMap = new Image();

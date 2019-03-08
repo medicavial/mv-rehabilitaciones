@@ -10,23 +10,24 @@ declare var $: any;
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  usuario:any = {};
-  listadoPases:any = {};
+  usuario: any = {};
+  listadoPases: any = {};
   buscando:boolean = false;
   ver:boolean = false;
   editing = {};
-  rows:any;
+  rows: any;
   temp = [];
   table = { offset:0 };
-  floatAction:any;
-  tooltip:any;
-  tooltipMas:any;
-  tooltipMenos:any;
+  floatAction: any;
+  tooltip: any;
+  tooltipMas: any;
+  tooltipMenos: any;
   opciones:boolean = false;
   selected = [];
-  helpers:any;
-  modal:any;
-  datosPase:any = {};
+  helpers: any;
+  modal: any;
+  collapsible: any;
+  datosPase: any = {};
   buscandoRh: boolean = false;
   buscandoInf: boolean = false;
 
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
     this.preparaTooltip();
     this.preparaAyudas();
     this.preparaModal();
+    this.preparaCollapsible();
   }
 
   preparaBotones(){
@@ -73,19 +75,23 @@ export class HomeComponent implements OnInit {
   }
 
   preparaAyudas(){
-    //preparamos el tooltip
+    // preparamos el tooltip
     this.helpers = document.querySelector('.ayudas');
     var instance = M.Tooltip.init(this.helpers, {});
   }
 
   preparaModal(){
-    //preparamos el modal
+    // preparamos el modal
     this.modal = document.querySelector('.modal');
     var instance = M.Modal.init(this.modal, {
       dismissible: false
     });
   }
 
+  preparaCollapsible(){
+    this.collapsible = document.querySelectorAll('.collapsible');
+    var instance = M.Collapsible.init(this.collapsible, {});
+  }
 
   btnControl( valor ){
     var instance = M.FloatingActionButton.getInstance(this.floatAction);

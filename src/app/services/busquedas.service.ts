@@ -61,7 +61,8 @@ export class BusquedasService {
   }
 
   getRehabilitaciones( folio ){
-    let url = `${ this.link.propias}catalogos.php?funcion=getRehabilitaciones&fol=`+folio;
+    // let url = `${this.link.propias}catalogos.php?funcion=getRehabilitaciones&fol=` + folio;
+    let url = `${this.link.principal}/externos/infosesiones/${folio}`;
 
     return this._http.get( url )
                      .map( res => {

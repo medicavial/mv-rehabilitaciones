@@ -167,10 +167,22 @@
     <!-- <p *ngIf="datosPase.Exp_folio != null ">{{ datosPase.Exp_folio }}</p> -->
 
     <div class="row">
-      <div class="col s12 m4 l3 espacio">
+      <!-- <div class="col s12 m4 l3 espacio">
         <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
            class="btn btn-block waves-effect waves-light purple"><i class="mdi mdi-printer"></i> Orden</a>
       </div>
+
+      <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.length > 0" >
+        <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
+          class="btn btn-block waves-effect waves-light lime darken-1"><i class="mdi mdi-message-draw"></i> Bitácora</a>
+      </div>
+
+      <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
+        <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
+          target="_blank" class="btn btn-block waves-effect waves-light blue" *ngIf="informe.infRehab_id">
+          <i class="mdi mdi-file-account"></i> Informe
+        </a>
+      </div> -->
 
       <div class="col s12 m4 l3 espacio center-align" *ngIf="buscandoRh">
         <div class="preloader-wrapper small active">
@@ -186,7 +198,7 @@
         </div>
       </div>
 
-      <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones == {}">
+      <!-- <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones == {}">
         <p class="red-text" >Sin rehabilitaciones</p>
       </div>
 
@@ -198,19 +210,75 @@
            <i class="mdi mdi-cloud-print"></i>
            Sesión {{ sesion.Rehab_cons }}
         </a>
+      </div> -->
+
+      <div class="col s12">
+        <ul class="collapsible">
+          <!-- aqui van los documentos -->
+          <li class="active">
+            <div class="collapsible-header grey-text text-darken-3 valign-wrapper"><i class="mdi mdi-file-account"></i>Documentos</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col s12 m4 l3 espacio">
+                  <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
+                    class="btn btn-block waves-effect waves-light purple"><i class="mdi mdi-printer"></i> Orden</a>
+                </div>
+                
+                <div class="col s12 m4 l3 espacio"
+                  *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.length > 0">
+                  <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
+                    class="btn btn-block waves-effect waves-light lime darken-1"><i class="mdi mdi-message-draw"></i> Bitácora</a>
+                </div>
+                
+                <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
+                  <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
+                    target="_blank" class="btn btn-block waves-effect waves-light blue" *ngIf="informe.infRehab_id">
+                    <i class="mdi mdi-file-account"></i> Informe
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li> <!-- terminan los documentos -->
+
+          <!-- aqui van los reportes de rehabilitacion -->
+          <li>
+            <div class="collapsible-header grey-text text-darken-3 valign-wrapper"><i class="mdi mdi-folder-account"></i>Reportes de rehabilitación</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones == {}">
+                  <p class="red-text">Sin rehabilitaciones</p>
+                </div>
+                
+                <div class="col s12 m4 l3 espacio" *ngFor="let sesion of datosPase.listadoRehabilitaciones">
+                  <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}"
+                    target="_blank" class="btn btn-block waves-effect waves-light teal"
+                    [ngClass]="{'amber darken-4': sesion.Rehab_cons % 5 == 0}">
+                    <i class="mdi mdi-cloud-print"></i>
+                    Sesión {{ sesion.Rehab_cons }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li> <!-- terminan los reportes de rehabilitacion -->
+
+          <!-- aqui va la bitacora -->
+          <li>
+            <div class="collapsible-header grey-text text-darken-3 valign-wrapper"><i class="mdi mdi-clipboard-account"></i>Bitácora</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <p *ngFor="let sesion of datosPase.listadoRehabilitaciones">
+                  <b>Sesión #{{ sesion.Rehab_cons }}:</b> {{ sesion.Rehab_obs }}
+                </p>
+              </div>
+            </div>
+          </li> <!-- termina la bitacora -->
+        </ul>
       </div>
 
-      <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
-        <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
-           target="_blank" class="btn btn-block waves-effect waves-light blue"
-           *ngIf="informe.infRehab_id">
-           <i class="mdi mdi-cloud-print"></i> Informe {{ sesion.Rehab_cons }}
-        </a>
-      </div>
     </div>
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="waves-effect waves-light btn red" (click)="cerrarModal()">Cancelar</button>
+    <button type="button" class="waves-effect waves-light btn red" (click)="cerrarModal()">Cerrar</button>
   </div>
 </div>

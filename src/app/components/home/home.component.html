@@ -107,7 +107,7 @@
             </ng-template> -->
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Bitácora">
+          <ngx-datatable-column prop="cantidad_rehab" name="Bitácora">
             <!-- <ng-template let-column="column" ngx-datatable-header-template>
               <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
             </ng-template> -->
@@ -191,13 +191,18 @@
       </div>
 
       <div class="col s12 m4 l3 espacio" *ngFor="let sesion of datosPase.listadoRehabilitaciones">
-        <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}" target="_blank"
-           class="btn btn-block waves-effect waves-light teal"><i class="mdi mdi-cloud-print"></i> Sesión {{ sesion.Rehab_cons }}</a>
+        <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}" 
+           target="_blank"
+           class="btn btn-block waves-effect waves-light teal"
+           [ngClass]="{'amber darken-4': sesion.Rehab_cons % 5 == 0}">
+           <i class="mdi mdi-cloud-print"></i>
+           Sesión {{ sesion.Rehab_cons }}
+        </a>
       </div>
 
       <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
         <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
-           target="_blank" class="btn btn-block waves-effect waves-light teal"
+           target="_blank" class="btn btn-block waves-effect waves-light blue"
            *ngIf="informe.infRehab_id">
            <i class="mdi mdi-cloud-print"></i> Informe {{ sesion.Rehab_cons }}
         </a>

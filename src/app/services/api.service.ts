@@ -14,7 +14,7 @@ export class ApiService {
   // EN LOCAL
   conexiones = {
     principal:  'http://localhost:8000',
-    propias:    'http://localhost/mvnuevo/api/',
+    propias:    'https://medicavial.net/mvnuevo/api/',
     red:        'http://api.medicavial.net/api/',
     inventario: 'http://localhost/inventario/server/public/'
   }
@@ -25,7 +25,7 @@ export class ApiService {
 
   constructor() { }
 
-  conexion(){
+  conexion() {
     return this.conexiones;
   }
 }

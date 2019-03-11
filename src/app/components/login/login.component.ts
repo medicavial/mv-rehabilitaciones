@@ -67,22 +67,28 @@ export class LoginComponent implements OnInit {
       remember: this.credenciales.controls['remember'].value,
     }
 
-    this.busquedasService.logueo( credenciales )
-                          .subscribe( data =>{
-                            if ( data.length > 0 ) {
-                              let verifica = this._authService.login( data, credenciales.remember );
-                              if ( verifica === true ) {
-                                this._authService.auth();
-                                this.trabajando = false;
-                              } else{
-                                alert('Error al iniciar sesión');
-                                this.trabajando = false;
-                              }
-                            } else {
-                              alert('Datos incorrectos');
-                              this.trabajando = false;
-                            }
-                          })
+    this.busquedasService
+        .logueo( credenciales )
+        .subscribe( data => {
+                    if ( data.length > 0 ) {
+                      let verifica = this._authService.login( data, credenciales.remember );
+                      if ( verifica === true ) {
+                        this._authService.auth();
+                        this.trabajando = false;
+                      } else{
+                        alert('Error al iniciar sesión');
+                        this.trabajando = false;
+                      }
+                    } else {
+                      alert('Datos incorrectos');
+                      this.trabajando = false;
+                    }
+                  },
+                  error => {
+                    console.log(error);
+                    this.trabajando = false;
+                    alert(`Error interno de sistema. Error ${error.status}`);
+                  })
   }
 
 }

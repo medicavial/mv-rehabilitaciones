@@ -371,7 +371,7 @@
               <i class="mdi mdi-currency-usd prefix"
                  [ngClass]="{'red-text': !formReg.controls['comision'].valid && formReg.controls['comision'].dirty && !formReg.controls['comision'].pristine, 'green-text text-darken-2':formReg.controls['comision'].valid }">
               </i>
-              <input id="comision" type="number" pattern="\d*"
+              <input id="comision" type="number" pattern="\d*" min="0"
                      formControlName="comision"
                      [ngClass]="{'invalid': !formReg.controls['comision'].valid && formReg.controls['comision'].dirty && !formReg.controls['comision'].pristine, 'valid':formReg.controls['comision'].valid}">
               <label for="comision">Comisión por bloque de 5</label>
@@ -381,7 +381,7 @@
               <i class="mdi mdi-currency-usd prefix"
                  [ngClass]="{'red-text': !formReg.controls['comision10'].valid && formReg.controls['comision10'].dirty && !formReg.controls['comision10'].pristine, 'green-text text-darken-2':formReg.controls['comision10'].valid }">
               </i>
-              <input id="comision10" type="number" pattern="\d*"
+              <input id="comision10" type="number" pattern="\d*" min="0"
                      formControlName="comision10"
                      [ngClass]="{'invalid': !formReg.controls['comision10'].valid && formReg.controls['comision10'].dirty && !formReg.controls['comision10'].pristine, 'valid':formReg.controls['comision10'].valid}">
               <label for="comision10">Comisión por bloque de 10</label>

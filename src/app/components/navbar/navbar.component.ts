@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
 usuario = {};
 elem: any;
 instance:any;
-pantalla = screen.width;
+pantalla = window.innerWidth;
 tituloSeccion:any;
 
   constructor( public _authService: AuthService,
@@ -43,8 +43,8 @@ tituloSeccion:any;
      Observable.fromEvent(window, 'resize')
                .subscribe((event) => {
                  // console.log(event);
-                 this.pantalla = screen.width;
-                 console.log(this.pantalla)
+                 this.pantalla = window.innerWidth;
+                 console.log(this.pantalla);
                });
 
     this.usuario = this._authService.datosUsuario();

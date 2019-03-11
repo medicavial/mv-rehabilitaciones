@@ -223,12 +223,12 @@
                   <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
                     class="btn btn-block waves-effect waves-light purple"><i class="mdi mdi-printer"></i> Orden</a>
                 </div>
-                
-                <div class="col s12 m4 l3 espacio"
-                  *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.length > 0">
+
+                <!-- <div  class="col s12 m4 l3 espacio"
+                      *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.length >= 5">
                   <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
-                    class="btn btn-block waves-effect waves-light lime darken-1"><i class="mdi mdi-message-draw"></i> Bitácora</a>
-                </div>
+                    class="btn btn-block waves-effect waves-light lime darken-1"><i class="mdi mdi-message-draw"></i> Bitácora {{ Math.round( datosPase.listadoRehabilitaciones.length / 5 ) }} </a>
+                </div> -->
                 
                 <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
                   <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
@@ -273,7 +273,7 @@
             </div>
           </li> <!-- termina la bitacora -->
         </ul>
-      </div>
+      </div> <!-- termina col s12 -->
 
     </div>
 

@@ -12,7 +12,7 @@ export class BusquedasService {
   link = this._api.conexion();
 
   logueo( datos ){
-    let url = `${ this.link.principal}/externos/login`;
+    let url = `${this.link.principal}/externos/login`;
     let headers = new Headers({
       'Content-Type':'aplication/json'
     });

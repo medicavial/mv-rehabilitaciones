@@ -107,11 +107,11 @@
             </ng-template> -->
           </ngx-datatable-column>
 
-          <ngx-datatable-column prop="cantidad_rehab" name="Bitácora">
+          <!-- <ngx-datatable-column prop="cantidad_rehab" name="Bitácora"> -->
             <!-- <ng-template let-column="column" ngx-datatable-header-template>
               <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
             </ng-template> -->
-          </ngx-datatable-column>
+          <!-- </ngx-datatable-column> -->
 
           <ngx-datatable-column prop="estatusDias" name="Antiguedad">
             <!-- <ng-template let-column="column" ngx-datatable-header-template>
@@ -119,11 +119,11 @@
             </ng-template> -->
           </ngx-datatable-column>
 
-          <ngx-datatable-column prop="infRehab_id" name="Informe" *ngIf="ver">
+          <!-- <ngx-datatable-column prop="infRehab_id" name="Informe" *ngIf="ver"> -->
             <!-- <ng-template let-column="column" ngx-datatable-header-template>
               <span class="tooltipped ayudas" data-position="bottom" data-tooltip="Folio de Orden">{{ column.name }}</span>
             </ng-template> -->
-          </ngx-datatable-column>
+          <!-- </ngx-datatable-column> -->
 
           <ngx-datatable-column prop="fechaFacil" name="Emitido" *ngIf="ver">
             <!-- <ng-template let-column="column" ngx-datatable-header-template>
@@ -160,33 +160,19 @@
 </div> <!-- cierra container -->
 
 <!-- Modal detalle orden -->
-<div id="modalDetalle" class="modal">
+<div id="modalDetalle" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h6><b>{{ datosPase.nombreCompleto }}</b></h6>
-    <p>Atención: {{ datosPase.EAT_alias }} | Administración: {{ datosPase.EAD_alias }}</p>
-    <!-- <p *ngIf="datosPase.Exp_folio != null ">{{ datosPase.Exp_folio }}</p> -->
+    <p>
+      <span *ngIf="!datosPase.Exp_folio"><b>No se ha presentado en clínica</b></span>
+      <span *ngIf="datosPase.Exp_folio">Atención: {{ datosPase.EAT_alias }} | Administración: {{ datosPase.EAD_alias }}</span>
+      <span *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.sesiones.length > 0">| {{datosPase.listadoRehabilitaciones.sesiones.length}} Sesiones tomadas</span>
+    </p>
 
     <div class="row">
-      <!-- <div class="col s12 m4 l3 espacio">
-        <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
-           class="btn btn-block waves-effect waves-light purple"><i class="mdi mdi-printer"></i> Orden</a>
-      </div>
-
-      <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.length > 0" >
-        <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
-          class="btn btn-block waves-effect waves-light lime darken-1"><i class="mdi mdi-message-draw"></i> Bitácora</a>
-      </div>
-
-      <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
-        <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
-          target="_blank" class="btn btn-block waves-effect waves-light blue" *ngIf="informe.infRehab_id">
-          <i class="mdi mdi-file-account"></i> Informe
-        </a>
-      </div> -->
-
       <div class="col s12 m4 l3 espacio center-align" *ngIf="buscandoRh">
         <div class="preloader-wrapper small active">
-          <div class="spinner-layer spinner-red-only">
+          <div class="spinner-layer spinner-blue-only">
             <div class="circle-clipper left">
               <div class="circle"></div>
             </div><div class="gap-patch">
@@ -198,64 +184,26 @@
         </div>
       </div>
 
-      <!-- <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones == {}">
-        <p class="red-text" >Sin rehabilitaciones</p>
-      </div>
-
-      <div class="col s12 m4 l3 espacio" *ngFor="let sesion of datosPase.listadoRehabilitaciones">
-        <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}" 
-           target="_blank"
-           class="btn btn-block waves-effect waves-light teal"
-           [ngClass]="{'amber darken-4': sesion.Rehab_cons % 5 == 0}">
-           <i class="mdi mdi-cloud-print"></i>
-           Sesión {{ sesion.Rehab_cons }}
-        </a>
-      </div> -->
-
       <div class="col s12">
-        <ul class="collapsible">
-          <!-- aqui van los documentos -->
-          <li class="active">
-            <div class="collapsible-header grey-text text-darken-3 valign-wrapper"><i class="mdi mdi-file-account"></i>Documentos</div>
-            <div class="collapsible-body">
-              <div class="row">
-                <div class="col s12 m4 l3 espacio">
-                  <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
-                    class="btn btn-block waves-effect waves-light purple"><i class="mdi mdi-printer"></i> Orden</a>
-                </div>
-
-                <!-- <div  class="col s12 m4 l3 espacio"
-                      *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.length >= 5">
-                  <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" target="_blank"
-                    class="btn btn-block waves-effect waves-light lime darken-1"><i class="mdi mdi-message-draw"></i> Bitácora {{ Math.round( datosPase.listadoRehabilitaciones.length / 5 ) }} </a>
-                </div> -->
-                
-                <div class="col s12 m4 l3 espacio" *ngFor="let informe of datosPase.informeReh">
-                  <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
-                    target="_blank" class="btn btn-block waves-effect waves-light blue" *ngIf="informe.infRehab_id">
-                    <i class="mdi mdi-file-account"></i> Informe
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li> <!-- terminan los documentos -->
-
+        <ul class="collapsible popout">
           <!-- aqui van los reportes de rehabilitacion -->
           <li>
-            <div class="collapsible-header grey-text text-darken-3 valign-wrapper"><i class="mdi mdi-folder-account"></i>Reportes de rehabilitación</div>
+            <div class="collapsible-header valign-wrapper grey-text text-darken-2">
+              <i class="mdi mdi-folder-account"></i>
+              Sesiones de rehabilitación
+              <span *ngIf="datosPase.cantidad_rehab < 1">&nbsp;(No se ha presentado)</span>
+            </div>
             <div class="collapsible-body">
               <div class="row">
-                <div class="col s12 m4 l3 espacio" *ngIf="datosPase.listadoRehabilitaciones == {}">
-                  <p class="red-text">Sin rehabilitaciones</p>
-                </div>
-                
-                <div class="col s12 m4 l3 espacio" *ngFor="let sesion of datosPase.listadoRehabilitaciones">
-                  <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}"
-                    target="_blank" class="btn btn-block waves-effect waves-light teal"
-                    [ngClass]="{'amber darken-4': sesion.Rehab_cons % 5 == 0}">
-                    <i class="mdi mdi-cloud-print"></i>
-                    Sesión {{ sesion.Rehab_cons }}
-                  </a>
+                <div *ngIf="datosPase.listadoRehabilitaciones">
+                  <div class="col s12 m4 l3 espacio" *ngFor="let sesion of datosPase.listadoRehabilitaciones.sesiones">
+                    <a href="http://medicavial.net/mvnuevo/api/classes/formatoRehabilitacionReimpresion.php?fol={{ sesion.Exp_folio }}&cont={{ sesion.Rehab_cons }}"
+                      target="_blank" class="btn btn-block waves-effect waves-light"
+                      [ngClass]="{'light-blue darken-4': sesion.Rehab_cons %5 == 0, 'light-blue darken-4': sesion.Rehab_cons %5 != 0}">
+                      <i class="mdi mdi-cloud-print"></i>
+                      Sesión {{ sesion.Rehab_cons }}
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -263,15 +211,45 @@
 
           <!-- aqui va la bitacora -->
           <li>
-            <div class="collapsible-header grey-text text-darken-3 valign-wrapper"><i class="mdi mdi-clipboard-account"></i>Bitácora</div>
+            <div class="collapsible-header valign-wrapper grey-text text-darken-2">
+              <i class="mdi mdi-clipboard-account"></i>
+              Bitácora
+              <span *ngIf="datosPase.cantidad_rehab < 1">&nbsp;(No se ha presentado)</span>
+            </div>
             <div class="collapsible-body">
-              <div class="row">
-                <p *ngFor="let sesion of datosPase.listadoRehabilitaciones">
-                  <b>Sesión #{{ sesion.Rehab_cons }}:</b> {{ sesion.Rehab_obs }}
+              <div class="row" *ngIf="datosPase.listadoRehabilitaciones">
+                <p *ngFor="let sesion of datosPase.listadoRehabilitaciones.sesiones">
+                  <b>Sesión #{{ sesion.Rehab_cons }} ({{ sesion.Rehab_fecha | date:'dd/MMM/yy' }}
+                    {{ sesion.Rehab_fecha | slice:11:16 }}) :</b> {{ sesion.Rehab_obs }}
                 </p>
               </div>
             </div>
           </li> <!-- termina la bitacora -->
+
+          <!-- aqui va la el informe de rehabilitacion -->
+          <li>
+            <div class="collapsible-header valign-wrapper grey-text text-darken-2" *ngIf="datosPase">
+              <i class="mdi mdi-comment-account"></i>
+              Informe de Rehabilitación
+              <span *ngIf="!datosPase.infRehab_id">&nbsp;(No hay informe)</span>
+            </div>
+            <div class="collapsible-body">
+              <div class="row" *ngIf="datosPase.listadoRehabilitaciones && datosPase.listadoRehabilitaciones.informe">
+                <div class="col s12" *ngFor="let informe of datosPase.listadoRehabilitaciones.informe">
+                  <p><b>Diagnóstico Inicial:</b> {{ informe.infRehab_DiagnosticoInicial }}</p>
+                  <p><b>Valoración Inicial:</b> {{ informe.infRehab_valoracionInicial }}</p>
+                  <p><b>Valoración Final:</b> {{ informe.infRehab_valoracionFinal }}</p>
+                  <p><b>Tratamiento:</b> {{ informe.infRehab_tratamientoRehab }}</p>
+                  <a href="http://medicavial.net/mvnuevo/api/classes/imprimeNotaDeRehabilitacion.php?fol={{ informe.Exp_folio }}&nota={{ informe.infRehab_id }}"
+                    target="_blank" class="btn waves-effect waves-light blue" *ngIf="informe.infRehab_id">
+                    <i class="mdi mdi-printer"></i>
+                    Imprimir Informe
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li> <!-- termina la el informe de rehabilitacion -->
+
         </ul>
       </div> <!-- termina col s12 -->
 
@@ -279,6 +257,11 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="waves-effect waves-light btn red" (click)="cerrarModal()">Cerrar</button>
+    <a href="http://busqueda.medicavial.net/api/externos/verpdf-{{ datosPase.claveOrden }}" 
+      target="_blank"
+      class="btn waves-effect azul-mv">
+      Reimprimir Orden
+    </a>
+    <button type="button" class="waves-effect waves-light btn grey" (click)="cerrarModal()">Cancelar</button>
   </div>
 </div>

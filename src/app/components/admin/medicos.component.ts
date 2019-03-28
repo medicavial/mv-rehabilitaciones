@@ -31,7 +31,7 @@ export class MedicosComponent implements OnInit {
 
   listadoMedicos(){
     this.buscando = true;
-    this._busquedas.listadoMedicos()
+    this._busquedas.listadoMedicos( this.usuario.USU_id )
                    .subscribe( data =>{
                      console.log(data);
                      if ( data.length > 0 ) {

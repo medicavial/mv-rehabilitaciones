@@ -47,19 +47,20 @@ export class UsuariosComponent implements OnInit {
                    'cp'         : new FormControl( '', [ Validators.required, Validators.pattern("[0-9]{5}") ] ),
                    'colonia'    : new FormControl( '', [ Validators.required, Validators.minLength(2) ] ),
                    'municipio'  : new FormControl( '', [ Validators.required, Validators.minLength(4) ] ),
-                   'comision'   : new FormControl( '', [ Validators.required, Validators.min(1) ] ),
-                   'comision10' : new FormControl( '', [ Validators.required, Validators.min(1) ] ),
+                   'comision'   : new FormControl( 0, [] ),
+                   'comision10' : new FormControl( 0, [] ),
                    'cuentas'    : new FormControl( null, [] ),
                  })
                }
 
   ngOnInit() {
     this.listadoMedicos();
+    // console.log(this.usuario);
   }
 
   listadoMedicos(){
     this.buscando = true;
-    this._busquedas.listadoMedicos()
+    this._busquedas.listadoMedicos( this.usuario.USU_id )
                    .subscribe( data =>{
                      // console.log(data);
                      if ( data.length > 0 ) {
@@ -116,7 +117,8 @@ export class UsuariosComponent implements OnInit {
         municipio   : this.mayusculas( this.formReg.controls['municipio'].value ),
         comision    : this.formReg.controls['comision'].value,
         comision10  : this.formReg.controls['comision10'].value,
-        cuentas     : this.formReg.controls['cuentas'].value
+        cuentas     : this.formReg.controls['cuentas'].value,
+        USU_creador : this.usuario.USU_id
       }
       console.log( datos );
       this._operacion.guardaUsuario(datos)

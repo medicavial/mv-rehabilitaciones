@@ -367,7 +367,7 @@
               <label for="estado" class="truncate">Municipio y Estado</label>
             </div>
 
-            <div class="input-field col s12 m3 l4">
+            <!-- <div class="input-field col s12 m3 l4">
               <i class="mdi mdi-currency-usd prefix"
                  [ngClass]="{'red-text': !formReg.controls['comision'].valid && formReg.controls['comision'].dirty && !formReg.controls['comision'].pristine, 'green-text text-darken-2':formReg.controls['comision'].valid }">
               </i>
@@ -375,9 +375,9 @@
                      formControlName="comision"
                      [ngClass]="{'invalid': !formReg.controls['comision'].valid && formReg.controls['comision'].dirty && !formReg.controls['comision'].pristine, 'valid':formReg.controls['comision'].valid}">
               <label for="comision">Comisión por bloque de 5</label>
-            </div>
+            </div> -->
 
-            <div class="input-field col s12 m3 l4">
+            <!-- <div class="input-field col s12 m3 l4">
               <i class="mdi mdi-currency-usd prefix"
                  [ngClass]="{'red-text': !formReg.controls['comision10'].valid && formReg.controls['comision10'].dirty && !formReg.controls['comision10'].pristine, 'green-text text-darken-2':formReg.controls['comision10'].valid }">
               </i>
@@ -385,7 +385,7 @@
                      formControlName="comision10"
                      [ngClass]="{'invalid': !formReg.controls['comision10'].valid && formReg.controls['comision10'].dirty && !formReg.controls['comision10'].pristine, 'valid':formReg.controls['comision10'].valid}">
               <label for="comision10">Comisión por bloque de 10</label>
-            </div>
+            </div> -->
           </div>
 
           <div class="row" *ngIf="username">
@@ -430,15 +430,17 @@
   <div class="row" *ngIf="!registro">
     <div class="col s12 m12 card animated fadeIn" *ngIf="listadoUsuarios && listadoUsuarios.length > 0">
       <div class="card-content">
-        <span class="card-title">Listado de médicos</span>
+        <span class="card-title">Listado de médicos administrados por {{ usuario.fullName }}</span>
 
         <table class="striped highlight responsive-table">
           <thead>
             <tr>
-              <th>Usuario</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Registro</th>
+              <th><small>Usuario</small></th>
+              <th><small>Nombre</small></th>
+              <!-- <th><small>Email</small></th> -->
+              <th><small>Registro</small></th>
+              <th *ngIf="usuario.PER_id === 1"><small>Promotor</small></th>
+              <th><small>Estatus</small></th>
             </tr>
           </thead>
 
@@ -446,8 +448,13 @@
             <tr *ngFor="let usr of listadoUsuarios">
               <td>{{ usr.USU_username }}</td>
               <td>{{ usr.USU_nombre }} {{ usr.USU_aPaterno }} {{ usr.USU_aMaterno }}</td>
-              <td>{{ usr.USU_email }}</td>
-              <td>{{ usr.USU_fechaAlta | slice:0:10 | date:'dd/MMM/yyyy' }}</td>
+              <!-- <td>{{ usr.USU_email }}</td> -->
+              <td> <small>{{ usr.USU_fechaAlta | slice:0:10 | date:'dd/MMM/yyyy' }}</small> </td>
+              <td *ngIf="usuario.PER_id === 1"> <small>{{ usr.CRE_nombre }}</small> </td>
+              <td>
+                <small *ngIf="usr.USU_activo === 1" class="green-text"> ACTIVO </small>
+                <small *ngIf="usr.USU_activo === 0" class="red-text text-darken-4"> INACTIVO </small>
+              </td>
             </tr>
           </tbody>
         </table>

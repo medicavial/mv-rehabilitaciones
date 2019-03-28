@@ -23,8 +23,8 @@ export class BusquedasService {
                      });
   }
 
-  listadoMedicos(){
-    let url = `${ this.link.principal}/externos/listadoMedicos`;
+  listadoMedicos( idUsuario ){
+    let url = `${this.link.principal}/externos/listadoMedicos/${idUsuario}`;
 
     return this._http.get( url )
                      .map( res => {

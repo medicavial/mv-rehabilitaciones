@@ -163,6 +163,14 @@
 <div id="modalDetalle" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h6><b>{{ datosPase.nombreCompleto }}</b></h6>
+    <h6>
+      <b>
+        <span *ngIf="datosPase.Exp_edad">{{ datosPase.Exp_edad }} años</span>
+        <span *ngIf="datosPase.Exp_meses">{{ datosPase.Exp_meses }} meses</span>
+        <span *ngIf="datosPase.Exp_edad && datosPase.Exp_sexo"> | </span>
+        <span *ngIf="datosPase.Exp_sexo"> Sexo: {{ datosPase.Exp_sexo }} </span>
+      </b>
+    </h6>
     <p>
       <span *ngIf="!datosPase.Exp_folio"><b>No se ha presentado en clínica</b></span>
       <span *ngIf="datosPase.Exp_folio">Atención: {{ datosPase.EAT_alias }} | Administración: {{ datosPase.EAD_alias }}</span>
@@ -218,10 +226,58 @@
             </div>
             <div class="collapsible-body">
               <div class="row" *ngIf="datosPase.listadoRehabilitaciones">
-                <p *ngFor="let sesion of datosPase.listadoRehabilitaciones.sesiones">
-                  <b>Sesión #{{ sesion.Rehab_cons }} ({{ sesion.Rehab_fecha | date:'dd/MMM/yy' }}
-                    {{ sesion.Rehab_fecha | slice:11:16 }}) :</b> {{ sesion.Rehab_obs }}
-                </p>
+                <div *ngFor="let sesion of datosPase.listadoRehabilitaciones.sesiones, let sesIndex = index">
+                  <div class="col s12">
+                    <h5>Sesión #{{ sesion.Rehab_cons }} ({{ sesion.Rehab_fecha | date:'dd/MMM/yy' }}
+                      {{ sesion.Rehab_fecha | slice:11:16 }} hrs.) </h5>
+                  </div>
+                  
+                  <div class="col s12">
+                    <b>Rehabilitador:</b> {{ sesion.Usu_nombre }} | {{ sesion.Uni_nombre }}
+                  </div>
+                  
+                  <div class="col s12">
+                    <b>Tipo de terapia:</b> {{ sesion.Rehab_tipo | uppercase }}
+                  </div>
+
+                  <div class="col s12 center">
+                    <div class="divider"></div>
+                  </div>
+
+                  <div class="col s6 m4 l3 center">
+                    <b>Escala de dolor:</b>
+                    <br>{{ sesion.Rehab_dolor }}/10
+                  </div>
+
+                  <div class="col s6 m4 l3 center">
+                    <b>Escala de mejoría:</b>
+                    <br>{{ sesion.Rehab_mejoria }}/10
+                  </div>
+
+                  <div class="col s6 m4 l3 center">
+                    <b>Duración de la sesión:</b>
+                    <br>{{ sesion.Rehab_duracion }} minutos
+                  </div>
+
+                  <div class="col s6 m4 l3 center">
+                    <b>Acudió a cita anterior:</b>
+                    <br>
+                    <span *ngIf="sesion.Rehab_citaant === 'S' && sesion.Rehab_cons > 1">SI</span>
+                    <span *ngIf="sesion.Rehab_citaant !== 'S' && sesion.Rehab_cons > 1">NO</span>
+                    <span *ngIf="sesion.Rehab_cons <= 1">N/A</span>
+                  </div>
+
+                  <div class="col s12">
+                    <button class="btn btn-small blue waves-effect waves-light" (click)="verObservaciones( sesIndex )">
+                      <span *ngIf="!sesion.verSesion">Ver detalles</span>
+                      <span *ngIf="sesion.verSesion">Ocultar detalles</span>
+                    </button>
+                    <p [ngClass]="{'truncate': !sesion.verSesion }">
+                      {{ sesion.Rehab_obs }}
+                    </p>
+                    <hr>
+                  </div>
+                </div>
               </div>
             </div>
           </li> <!-- termina la bitacora -->

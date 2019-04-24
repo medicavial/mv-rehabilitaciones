@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   editing = {};
   rows: any;
   temp = [];
+  observaciones = [];
   table = { offset:0 };
   floatAction: any;
   tooltip: any;
@@ -122,7 +123,7 @@ export class HomeComponent implements OnInit {
     this._busquedas.listadoPases( this.usuario )
                    .subscribe( data =>{
                      this.listadoPases = data;
-                     // console.log(this.listadoPases);
+                    //  console.log(this.listadoPases);
                      this.rows = data;
                      this.temp = data;
                      this.buscando = false;
@@ -179,7 +180,7 @@ export class HomeComponent implements OnInit {
     this._busquedas.getInformeReh( folioMV )
                    .subscribe( data =>{
                      this.datosPase.informeReh = data;
-                     console.log(this.datosPase)
+                    //  console.log(this.datosPase)
                      this.buscandoInf = false;
                    })
   }
@@ -196,4 +197,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  verObservaciones( sesion ){
+    if ( !this.datosPase.listadoRehabilitaciones.sesiones[sesion].verSesion ){
+      this.datosPase.listadoRehabilitaciones.sesiones[sesion].verSesion = true;
+    } else {
+      this.datosPase.listadoRehabilitaciones.sesiones[sesion].verSesion = false;
+    }
+  }
 }
